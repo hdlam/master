@@ -46,13 +46,16 @@
 
 %%% The "real" document content comes below...
 
-\title{ Title }
+\title{Specialization project}
 \author{Hong-Dang Lam}
 %\date{} % Activate to display a given date or no date (if empty),
          % otherwise the current date is printed 
 
 \begin{document}
+\pagenumbering{gobble}
 \maketitle
+\pagenumbering{roman}
+\newpage
 \begin{abstract}
 
 Abstract
@@ -62,9 +65,11 @@ Abstract
 \newpage
 \tableofcontents
 \newpage
-
-\section{Section}
-\subsection{subsection}
-\subsubsection{subsubsection}
-
+\pagenumbering{arabic}
+%1 introduction
+\include{chapters/1introduction}
+%2 related works
+\include{chapters/2background}
+%3 something
+\include{chapters/chirps}
 \end{document}
