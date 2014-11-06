@@ -1,0 +1,42 @@
+\section{Background}
+In 1986, Craig W. Reynolds created an algorithm for particles using 3 basic behaviours, these 3 behaviour is as follow:
+\begin{itemize}
+    \item Separation \\
+        each individual will steer away from the other individual so they do not crash into each other.
+    \item Alignment \\
+        in a neighborhood (for instance a radius around the individual or \textit{X} other individual) find the average angle and match it.
+    \item Cohesion \\
+        Steer towards the average position of the other invdividuals in your neighborhood.
+\end{itemize}
+
+
+In the paper "steering behaviors for autonomous character" Reynold discusses that an autonomous character, which is a type of autonomous agent are agents that have some ability to improvise their actions. That means that these agents do not have their actions scripted in advance.
+These autonomous agents can have various 
+in another paper he discussed various behaviours for autonomous steering, like seek, chase, flee etc.
+
+
+
+
+In the paper named "not bumping into things" W. Reynolds discusses how to perform obstacle avoidance, that is obstacles that are placed in the environment which is not a boid. These obstacles are usually static, that is non moving obstacles. He starts out with the idea of a forcefield around the obstacle which he calls the \textit{steer away from surface} approach. The idea is to have every obstacle emit a forcefield around itself which pushed the boids away. For instance if a boid is flying toward an obstacle, the obstacle would push the boid to one side of itself. However this force field method would not work if the boid flew straight into an obstacle, because the forcefield force would be straight opposite of the direction the boid is flying thus making the boid deaccelerate until it stopped.
+The next obstacle avoidance technique Reynold discussed is the curb feeler technique or steer along the wall technique. The idea is to have a feeler that would detect an obstacle before the boid would crash into it, then turn the boid away from the obstacle. This can be compared to walking down a dark alleyway where you'll reach your hand out to feel the walls around you and navigates through the alleywall just by feeling the wall(s).
+The last technique for navigating and avoiding obstacles discussed in this paper was image processing. Images could processed in real time to a grayscale image where white would signify an obstacle. The algorithm would start with the center of the image, if this was a white pixel it would start to search outwards in a spiral to find either a gray pixel or a black one and then turn the boid in this direction. This could also be combined with a \textit{Z-buffer image} which gives us a map of the distances to obstacles that lies in front of the boid, this z-buffer iamge can be obtained by radar, sonar or similar technology. One interesting way of using the Z-buffer image is to implement a "steer towards the longest clear path". However using this technique without any form of planning or learning might lead the boid into a local cavity which might be a dead end.
+
+In the paper Distributed physics-based control of swarms of vehicles by W. Spears and D. Spears a self emergent system is formed using simple attractive and repulsion force for each particle. The idea behind their system was to create an artificial physics framework (AP) that would simulate a physical system. In their paper they had the particles attract other particles that were farther away than distance \textit{r} and a repulsive force is applied if the particles are closer than distance \textit{r}. This leads to the particles always being at distance \textit{r} from each other which will form a hexagonal lattice. They also tried out making patterns, but had to introduce a concept of spin; each particle were either spin "down" or spin "up". Opposite spins would attract each other if the distance was greater than \textit{r} and repel each other if the distance is less than \textit{r}. If the particles had opposite spin the distance would be $\sqrt{2}r$. This means that all the vertical particles would be alternating between spin up and spin down, the same goes for the particles in the horizontal space. The diagonal particles on the other hand will have the same spins as their diagonal neighbors.
+
+In the paper "V-like formation in flocks of artificial birds" by A. Nathan and V. Barbosa bird flocking is discussed. They ran a simulation that where each bird individual had 3 simple rules: 
+\begin{itemize}
+    \item Coalescing rule \\
+        The birds should try to seek the proximity of the nearest bird.
+    \item Gap-seeking rule \\
+        If rule 1, the coalescing rule is not applicable anymore the bird should find a position with unobstructed view -  that is, the bird should be able to see in front of it without anything being in the way.
+    \item Stationing rule \\
+        Try to stay in place.
+\end{itemize}
+These rules would make sure that the birds were able to flock and form different shapes. The only thing that was common between the different runs in this paper was that the bird behind would be a little bit behind and slighty left or right of the bird in front (following rule \#2). A lot of different shapes was obtained during the runs, the birds flocked and formed a V-shape, a diagonal line, an inverted V-shape etc.
+
+\section{Master project}
+Future plans.
+Implement boids behaviours on the ChIRPs, use the IR-LEDs and IR-receivers to avoid obstacles.
+Use camera with bluetooth module to find the average angle and position of each robot (this is due to the technical limitation  and modules that each robot is equipped with).
+Implement find different behaviour, see how much time it takes.
+

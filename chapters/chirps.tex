@@ -1,0 +1,45 @@
+\section{ChIRP. Robot}
+The ChIRP (CHeap and Interchangable Robotic platform) robot is a robot developed by the CRAB lab, which is part of the artificial intelligence group at the Department of Computer and Information Science (IDI) at the Norwegian University of Science And Technology (NTNU).
+The purpose behind the development of the ChIRP robot is to research subsymbolic AI, wether it is swarming or evolution.
+The robots' schema and source code are all open source and can be found at chirp.idi.ntnu.no. The robots' consist of a printed circuit board (PCB), 2 motors on each side with 2 wheels.
+Modules like LED lights and various sensors can be soldered on the PCB thus the robots' are easily modifiable, and the robots can have multiple layers with different sensors so it's not limited to have only light sensors or IR sensors. The standard ChIRP robot comes with 8 infrared-LEDs and 8 infrared receivers. These can be used to measure distance by emitting the IR light and measure how much is reflected back into the receiver. There are 2 Shift registers ICs on top of the PCB, these shift registers handles the values found by the IR receivers and converts them to a short (the datatype, 16 bit int) so the arduino micro inside the ChIRP doesn't need to handle everyting. This is due to the limited processor power of the arduino micro which has a ATmega32u4 processor with 16 MHz clock speed and 32 KB flash memory. Arduino micro has 20 digital inpput/output (I/O) pins in which 7 of them are PWM, and 12 analog input pins. Inside the robot there's an ATtiny as well that helps the Arduino control the motors.
+
+The ChIRPs are powered by a 3.7volts 2500mAh battery which lasts for 4.5 hours if they are running continously, and it takes 4 hours to recharge.
+
+- All code and schemes are available on chirp.idi.ntnu.no
+- PCB (printed circuit board)
+- Wheels
+- 2 motors
+- 8 infrared emitters and receivers used for distance measuring.
+- Arduino Micro microcontroller.
+- Atmel chips to reduce computing on the arduino
+- Modules can be added as needed.
+- Blueetotth module.
+- Other micropchips can be used instead.
+- Battery lasts for 4.5 hours, 4 hours to charge.
+
+
+\section{Traffic Sim, preproject}
+The traffic simulator is a project for Statens Vegvesenet Teknologidagene in Trondheim where the ChIRP Robots was used to demonstrate platooning. 
+The idea of platooning is to use an autonomous system (either global system or each individual communicates with each other) to control the vehicles, for instance cars, trucks etc. as one unit thus increasing the flow of traffic.
+This leads to less air resistance and the cars will be able to cross an intersection much faster.
+
+The whole system used a webcam with OpenCV to track the robots, all the robots were equiped with a bluetooth module and 2 circular post-it notes which was light green and pink. The camera was able to detect these post-it notes and track the position and rotation of each robot. This information was then sent to the simulation written in Java via UDP.
+The simulation then calculated where the robot needed to go, set the speed for each wheel and sent the commands to the robot using the bluetooth COM-port.
+
+The java simulation was first implemented by Magnus Hu using a game framework called Lightweight Java Game Library (LWJGL) to render everything on screen. We decided to change the framework from LWJGL to Slick2D. Slick2D is a 2D java game library which uses tools and utilities wrapped around LWJGL, which means that it can do everything LWJGL can do, but also has higher abstraction. Slick2D lets us render shapes (circles, squares) without having to specify each point and line of the shape manually.
+The track used in the simulation consisted of 24 points (a point as in a point in space) laid out in a 8-shaped layout, where the center intersection is made up of 2 points.
+Before running the OpenCV software and the java simulation both application needs to set a configuration parameter of how many robots are to be tracked/run. Our demo at teknologidagene used 4 robots because we only had 4 bluetooth modules. The bluetooth modules had to be connected and added as a COM port before running the simulation or else it wouldn't know where to send the commands. When starting both the OpenCV camera tracking software and the simulation, coordinates along with the rotation of each robot. At this point in time, the simulation doesn't know which coordinate and rotation (robot) belongs to which bluetoot COM port, for each robot the simulation does:
+\begin{itemize}
+    \item checks the angle of all the robots
+    \item sends a rotate command to the bluetooth COM port, which makes a robot rotate approximately 90$^{\circ}$.
+    \item checks the angle of all the robots, finds out which one has rotated the most, saves this COM port to the robot which have rotated the most
+    \item rotates the robot back to the original orientation
+\end{itemize}
+The reason for rotating the robot back to the original orientation is because we always laid the robot out in the map facing forward, which was easier to implement instead of implementing a lot of code to ensure that the robot would face forward if it started out in the wrong direction.
+Each robot will now have a COM port given that the COM port didn't time out on initiation, in which we had to restart the whole simulation program to reconnect to the COM port.
+The simulation then calculates the robot's nearest point on the track, and sets the target point of the robot to be the next one, this is incase the nearest point is behind the robot. After the simulation found out where the robot should move to, it calculate which way the robot needed to rotate and which speed it should have. The speed and the amount of needed rotation ($\Delta angle$) is then converted to <"two motors"> which is sent as a byte array of 4 elements to the robot's bluetooth module. An example of the byte array could be "l40r50" which means that the right motor would drive a little bit faster than the left one thus turning the robot to the left.
+If we used a capital 'L' or 'R' in the byte array instead, the wheel would turn backwards instead, however we don't use that in the simulation at all except for turning the robot in the beginning when it tries to assign the COM port to the correct robot.
+
+The simulator creates a box in front of each robot that will be used to find out whether the robot has a robot in front of it or not. If there's a robot in front (that is inside the front box) then the simulator will check if platooning is on or not. If platooning mode is on, the robot will try to keep the same speed as the robot in front of it. At least it's not allowed to have higher speed than the robot in front of it, or else it will crash into it. If platooning mode is off, then the robot will try to keep a 3 second distance from the robot in front, that is the robot will try to keep the robot in front of it outside the detection box. The robot is considered as reaching a target if the robot's center is 20 pixels away from the target, and the next point will be assigned as the new target for the robot.
+In the middle of the map, at the intersection there is a red light at the top, north side or at the right, east side of the intersection. This redd light will be alternating between these two positions depending on the user. 
