@@ -1,14 +1,37 @@
 \section{Background}
-In 1986, Craig W. Reynolds created an algorithm for particles using 3 basic behaviours, these 3 behaviour is as follow:
-\begin{itemize}
-    \item Separation \\
-        each individual will steer away from the other individual so they do not crash into each other.
-    \item Alignment \\
-        in a neighborhood (for instance a radius around the individual or \textit{X} other individual) find the average angle and match it.
-    \item Cohesion \\
-        Steer towards the average position of the other invdividuals in your neighborhood.
-\end{itemize}
+Swarm, swarming, swarm intelligence, swarm optimization or swarm robotics are terms used for simple (preferably cheap) robots which can only do simple tasks. However the power of these robots lies in the numbers. The robots might not be able to do an advanced task alone, but together they might be able complete advanced tasks. For instance, one robot might not be able to push a heavy box by itself, but with the help of other robots they might be able to push the box.
+Each robot are allowed to communicate with each other, but they do not need to communicate. There are no centralized controller that controls the robot, each one needs to find out what it needs to do by itself or by communicating with the other robots. The idea behind these simple cheap robots are that they can easily be mass produced, interchangeable, modularized and disposable. If one robot is malfunctioning or broken, it would not affect the rest of the swarm. For instance an ant farm works the same way, if one ant dies, the swarm is still able to do its task.\\
 
+
+In 1986, Craig W. Reynolds created something called Boids, which stands for \textbf{B}ird-\textbf{oid} object\textbf{s}. Boids are particles that would behave like birds, they would try to flock and fly together without colliding. This was done by using 3 simple behaviors;
+\begin{description}
+    \item[Separation]
+        Each individual will steer away from the other individual if they were too close to each other. This ensure that they do not collide with their neighbors.
+    \item[Alignment]
+        In a neighborhood (for instance a radius around the individual or the $X$ nearest individuals) find the average angle of the neighborhood and align itself so its angle matches the average angle of the neighborhood.
+    \item[Cohesion]
+        Steer towards the average position of the other individuals in your neighborhood. This makes the Boids stay in the flock.
+\end{description}
+
+The three behavior is per individual Boid, which means that each particle/Boid has to calculate where they are going to fly by checking all the other Boids position and rotation and then act accordingly. Which makes this algorithm $ O(n^2)$ for every frame. 
+ Reynolds have tried to make the algorithm less computational intensive by putting the Boids into grids with Spatial Hashing. An example of could be to put all the Boids that has a position $0<x<1$ and $0<y<1$ on the lower left grid, and the ones that has a $1<x<2$ in the next position etc. Using this grid, each Boids in a cell only needs to take the adjacent grids into consideration when checking their neighborhood. 
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\linewidth]{images/boid_spatialhash}
+    \caption{Boids in grids using spatial hash}
+\end{figure}
+As illustrated in the figure, the green Boid only needs to check the gray Boids that surrounds its own cell, it does not need to check the rotation and position of the orange/brown Boids outside of the gray box, because they are too far away to be considered a part of its neighborhood.
+
+In another paper a different technique were used to optimize 3D swarms, a method using neighborhood grids.\\
+
+Other optimization has been made as well, like the neighborhood grid.
+Each Boids to cell ratio would be 1 to 1, that is for every cell, there would be at max 1 Boid. Each Boid would have their respective cell based on their position in space, for instance a Boid with low $x$-value would be on the left of a Boid with higher $x$-value, and Boids who are closer to each other in geometric space would be stored closer to each other in the grid. To obtain this, the Boids needed to be sorted. Odd Even sort and Bitonic sort were used as the sorting algorithm.\\
+Of the two sorting algorithm, Odd Even sort was faster, but not very precise. More than 10\% of the entities were placed in the wrong cell. The paper did an odd even sort algorithm for each axis, that is one odd even sort for x, y and z in paralell.\\
+Bitonic Sort on the other hand was slower, but a lot more precise. Less than 1\% of the entities were placed in wrong cell. The reason for placing a Boid in the wrong cell is due to way the sorting works, it sorts all the entities in one axis first, then a second axis and then the third last axis. For instance sorting on $x$-values first, for the $y$-values, then the $z$-values. When swapping one of the latter axises it might mess up the sorting of one of the other axises.
+
+After the Boids were placed in their corresponding grid, the work could be distributed to the GPU which would calculate where each Boids' new location and rotation would be based on their adjacent neighbor depending on the Moore radius.
+The paper tried to vary the number of Boids from 1,000 to 1,000,000 and they had 4 types of Boids. The same types of Boids would try to flock with each other while different types of Boids would try to avoid each other.
+They were able to see a speedup compared to the spatial hashing method used by Reynolds, but the Boids were not rendered as a bird or an object, only as a primitive shape. They didn't mention if they tried to add non moving obstacles in their test. Due to the high percentage of Boids being placed in the wrong cell when using odd even sort, a lot of Boids would crash into their neighbor during the test run. However using the neighborhood grid method on GPU, real time simulation of 1 million Boids were possible (6-8 fps).\\
 
 In the paper "steering behaviors for autonomous character" Reynold discusses that an autonomous character, which is a type of autonomous agent are agents that have some ability to improvise their actions. That means that these agents do not have their actions scripted in advance.
 These autonomous agents can have various 
@@ -32,11 +55,14 @@ In the paper "V-like formation in flocks of artificial birds" by A. Nathan and V
     \item Stationing rule \\
         Try to stay in place.
 \end{itemize}
-These rules would make sure that the birds were able to flock and form different shapes. The only thing that was common between the different runs in this paper was that the bird behind would be a little bit behind and slighty left or right of the bird in front (following rule \#2). A lot of different shapes was obtained during the runs, the birds flocked and formed a V-shape, a diagonal line, an inverted V-shape etc.
+These rules would make sure that the birds were able to flock and form different shapes. The only thing that was common between the different runs in this paper was that the bird behind would be a little bit behind and slightly left or right of the bird in front (following rule \#2). A lot of different shapes was obtained during the runs, the birds flocked and formed a V-shape, a diagonal line, an inverted V-shape etc.
 
-\section{Master project}
-Future plans.
-Implement boids behaviours on the ChIRPs, use the IR-LEDs and IR-receivers to avoid obstacles.
-Use camera with bluetooth module to find the average angle and position of each robot (this is due to the technical limitation  and modules that each robot is equipped with).
-Implement find different behaviour, see how much time it takes.
+
+\subsection{ALife}
+In this paper Xiaoyuan Tu explains how fishes form schools and how different intentions make the fish behave the way they do. He starts out with explaining how a fish and how the simulator is constructed, the math behind it and how the motor controllers work. For the simulation there's different types of fishes, some of them are predators and some of them are preys. The name explains itself, but to be clear, predators are larger fishes which tries to eat other smaller preys. Each fish has a 300 degrees, where it can see in front of it and has a blind spot directly behind it. 
+The range of the vision is also limited and might be occluded by other objects. Each fish has a intention generator, which basically is a flowchart of what the fish needs to do. The prey and predator fish have different intention generators. The predators do not get preyed upon, and thus does not need to look out for other predators, therefore are the intentions of escaping, mating and schooling with other fishes of the same species are disabled. The reason for disabling mating is because there's no need for new predator fishes because they don't die in this simulation. They also don't need to school with other predators because they are not in danger, and don't need the extra survivability.\\
+Whenever a predator sees a prey it will chase the prey if the cost of reaching it is minimal, if it's too much, it will not bother chasing. \\
+Preys on the hand needs the extra survivability, and will try to school with the other fishes if it detects a predator nearby. Each fish will then try to stay a certain distance from each other, which is roughly on body length in distance. Then the fishes will try to adjust its speed and direction so it matches the other members. When this school of fish encounter an obstacle, they individual fishes will try to avoid this obstacle, this might lead to the school splitting up and rejoining after they have avoided the obstacle. \\
+A third type of fish introduced here are the pacifists fish. This one differs from the other two type in that the intention of mating is activated while escaping and schooling are deactivated.
+The paper describes that there are male and female fishes, and the two behavior which can occur when the fishes start to mate. A behavior named \textit{nuzzling} where the male fish seeks the female and nudges her abdomen until she's ready to spawn, and \textit{spawning ascent} where the female swims repeatedly to the surface while releases gametes. The paper also describes in detail how the fishes select potential partners and how they try to impress each other for mating purposes.
 
