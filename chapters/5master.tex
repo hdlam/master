@@ -1,2 +1,17 @@
 \section{Master project}
-For my master project and thesis I will try to implement the Boids behavior on the ChIRP robots. For object avoidance I will use the IR-LEDs to find out if they robot is too close to an object it should have avoided and let it avoid it by turning away from it. Each robot will communicate with a computer using the bluetooth module. This computer will have an overview of the system using the USB web camera. Swarming robots are not supposed to communicate with an overall system, but due to the technical limitation and sensors each robot is equipped with a computer with a camera is needed to find the position and rotation of each robot. After simple Boid behavior is implemented, I will try to implement different type of steering behaviors mentioned in the steering paper.
+For my master project and thesis I will try to implement the Boids behavior on the ChIRP robots. The robots have 8 IR-LEDs and 8 IR receivers which I will use to avoid obstacles and the walls. The ChIRP robots can easily detect colored obstacles, but have some problems with black objects because they do not reflect light very well. The same goes for other robots, they do not reflect infrared light very well. This might impose a problem with object avoidance or the Boids' cohesion behavior. The quick fix for this is to physically alter the robot by adding a paper strip around robot, near the IR-LEDs which will hopefully reflect the infrared light.
+The robots' PCB also have holes in it that we can use to mount various other things on top of it. These holes can be used to mount some sort of reflectors that will reflect the infrared light if the paper method does not work.
+For now we only have 4 functional bluetooth modules that the robots can use. We have all in all 6 bluetooth modules, but we lack adapters it is not possible to connect them to the robot now. New adapters can be printed in Omega-verksted. 
+
+
+Only using the IR distance sensors is not enough to find all the information needed to implement Boid behavior on the robot, namely the position of each robot and the rotation.
+Each robot will therefore communicate with a computer using their bluetooth module.
+This centralized computer will have an overview of the sandbox using the web camera and the tracking software and will be able to provide the robots with the information they need.
+
+Swarming robots are not supposed to communicate with an overall centralized system, but due to the technical limitation and sensors each robot is equipped with, the alternative to communicating with a centralized system is to equip more advanced sensors on the robot, which might not be plausible.
+
+After simple Boid behavior is implemented, I will try to implement different type of steering behaviors mentioned in the steering paper. If there is enough time, I would like to assemble some of the ChIRP robots so I can get to know the inner workings of the robots.
+\section{notes}
+get to know the robots, all the sensors, all the extra modules that can be added.
+Try to code the robots and see how it works. Make a simulation of it or expand upon the simulation already made. Make it 2 wheels drive instead of 1 speed/angle.
+Work around the limitation of arduino memory.
