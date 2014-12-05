@@ -13,6 +13,29 @@ In 1986, Craig W. Reynolds created something called Boids, which stands for \tex
     \item[Cohesion]
         Steer towards the average position of the other individuals in your neighborhood. This makes the Boids stay in the flock.
 \end{description}
+\begin{figure}[h!]
+        \centering
+        \begin{subfigure}[b]{0.3\textwidth}
+                \includegraphics[width=\textwidth]{images/boid_separation.jpg}
+                \caption{Separation}
+                \label{fig:boidsep}
+        \end{subfigure}%
+        ~ 
+		\begin{subfigure}[b]{0.3\textwidth}
+		\includegraphics[width=\textwidth]{images/boid_alignment1.jpg}
+		                \caption{Alignment}
+		                \label{fig:boidali}
+		\end{subfigure}
+
+        \begin{subfigure}[b]{0.3\textwidth}
+                \includegraphics[width=\textwidth]{images/boid_cohesion.jpg}
+                \caption{Cohesion}
+                \label{fig:boidcoh}
+        \end{subfigure}
+        ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \caption{The three behavior of the Boids model}\label{fig:boidbehavior}
+\end{figure} 
 
 The three behavior is per individual Boid, which means that each particle/Boid has to calculate where they are going to fly by checking all the other Boids position and rotation and then act accordingly. Which makes this algorithm $ O(n^2)$ for every frame. 
  Reynolds have tried to make the algorithm less computational intensive by putting the Boids into grids with Spatial Hashing. An example of could be to put all the Boids that has a position $0<x<1$ and $0<y<1$ on the lower left grid, and the ones that has a $1<x<2$ in the next position etc. Using this grid, each Boids in a cell only needs to take the adjacent grids into consideration when checking their neighborhood. 
