@@ -1,4 +1,7 @@
 \section{Background}
+Background introduction
+
+\subsection{Swarming}
 Swarm, swarming, swarm intelligence, swarm optimization or swarm robotics are terms used for simple (preferably cheap) robots which can only do simple tasks. However the power of these robots lies in the numbers. The robots might not be able to do an advanced task alone, but together they might be able complete advanced tasks. For instance, one robot might not be able to push a heavy box by itself, but with the help of other robots they might be able to push the box.
 Each robot are allowed to communicate with each other, but they do not need to communicate. There are no centralized controller that controls the robot, each one needs to find out what it needs to do by itself or by communicating with the other robots. The idea behind these simple cheap robots are that they can easily be mass produced, interchangeable, modularized and disposable. If one robot is malfunctioning or broken, it would not affect the rest of the swarm. It is therefore no single point of failure in a swarm, and the system is very scalable because robots can easily be added to the system.
 Swarm robotics are often very computer efficient, because they each have their own processor. This reduces the computational overhead. 
@@ -13,36 +16,23 @@ In 1986, Craig W. Reynolds created something called Boids, which stands for \tex
     \item[Cohesion]
         Steer towards the average position of the other individuals in your neighborhood. This makes the Boids stay in the flock.
 \end{description}
-\begin{figure}[h!]
-        \centering
-        \begin{subfigure}[b]{0.3\textwidth}
-                \includegraphics[width=\textwidth]{images/boid_separation.jpg}
-                \caption{Separation}
-                \label{fig:boidsep}
-        \end{subfigure}%
-        ~ 
-		\begin{subfigure}[b]{0.3\textwidth}
-		\includegraphics[width=\textwidth]{images/boid_alignment1.jpg}
-		                \caption{Alignment}
-		                \label{fig:boidali}
-		\end{subfigure}
-
-        \begin{subfigure}[b]{0.3\textwidth}
-                \includegraphics[width=\textwidth]{images/boid_cohesion.jpg}
-                \caption{Cohesion}
-                \label{fig:boidcoh}
-        \end{subfigure}
-        ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
-          %(or a blank line to force the subfigure onto a new line)
-        \caption{The three behavior of the Boids model}\label{fig:boidbehavior}
-\end{figure} 
+\begin{figure}[H]
+    \centering
+    \subfloat[Separation ]{\includegraphics[width=0.3\textwidth]{images/boid_separation.jpg}}
+    \hfill
+    \subfloat[Alignment ]{\includegraphics[width=0.3\textwidth]{images/boid_alignment1.jpg}}
+    \hfill
+    \subfloat[Cohesion ]{\includegraphics[width=0.3\textwidth]{images/boid_cohesion.jpg}}
+            \caption[Boids behavior]{The three behaviors of the Boids}
+            \label{fig:boidbehavior}
+\end{figure}
 
 The three behavior is per individual Boid, which means that each particle/Boid has to calculate where they are going to fly by checking all the other Boids position and rotation and then act accordingly. Which makes this algorithm $ O(n^2)$ for every frame. 
- Reynolds have tried to make the algorithm less computational intensive by putting the Boids into grids with Spatial Hashing. An example of could be to put all the Boids that has a position $0<x<1$ and $0<y<1$ on the lower left grid, and the ones that has a $1<x<2$ in the next position etc. Using this grid, each Boids in a cell only needs to take the adjacent grids into consideration when checking their neighborhood. 
+Reynolds have tried to make the algorithm less computational intensive by putting the Boids into grids with Spatial Hashing. An example of could be to put all the Boids that has a position $0<x<1$ and $0<y<1$ on the lower left grid, and the ones that has a $1<x<2$ in the next position etc. Using this grid, each Boids in a cell only needs to take the adjacent grids into consideration when checking their neighborhood. 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.8\linewidth]{images/boid_spatialhash}
-    \caption{Boids in grids using spatial hash}
+    \caption{Boids in grids using spatial hash} \label{fig:spatialhash}
 \end{figure}
 As illustrated in the figure, the green Boid only needs to check the gray Boids that surrounds its own cell, it does not need to check the rotation and position of the orange/brown Boids outside of the gray box, because they are too far away to be considered a part of its neighborhood.
 
