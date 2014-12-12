@@ -17,6 +17,7 @@
 %\usepackage{caption}
 %\usepackage[list=true,listformat=simple]{subcaption}
 \usepackage{float}
+\usepackage{listings}
 
 \usepackage{amsmath, amssymb}% for mathematical symbols
 \usepackage[colorlinks=true,linkcolor=black,urlcolor=black]{hyperref} % for hyperreferences with black color
@@ -80,8 +81,15 @@
 %5 master project
 \include{chapters/5master}
 
-\pagenumbering{roman}
+\section{Appendix}
+\appendix
+\pagenumbering{Alph}
+\section{Camera tracking configuration file}
+\label{app:opencvcfg}
+	\input{chapters/appendix/chirpObserverConfig}
+	\input{chapters/appendix/sorting}
 \newpage
+\pagenumbering{roman}
 \nocite{*}
 \bibliographystyle{plain}
 \bibliography{bibl}

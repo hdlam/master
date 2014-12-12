@@ -1,0 +1,156 @@
+chirpObserverConfig.cfg
+\begin{lstlisting}
+# [comPort]
+# the id of the comm port to use. 
+# 0 corresponds to /dev/ttyS0 
+# 1 corresponds to /dev/ttyS1
+# 2 corresponds to /dev/ttyS2
+# 3 corresponds to /dev/ttyS3
+# 4 corresponds to /dev/ttyS4
+# 5 corresponds to /dev/ttyS5
+# 6 corresponds to /dev/ttyS6
+# 7 corresponds to /dev/ttyS7
+# 8 corresponds to /dev/ttyS8
+# 9 corresponds to /dev/ttyS9
+# 10 corresponds to /dev/ttyS10
+# 11 corresponds to /dev/ttyS11
+# 12 corresponds to /dev/ttyS12
+# 13 corresponds to /dev/ttyS13
+# 14 corresponds to /dev/ttyS14
+# 15 corresponds to /dev/ttyS15
+# 16 corresponds to /dev/ttyUSB0
+# 17 corresponds to /dev/ttyUSB1
+# 18 corresponds to /dev/ttyUSB2
+# 19 corresponds to /dev/ttyUSB3
+# 20 corresponds to /dev/ttyUSB4
+# 21 corresponds to /dev/ttyUSB5
+# 22 corresponds to /dev/ttyAMA0
+# 23 corresponds to /dev/ttyAMA1
+# 24 corresponds to /dev/ttyACM0
+# 25 corresponds to /dev/ttyACM1
+# 26 corresponds to /dev/rfcomm0
+# 27 corresponds to /dev/rfcomm1
+# 28 corresponds to /dev/ircomm0
+# 29 corresponds to /dev/ircomm1
+# id = 27
+
+[camera]
+# the id of the camera device to use, numbered from 0 and upwards
+# deviceId = 1
+deviceId = 0
+# the width and height of the captured image, denoted in pixels
+width = 720	
+height = 500
+# the maximum number of objects to track. 
+#All objects are ignored if the number of objects
+# discovered exceeds this number
+maxNumObjects = 1000
+#the minimum object area to recognize (in pixels). 
+#Any object smaller than this is ignored.
+minObjectArea = 10
+# upper limit of the size of leds compared to min(frame width, frame height)
+ledSize = 0.01
+
+# settings governing the colors in the captured frame
+# the settings are potentially specific to each camera
+# linux application "guvcview" provides details
+# the settings appear to be sticky, so an application like "guvcview"
+# may be necessary to revert to default state
+#
+# if the value is less than 0, the application won't change
+# the camera's setting for that property
+# the brigtness of the image
+brightness = 0.1
+# the contrast of the image (0 - 10 with default of 5)
+contrast = 5
+# the saturation of the image (0 - 200 with default of 83)
+saturation = 30
+
+# each color is defined by six boundries,
+#and is only recognized if the HSV value is within the bounds
+[red]
+hmin = 120
+hmax = 220
+smin = 100
+smax = 256
+vmin = 130
+vmax = 256
+
+#hmin = 0
+#hmax = 45
+#smin= 90
+#smax = 256
+#vmin = 170
+#vmax = 256
+
+[blue]
+hmin = 100
+hmax = 120
+smin = 250
+smax = 256
+vmin = 250
+vmax = 256
+
+[green]
+hmin = 31
+hmax = 90
+smin = 100
+smax = 256
+vmin = 135
+vmax = 256
+
+#hmin = 21
+#hmax = 86
+#smin= 50
+#smax = 256
+#vmin = 205
+#vmax = 256
+
+# the size of the virtual feed depicting the 
+#scene as interpreted by the tracker
+[virtualFeed]
+width = 500
+height = 500
+ 
+# settings for the UDP network sending 
+#information about tracked robots
+[network]
+enabled = true 
+address = localhost
+port = 52346
+
+[general]
+# whether to calibrate colors, this allows one to 
+#find values for the color definitions
+calibrationEnabled = false
+# the time the system waits after a frame 
+#has been processed before it fetches a new one
+# if this number is set too low, 
+#the camera won't be able to finish capturing a frame
+frameDelay = 10
+
+[tracking]
+# number of robots to track
+numRobots = 4
+# robots are removed if this number of steps pass 
+#without a pinpointing of the robot's position
+evictionLimit = 6
+# the maximum speed (distance / frame) of robots in any 
+#direction compared to the width and height of the bounding box
+ robotSpeed = 0.01
+# robotSpeed = 0.065
+# the maximum rotational speed (radians / frame) of
+# the robot compared to a full circle
+robotRotationalSpeed = 0.05
+# the diameter of the robots compared to the bounding box
+robotDiameter = 0.06
+#0.059
+# the number of recent values to use when smoothing
+# the position and rotation of the robot
+historyLength = 3
+
+[controls]
+# key to reload the configuration at run time. 
+#Not all changes will take effect
+loadConfig = l
+\end{lstlisting}
