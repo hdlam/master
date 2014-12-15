@@ -10,13 +10,24 @@ The combination of paint and kraft paper did not work very well due to bulges an
 
 All the robots used for the demonstration were equipped with a bluetooth module and 2 circular post-it notes which was light green and pink.
 The camera was able to detect these post-it notes using the OpenCV (Open source Computer Vision) and C++ boost library. The software for tracking the robots were already implemented and we only had to set it up on a xubuntu linux machine.
-Using these pink and green post-it notes and a web camera, the computer could track the position and rotation of each robot. A parameter of how many robots had to be set beforehand, along with the parameters hue, saturation and brightness (HSB) for the red (in our case pink) and green color. The calibration for the red and green HSB calibration had to be manually set, but the camera tracking software had a calibration mode where we could test whether the parameters we had set was correct or not. These parameters had to be set so the software knew what colors it was looking for.
-\begin{figure}
-\centering
-\includegraphics[width=0.8\linewidth]{images/calibration.png}
-\caption[calibration of the camera tracking software]{The upper left window shows us which dots are considered the current color, HSV, Chirp, window}
-\end{figure}
+Using these pink and green post-it notes and a web camera, the computer could track the position and rotation of each robot. A parameter of how many robots had to be set beforehand, along with the parameters hue, saturation and value/brightness (HSV/HSB)\footnote{\href{http://colorizer.org/}{http://colorizer.org/}} for the red (in our case pink) and green color. The calibration for the red and green HSV calibration had to be manually set, but the camera tracking software had a calibration mode where we could test whether the parameters we had set was correct or not. These parameters had to be set so the software knew what colors it was looking for.
+Figure \ref{fig:calibration} shows all the windows that was used when calibrating the colors. Figure \ref{fig:cali_orig} is the original image of the robot and the environment, the green box around the robot is used to isolate the working environment, everything outside of this box will not be tracked. The leftmost upper corner of the green outlined box will be coordinate (0,0) while the rightmost lower corner will be coordinate (1,1), when running the software with the sandbox, the camera should be placed high above the sandbox and the green outline would be covering the edges of this box. The figure \ref{fig:cali_orig} also shows that we are currently calibrating the software to track the green cork. Figure \ref{fig:cali_virt} shows us the robots' ID, rotation and position, however in calibration mode, it does not show any robots because it is not tracking any.
 
+Figure \ref{fig:cali_track} shows the values it is looking for, the can be adjusted using the sliders in real time, but the values have to copied into the configuration file manually, a copy of a working configuration file is shown in Appendix \ref{app:opencvcfg}. The last figure \ref{fig:cali_tresh} shows the threshold of what on the screen is currently being tracked, the most optimal would be one white circle, but the figure shows whole blob of white circles.
+\begin{figure}
+    \centering
+    \subfloat[Original image showing what it is currently tracking]{\includegraphics[width=0.7\textwidth]{images/cali_orig}\label{fig:cali_orig}}
+    \hfill
+	\subfloat[Virtual image]{\includegraphics[width=0.3\textwidth]{images/cali_virt}\label{fig:cali_virt}}
+    \hfill
+    \subfloat[Adjustment sliders]{\includegraphics[width=0.5\textwidth]{images/cali_trackbar}\label{fig:cali_track}}
+     \hfill
+	\subfloat[Treshhold]{\includegraphics[width=0.5\textwidth]{images/cali_thresh}\label{fig:cali_tresh}}
+    
+            \caption[Calibrating colors]{Calibration mode for the tracking software}
+            \label{fig:calibration}
+\end{figure}
+\newpage
 The position and rotation of each robot was then sent to the simulation written in Java via UDP packets as a string, which the simulation decomposed using regular expression and converted to meaningful data which could be set for each robot. Due to the high update frequency of the camera, the simulator had to average each 5 position and rotation it got from the camera software. This was done to avoid jiggling due to noise. We had some problems with the camera software not working without an internet connection, the program would crash if the computer did not have an internet connection with the error message "seg fault". The program needed it to send the packets over UDP, we had both camera software and Java simulation on the same machine, so the UDP packets were only sent to itself (localhost) so we did not really need a internet connection, but the software believed that it needed one. We fixed this problem by connecting a ethernet cable between the host machine and the computer nearby, that would trick the program thinking that it had a valid connection.
 
 Another problem that was present was the ID of the robot, each robot would have an unique ID. When one of the robot went out of sight - that is the camera is being covered or the robot drove outside of its range, the camera software would assign new ID to all of the robots. For instance if we have 2 robots with the ID 0 and ID 1. If robot1 cannot be tracked by the camera then robot0 will get ID 2 and counting until the original robot1 reenters the frame. So at one point the robots might have the ID 7 and 8. The Java simulation uses these ID to keep track of the robots, and which COM port belongs to which ID. The simulator did still know approximately where each robot were supposed to be before the camera lost track of it, so when a robot would disappear and reappear with a new ID, the simulator would simply find the nearest robot and reassign the new ID to that robot.
@@ -50,8 +61,18 @@ In our implementation we had to cheat the platooning algorithm a bit, due to the
 
 Some other problems we had under the demonstration was some of the styrofoam buildings used around the tracks were too tall, and covered the robots when they rounded the turn. When we cut down the tallest building, it was still casting shadows on to the track. The shadow made the robot's post it note have a different shade of green/pink, and the camera lost track of it. We had to cut the building even more so the shadow didn't reach the track.
 
-
 In the middle of the map, at the intersection there is a red light at the top, north side or at the right, east side of the intersection. This red light will be alternating between these two positions depending on what the user chooses. 
+\begin{figure}
+    \centering
+    \subfloat[Original image showing the robot and the two points that are being tracked]{\includegraphics[width=0.7\textwidth]{images/demo_orig}\label{fig:demo_orig}}
+    \hfill
+	\subfloat[Virtual image of the robot, orientation, id and position are showing relative to the green outline]{\includegraphics[width=0.3\textwidth]{images/demo_virt}\label{fig:demo_virt}}
+    \hfill
+	\subfloat[Simulator]{\includegraphics[width=0.5\textwidth]{images/demo_sim}\label{fig:demo_sim}}
+    
+            \caption[Demo of project]{}
+            \label{fig:demo}
+\end{figure}
 
 Most of the codes written for this platooning demo was already implemented or had already been started on, the code for the robot tracking written in C++ with the openCV and boost library. The libraries for the ChIRP robot already existed, Christian Skjetne implemented the code using Arduino language on the robot which used the bluetooth module. 
 I did not get to code so much on the robots itself, but next semester I will be a student assistant in the new course for the first grader in computer science named programming lab where they are supposed to program on the Arduino. So this year I have been attending two courses that focused on learning input sensors and getting to know the Arduino. One of the main thing in that course is the bluetooth low energy module, which is pretty similar to the bluetooth used on the ChIRPs. 

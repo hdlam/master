@@ -81,6 +81,14 @@
 %5 master project
 \include{chapters/5master}
 
+%references
+\pagenumbering{roman}
+\newpage
+\nocite{*}
+\bibliographystyle{plain}
+\bibliography{bibl}
+
+%appendix
 \section{Appendix}
 \appendix
 \pagenumbering{Alph}
@@ -88,9 +96,5 @@
 \label{app:opencvcfg}
 	\input{chapters/appendix/chirpObserverConfig}
 	\input{chapters/appendix/sorting}
-\newpage
-\pagenumbering{roman}
-\nocite{*}
-\bibliographystyle{plain}
-\bibliography{bibl}
+
 \end{document}

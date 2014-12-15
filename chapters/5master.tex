@@ -1,6 +1,12 @@
 \section{Master project}
 For my master project and thesis I will try to implement the Boids behavior on the ChIRP robots. The robots have 8 IR-LEDs and 8 IR receivers which I will use to avoid obstacles and the walls. The ChIRP robots can easily detect colored obstacles, but have some problems with black objects because they do not reflect light very well. The same goes for other robots, they do not reflect infrared light very well, due to the structure of the robots. The robot is pretty hollow at the top, where the infrared LED lights are mounted. This might impose a problem with object avoidance or the Boids' separation behavior. The quick fix for this is to physically alter the robot by adding a paper strip around robot, near the IR-LEDs which will hopefully reflect the infrared light.
 The robots' PCB also have holes in it that we can use to mount various other things on top of it. These holes can be used to mount some sort of reflectors that will reflect the infrared light if the paper method does not work.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\linewidth]{images/chirpFront.jpg}
+\caption[Front of ChIRP robot]{The front of the ChIRP robot, the blue IR LED on top of the robot might not reflect as good of other robots due to the structure of it}
+\label{fig:chirpsFront}
+\end{figure}
 For now we only have 4 functional bluetooth modules that the robots can use. We have all in all 6 bluetooth modules, but we lack adapters. It is not possible to connect the bluetooth modules to the robot without these adapters. New adapters can be printed in Omega-verksted or bought from companies that prints out PCB.
 
 Only using the IR distance sensors is not enough to find all the information needed to implement Boid behavior on the robot, namely the position of each robot and their rotation.
