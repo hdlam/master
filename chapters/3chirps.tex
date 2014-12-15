@@ -10,12 +10,12 @@ Modules like LED lights and various sensors can be soldered on the PCB thus the 
 \caption[ChIRP robot seen from above]{ChIRP robot seen from above, this one is equipped with 8 IR emitter and receivers}
 \label{fig:chirpAbove}
 \end{figure}
-These can be used to measure distance by emitting the IR light and measure how much is reflected back into the receiver. There are 2 Shift registers ICs on top of the PCB, these shift registers handles the values found by the IR receivers and converts them to a short (the datatype, 16 bit int) so the arduino micro inside the ChIRP doesn't need to handle everyting. This is due to the limited processor power of the Arduino micro which has a ATmega32u4 processor with 16 MHz clock speed and 32 KB flash memory. Arduino micro has 20 digital inpput/output (I/O) pins in which 7 of them are PWM, and 12 analog input pins. PWM stands for Pulse-width modulation \footnote{\href{http://arduino.cc/en/Tutorial/PWM}{http://arduino.cc/en/Tutorial/PWM}}, and those pins with PWM are able to emulate analog output by 
-Inside the robot there's an ATtiny as well that helps the Arduino control the motors.  
+These can be used to measure distance by emitting the IR light and measure how much is reflected back into the receiver. There are ATtiny on top of the PCB, these ATtiny handles the values found by the IR receivers and converts them to a short (the datatype, 16 bit int) so the Arduino micro inside the ChIRP doesn't need to handle everything. This is due to the limited processor power of the Arduino micro which has a ATmega32u4 processor with 16 MHz clock speed and 32 KB flash memory. Arduino micro has 20 digital inpput/output (I/O) pins in which 7 of them are PWM, and 12 analog input pins. PWM stands for Pulse-width modulation \footnote{\href{http://arduino.cc/en/Tutorial/PWM}{http://arduino.cc/en/Tutorial/PWM}}, and those pins with PWM are able to emulate analog output by 
+Inside the robot there's an ATtiny as well that helps the Arduino control the motors. These ATtinys that controls the motors and the 8 infrared receiver sensors needs to be programmed. The code is also available on the website. These ATtinys can be programmed using an Arduino Uno shield or by connecting the Uno to the ATtiny using a breadboard directly.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\linewidth]{images/chirpPieces}
-	\caption[ChIRP pieces]{The building blocks of the chirp robot}
+	\caption[ChIRP pieces]{Some of the building blocks of the chirp robot}
 \end{figure}
 
 
