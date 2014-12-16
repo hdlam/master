@@ -18,6 +18,11 @@
 %\usepackage[list=true,listformat=simple]{subcaption}
 \usepackage{float}
 \usepackage{listings}
+\usepackage{natbib}
+
+%citation style
+\bibliographystyle{apalike}
+\bibpunct{[}{]}{;}{a}{,}{,}
 
 \usepackage{amsmath, amssymb}% for mathematical symbols
 \usepackage[colorlinks=true,linkcolor=black,urlcolor=black]{hyperref} % for hyperreferences with black color
@@ -89,9 +94,9 @@
 \newpage
 %appendix
 \section{Appendix}
+\label{sec:app}
 \appendix
-\section{Camera tracking configuration file}
-\label{app:opencvcfg}
+
 \pagenumbering{Alph}
 	\input{chapters/appendix/chirpObserverConfig}
 	\input{chapters/appendix/sorting}
