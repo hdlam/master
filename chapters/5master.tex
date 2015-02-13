@@ -14,13 +14,13 @@ Only using the IR distance sensors is not enough to find all the information nee
 Each robot will therefore communicate with a computer using their bluetooth module.
 This centralized computer will have an overview of the sandbox using the web camera and the tracking software found in the SVN repository and will be able to provide the robots with the information they need.
 
-Swarming robots are not supposed to communicate with an overall centralized system, but due to the technical limitation and sensors each robot is equipped with, the alternative to communicating with a centralized system is to equip more advanced sensors on the robot, which might not be plausible.
+Swarming robots are not supposed to communicate with an overall centralized system. But due to the technical limitation and sensors each robot is equipped with, the alternative is to equip more advanced sensors on the robot, which might not be plausible.
 
 After simple Boid behavior is implemented, I will try to implement different type of steering behaviors mentioned in the steering paper. If there is enough time, I would like to assemble some of the ChIRP robots so I can get to know the inner workings of the robots. The ChIRP robots can easily be expanded with more sensors, it would be fun to implement fleeing and pursuit behavior based on for instance the light sensors or something similar, that way we do not need to use a centralized system to tell the robots which position they need to go to or flee from.
 
 It is also possible to create complex mazes using the projector and the camera to detect these drawings, or using the robots' light sensors to differentiate between black spots and white light on the sandbox. This can be used for path following for instance.
 
-These robots can only move forward, backward and/or rotate. They cannot move sideways. I do not know if that will impose a problem, but real birds and particles in simulation are allowed to move sideways, for the separation behavior as shown in figure \ref{fig:boid_sep} it seems like the Boid is moving sideway. The robot might have to turn around, move in that direction and the turn back.
+These robots can only move forward, backward and/or rotate. They cannot move sideways. I do not know if that will impose a problem. Real birds and particles in simulation are allowed to move sideways, for the separation behavior as shown in figure \ref{fig:boid_sep} it seems like the Boid is moving sideway. The robot might have to turn around, move in that direction and the turn back.
 
 Before testing anything on the robots, I will need to create a simulation where I will be able to test and debug. A simulation would able to provide information that the real robots are not capable of providing, and thus it will be easier to see if the individuals are behaving like they are supposed to do. A lot of the code from the traffic simulation can be reused, but I would rewrite the Robot class, this is because the old Robot class were written with speed and rotation, instead of 2 wheel drive.
 

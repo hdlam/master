@@ -25,7 +25,7 @@
 \bibpunct{[}{]}{;}{a}{,}{,}
 
 \usepackage{amsmath, amssymb}% for mathematical symbols
-\usepackage[colorlinks=true,linkcolor=black,urlcolor=black]{hyperref} % for hyperreferences with black color
+\usepackage[colorlinks=true,linkcolor=black,urlcolor=black, citecolor=black]{hyperref} % for hyperreferences with black color
 %\usepackage[T1]{fontenc} % Uncomment for norwegian document
 %\usepackage[norsk]{babel} %
 
@@ -53,15 +53,55 @@
 
 %%% The "real" document content comes below...
 
-\title{Specialization project}
-\author{Hong-Dang Lam}
+%\title{Specialization project report}
+%\author{Hong-Dang Lam}
 %\date{} % Activate to display a given date or no date (if empty),
          % otherwise the current date is printed 
 
 \begin{document}
+\begin{titlepage}
+
+
+% Upper part of the page. The '~' is needed because \\
+% only works if a paragraph has started.
+
+\textsc{\LARGE Norwegian University of Science and Technology}\\[1.5cm]
+
+\textsc{\Large TDT4501 Specialization Project}\\[0.5cm]
+
+% Title
+
+{ \huge \bfseries Specialization project report \\[0.4cm] }
+
+
+% Author and supervisor
+\noindent
+\begin{minipage}{0.4\textwidth}
+\begin{flushleft} \large
+\emph{Author:}\\
+Hong-Dang \textsc{Lam}
+\end{flushleft}
+\end{minipage}%
+\begin{minipage}{0.4\textwidth}
+\begin{flushright} \large
+\emph{Supervisors:} \\
+Keith \textsc{Downing}\\
+Christian \textsc{Skjetne}
+\end{flushright}
+\end{minipage}\\
+
+\vfill
+
+% Bottom of the page
+{Fall 2014\\\large \today}
+
+\end{titlepage}
+
+
+
+
 \pagenumbering{gobble}
-\maketitle
-\pagenumbering{roman}
+\pagenumbering{Roman}
 \newpage
 \begin{abstract}
 \input{chapters/abstract}
@@ -87,7 +127,7 @@
 \include{chapters/5master}
 
 %references
-\pagenumbering{roman}
+\pagenumbering{Roman}
 \nocite{*}
 \bibliographystyle{plain}
 \bibliography{bibl}
