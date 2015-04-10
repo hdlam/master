@@ -1,0 +1,101 @@
+\hypertarget{class_sensors}{\section{Sensors Class Reference}
+\label{class_sensors}\index{Sensors@{Sensors}}
+}
+
+
+{\ttfamily \#include $<$Sensors.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_sensors_a68ef7a2ec8dd0ffd9b35b70b50c0ab09}{Sensors} ()
+\item 
+void \hyperlink{class_sensors_acce1843eac74ef1422068340cdc8bef0}{begin} (uint8\-\_\-t front\-\_\-addr, uint8\-\_\-t back\-\_\-addr)
+\item 
+void \hyperlink{class_sensors_a03b19d8c45037df2b990701df4297049}{get\-Sensors} (unsigned short dist\-Sensors\mbox{[}8\mbox{]}, unsigned short I\-R\-Sensors\mbox{[}8\mbox{]})
+\item 
+void \hyperlink{class_sensors_a07e675ba4902b6ac32db67b8e1b91c4e}{get\-I\-R\-Sensors} (unsigned short I\-R\-Sensors\mbox{[}8\mbox{]})
+\item 
+void \hyperlink{class_sensors_a6f241214088c672767d37dbdd9d7f10f}{get\-Distance\-Sensors} (unsigned short dist\-Sensors\mbox{[}8\mbox{]})
+\item 
+void \hyperlink{class_sensors_a215a81837d52ce50cbdd8fb7ede3c993}{set\-Smoothing} (uint8\-\_\-t value)
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_sensors_a68ef7a2ec8dd0ffd9b35b70b50c0ab09}{\index{Sensors@{Sensors}!Sensors@{Sensors}}
+\index{Sensors@{Sensors}!Sensors@{Sensors}}
+\subsubsection[{Sensors}]{\setlength{\rightskip}{0pt plus 5cm}Sensors\-::\-Sensors (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_sensors_a68ef7a2ec8dd0ffd9b35b70b50c0ab09}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_sensors_acce1843eac74ef1422068340cdc8bef0}{\index{Sensors@{Sensors}!begin@{begin}}
+\index{begin@{begin}!Sensors@{Sensors}}
+\subsubsection[{begin}]{\setlength{\rightskip}{0pt plus 5cm}void Sensors\-::begin (
+\begin{DoxyParamCaption}
+\item[{uint8\-\_\-t}]{front\-\_\-addr, }
+\item[{uint8\-\_\-t}]{back\-\_\-addr}
+\end{DoxyParamCaption}
+)}}\label{class_sensors_acce1843eac74ef1422068340cdc8bef0}
+Sets the addresses of the two sensor controllers \hypertarget{class_sensors_a6f241214088c672767d37dbdd9d7f10f}{\index{Sensors@{Sensors}!get\-Distance\-Sensors@{get\-Distance\-Sensors}}
+\index{get\-Distance\-Sensors@{get\-Distance\-Sensors}!Sensors@{Sensors}}
+\subsubsection[{get\-Distance\-Sensors}]{\setlength{\rightskip}{0pt plus 5cm}void Sensors\-::get\-Distance\-Sensors (
+\begin{DoxyParamCaption}
+\item[{unsigned short}]{dist\-Sensors\mbox{[}8\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{class_sensors_a6f241214088c672767d37dbdd9d7f10f}
+Updates the dist\-Sensors array with new sensor values
+
+
+\begin{DoxyParams}{Parameters}
+{\em dist\-Sensors} & The array of distance sensor data \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_sensors_a07e675ba4902b6ac32db67b8e1b91c4e}{\index{Sensors@{Sensors}!get\-I\-R\-Sensors@{get\-I\-R\-Sensors}}
+\index{get\-I\-R\-Sensors@{get\-I\-R\-Sensors}!Sensors@{Sensors}}
+\subsubsection[{get\-I\-R\-Sensors}]{\setlength{\rightskip}{0pt plus 5cm}void Sensors\-::get\-I\-R\-Sensors (
+\begin{DoxyParamCaption}
+\item[{unsigned short}]{I\-R\-Sensors\mbox{[}8\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{class_sensors_a07e675ba4902b6ac32db67b8e1b91c4e}
+Updates the I\-R\-Sensors array with new sensor values
+
+
+\begin{DoxyParams}{Parameters}
+{\em I\-R\-Sensors} & The array of I\-R sensor data \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_sensors_a03b19d8c45037df2b990701df4297049}{\index{Sensors@{Sensors}!get\-Sensors@{get\-Sensors}}
+\index{get\-Sensors@{get\-Sensors}!Sensors@{Sensors}}
+\subsubsection[{get\-Sensors}]{\setlength{\rightskip}{0pt plus 5cm}void Sensors\-::get\-Sensors (
+\begin{DoxyParamCaption}
+\item[{unsigned short}]{dist\-Sensors\mbox{[}8\mbox{]}, }
+\item[{unsigned short}]{I\-R\-Sensors\mbox{[}8\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{class_sensors_a03b19d8c45037df2b990701df4297049}
+Updates the dist\-Sensors and I\-R\-Sensors arrays with new sensor values
+
+
+\begin{DoxyParams}{Parameters}
+{\em dist\-Sensors} & The array of distance sensor data \\
+\hline
+{\em I\-R\-Sensors} & The array of I\-R sensor data \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_sensors_a215a81837d52ce50cbdd8fb7ede3c993}{\index{Sensors@{Sensors}!set\-Smoothing@{set\-Smoothing}}
+\index{set\-Smoothing@{set\-Smoothing}!Sensors@{Sensors}}
+\subsubsection[{set\-Smoothing}]{\setlength{\rightskip}{0pt plus 5cm}void Sensors\-::set\-Smoothing (
+\begin{DoxyParamCaption}
+\item[{uint8\-\_\-t}]{value}
+\end{DoxyParamCaption}
+)}}\label{class_sensors_a215a81837d52ce50cbdd8fb7ede3c993}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+utility/\hyperlink{_sensors_8h}{Sensors.\-h}\item 
+utility/\hyperlink{_sensors_8cpp}{Sensors.\-cpp}\end{DoxyCompactItemize}
