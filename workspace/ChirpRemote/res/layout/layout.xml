@@ -1,0 +1,235 @@
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/TableLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <include
+        android:layout_height="wrap_content"
+        android:layout_margin="2dip"
+        layout="@layout/status_data" />
+
+    <com.idi.ntnu.chirpremote.TouchSurface
+        android:id="@+id/touchSurface"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent" />
+
+   <TableLayout
+        android:id="@+id/settingsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" >
+        
+       <View android:id="@+id/separator" 
+			android:background="#aaaaaa" 
+			android:layout_width = "fill_parent"
+			android:layout_height="1dip"
+			android:layout_marginTop="3dp"
+			android:layout_marginBottom="3dp"
+			android:layout_centerVertical ="true"
+			android:layout_alignParentTop="true"/>
+
+        <LinearLayout
+            android:id="@+id/LinearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="fill_horizontal"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/currentLightLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Current light intensity:"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_gravity="left" />
+            
+            <View
+	            android:layout_width="0dp"
+	            android:layout_height="0dp"
+	            android:layout_weight="1"
+            />
+
+            <TextView
+                android:id="@+id/currenLightText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_gravity="right" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LinearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/minLightLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Minimum light intensity:"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+            
+            <View
+	            android:layout_width="0dp"
+	            android:layout_height="0dp"
+	            android:layout_weight="1"
+            />
+
+            <TextView
+                android:id="@+id/minLightText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LinearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/maxLightLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Maximum light intensity:"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+            
+            <View
+	            android:layout_width="0dp"
+	            android:layout_height="0dp"
+	            android:layout_weight="1"
+            />
+
+            <TextView
+                android:id="@+id/maxLightText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LinearLayout1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/minLightButton"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Set Min"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/maxLightButton"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Set Max"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_weight="1" />
+        </LinearLayout>
+        
+        <View android:id="@+id/separator" 
+			android:background="#aaaaaa" 
+			android:layout_width = "fill_parent"
+			android:layout_height="1dip"
+			android:layout_marginTop="3dp"
+			android:layout_marginBottom="3dp"
+			android:layout_centerVertical ="true"
+			android:layout_alignParentTop="true"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <CheckBox
+                android:id="@+id/touchCheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="Touch Input" />
+
+            <CheckBox
+                android:id="@+id/tiltCheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Tilt Input" />
+        </LinearLayout>
+
+        <CheckBox
+            android:id="@+id/vibrateCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Vibrate" />
+        
+        <View android:id="@+id/separator" 
+			android:background="#aaaaaa" 
+			android:layout_width = "fill_parent"
+			android:layout_height="1dip"
+			android:layout_marginTop="3dp"
+			android:layout_marginBottom="3dp"
+			android:layout_centerVertical ="true"
+			android:layout_alignParentTop="true"/>
+
+        <Button
+            android:id="@+id/resetButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reset Highscore List" />
+        
+    </TableLayout>
+
+    <TableLayout
+        android:id="@+id/highscoreLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <EditText
+                android:id="@+id/usernameText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="Your Name"
+                android:maxLength="9"
+                android:singleLine="true" />
+
+            <Button
+                android:id="@+id/highscoreAddButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Add" />
+        </LinearLayout>
+
+        <com.idi.ntnu.chirpremote.HighscoreList
+            android:id="@+id/highscoreList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="HighscoreList" />
+
+        <Button
+            android:id="@+id/highscoreStartButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Start Game" />
+    </TableLayout>
+
+</TableLayout>

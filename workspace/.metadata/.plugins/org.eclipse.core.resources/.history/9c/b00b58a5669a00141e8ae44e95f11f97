@@ -1,0 +1,405 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package boidSim;
+
+import java.awt.Point;
+
+import no.ntnu.idi.chirp.rxtx.RxtxClass;
+
+import org.newdawn.slick.Color;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.geom.Circle;
+import org.newdawn.slick.geom.Ellipse;
+import org.newdawn.slick.geom.Polygon;
+import org.newdawn.slick.geom.Shape;
+
+import trafficsim.Terrain;
+import trafficsim.TrafficSim2;
+
+import java.util.ArrayList;
+
+/**
+ * This class should work as the brains of the Robots.
+ *
+ * @author Magnus Hu
+ */
+public class ChirpRobot {
+
+	private int mapTarget;
+	private double Xpos;
+	private double Ypos;
+	private double currentAngle; // in radians [-
+	private double targetAngle;
+	private Point target;
+	private double lspeed = 0;
+	private double rspeed = 0;
+	private double speed = 0;
+	private double mxspd = 500; //might need to cap
+	private double accel = 20;
+	private double deacc = 40;
+	private double turn = 0;
+	private double mxturn = 1;
+	private double speedOfCarInFront = mxspd;
+	
+	//not sure if I need all the ones below
+	private int col;
+		
+	private String ID;
+	private double deltaAngle;
+	private Shape minDist;
+	private BoidSim bs;
+	private RxtxClass rxtx = null;
+	private int timeSinceLastRxTx = 0;
+	private int rxtxUpdateTime = 16*5;
+	/*
+	 * double speed = 0; double mxspd = 50; double accel = 1000000000; double
+	 * deacc = 15; double turn = 0; double mxturn = 1; double lookAhead = mxspd
+	 * * 4; Robot robotAhead;
+	 */
+
+	// for catching orbit behavoirs
+	double spinCounter = 0;
+	boolean goingLeft = true;
+	
+	public String getID() {
+		return ID;
+	}
+	public void setID(String ID) {
+		this.ID = ID;
+	}
+	
+	public void setRxtx(RxtxClass rxtx) {
+		this.rxtx = rxtx;
+	}
+
+	public ChirpRobot(double initX, double initY, double initAngle,
+			String id, BoidSim bs) {
+		this.bs = bs;
+		Xpos = initX;
+		Ypos = initY;
+		targetAngle = currentAngle = initAngle;
+		ID = id;
+		deltaAngle = 0; //()
+		minDist = new Ellipse((float)Xpos, (float)Ypos, bs.size/2+10, bs.size/2+10);/*new Polygon(new float[]{
+				(float) (Xpos-ts.size/2-2),(float) (Ypos-bs.size/2-2),
+				(float) (Xpos-bs.size/2-2),(float) (Ypos+bs.size/2+2),
+				(float) (Xpos+bs.size/2+2),(float) (Ypos+bs.size/2+2),
+				(float) (Xpos+bs.size/2+2),(float) (Ypos-bs.size/2-2),
+				});*/
+		speed = 100;
+	}
+	
+	
+	double sumX = 0;
+	double sumY = 0;
+	int posCount = 1;
+	int AVG = 3;
+	public void setPosition(double x, double y){
+		if(bs.averaging){
+			if(posCount++ % AVG == 0){
+				Xpos = (x+sumX) / (double)AVG;
+				Ypos = (y+sumY) / (double)AVG;
+				sumX = 0;
+				sumY = 0;
+			}
+			else{
+				sumX += x;
+				sumY += y;		
+			}
+		}
+		else{
+			Xpos = x;
+			Ypos = y;
+		}
+		
+	}
+	
+	private double sumAngle = 0;
+	private int angleCount = 1;
+	public void setAngle(double angle){
+		if(bs.averaging){
+			if(angleCount++ % AVG == 0){
+				currentAngle = (angle+sumAngle)/AVG;
+				sumAngle = 0;
+			}
+			else{
+				sumAngle += angle;
+			}
+		}
+		else
+			currentAngle = angle;
+	}
+	
+	Shape getMinDist(){
+		return minDist;
+	}
+	
+	public void draw(Graphics g) {
+		if(getCol() ==1)
+			g.setColor(Color.red);
+		else if(getCol() == 0)
+			g.setColor(Color.white);
+		else
+			g.setColor(Color.yellow);
+		g.drawOval((float)getX()-bs.size/2, (float)getY()-bs.size/2, bs.size, bs.size);
+		if(rxtx != null) g.drawString(ID+"-"+rxtx.portName.substring(7)+"", (float)getX(), (float)getY());
+		if(bs.render)
+		{
+		g.draw(minDist);
+		}
+		
+		double temp = currentAngle;
+		double a = currentAngle;
+	//	g.drawLine((float)Xpos, (float)Ypos,(float) (bs.size+Math.cos(currentAngle+Math.PI)*Xpos), (float)(Math.sin(currentAngle+Math.PI)*Ypos));
+		currentAngle = temp;
+		
+		g.drawLine((float)(Xpos),(float)(Ypos),	(float)(Xpos + bs.size * Math.cos(a) + 1 * Math.sin(a)), (float)(Ypos + bs.size * Math.sin(a) - 1 * Math.cos(a)));
+		//g.drawLine((float)(Xpos - bs.size * Math.cos(a) + 3 * Math.sin(a)),(float)(Ypos - bs.size * Math.sin(a) - bs.size * Math.cos(a)),(float)(Xpos - bs.size * Math.cos(a) - bs.size * Math.sin(a)),(float)(Ypos - bs.size * Math.sin(a) + bs.size * Math.cos(a)));
+		
+		
+		
+		
+		
+	}
+
+	public int getCol() {
+		return col;
+	}
+
+	private void moveCalc() {
+		//this will be used only for simulation.
+		if(bs.simulation){
+			double a = 1;
+			double b = 1;
+			double c = 1;
+			targetAngle = a*cohesion() + b*separation() + c*alignment();
+		}
+		refractor();
+	}
+	
+	
+	
+	
+	private void calculateHitBoxes(double step){
+		minDist = new Ellipse((float)Xpos, (float)Ypos, bs.size/2+10, bs.size/2+10);
+	}
+	
+	
+
+	public void move(long delta) {
+		// start by moving
+		double step = ((double) delta) / 1000d;
+		
+		// System.out.println("x:" + (Math.cos(currentAngle) * speed * step));
+		if(bs.simulation){
+			Xpos += Math.cos(currentAngle) * speed * step;
+			Ypos += Math.sin(currentAngle) * speed * step;
+		}
+		moveCalc();
+		turnToTarget(delta);
+		refractor();
+		
+		//reposition the hitboxes
+		calculateHitBoxes(step);
+		
+		
+		int[] motorSpeed = getMotor();
+		
+		timeSinceLastRxTx += delta;
+		if(timeSinceLastRxTx < rxtxUpdateTime)
+		{
+			return;
+		}
+		else timeSinceLastRxTx = 0;
+		if(rxtx != null) rxtx.sendRobotData(motorSpeed[0], motorSpeed[1]);
+	}
+	
+	
+	/*
+	 * BOIDS behavior
+	 */
+	private double cohesion(){
+		double positionx = 0;
+		double positiony = 0;
+		for(ChirpRobot robot: bs.prototype){
+			if(robot == this)
+				continue;
+			positionx += robot.getX();
+			positiony += robot.getY();
+		}
+		positionx = positionx/(bs.prototype.size()-1);
+		positiony = positiony/(bs.prototype.size()-1);
+		return Math.atan2((positiony - Ypos), (positionx - Xpos));
+		
+	}
+	private double separation(){
+		double positionx = 0;
+		double positiony = 0;
+		for(ChirpRobot robot: bs.prototype){
+			if(robot == this)
+				continue;
+			if(minDist.intersects(robot.getShape())){
+				positionx += robot.getX();
+				positiony += robot.getY();
+			}
+		}
+		positionx = positionx/(bs.prototype.size()-1);
+		positiony = positiony/(bs.prototype.size()-1);
+		return Math.atan2((positiony - Ypos), (positionx - Xpos))+2*Math.PI;
+	}
+	
+	public Shape getShape() {
+		return new Circle((float)getX(), (float)getY(), bs.size);
+	}
+	
+	private double alignment(){
+		double sumOfAngles = 0;
+		for(ChirpRobot robot: bs.prototype){
+			if(robot == this)
+				continue;
+			sumOfAngles+= robot.currentAngle;
+		}
+		return sumOfAngles/(bs.prototype.size()-1);
+		
+	}
+	
+	
+	
+
+	private boolean goingInCircles() {
+		return spinCounter > Math.PI;
+	}
+
+	private void turnToTarget(long delta) {
+		double step = ((double) delta) / 1000d;
+		double rotate = turn * step;
+		if (Math.abs(currentAngle - targetAngle) < rotate) {
+			rotate = Math.abs(currentAngle - targetAngle);
+		}
+
+		if (targetAngle + Math.PI == currentAngle
+				|| targetAngle - Math.PI == currentAngle) {
+			// Directly behind us, turn!
+			spinRight(rotate);
+		} else if (targetAngle > 0) {
+			if (currentAngle > targetAngle
+					|| currentAngle < targetAngle - Math.PI) {
+				spinRight(rotate);
+			} else {
+				spinLeft(rotate);
+			}
+		} else {
+			if (currentAngle < targetAngle
+					|| currentAngle > targetAngle + Math.PI) {
+				spinLeft(rotate); 
+			} else {
+				spinRight(rotate);
+			}
+		}
+		
+	}
+
+
+
+	private double distanceTo(ChirpRobot robot) {
+		return Math.sqrt((robot.Ypos - Ypos) * (robot.Ypos - Ypos)
+				+ (robot.Xpos - Xpos) * (robot.Xpos - Xpos));
+	}
+
+	private void accelerate(long delta, double maxspeed) {
+		double step = ((double) delta) / 1000d;
+
+	}
+
+	private void deaccelerate(long delta, double minspeed,double deacc) {
+		double step = ((double) delta) / 1000d;
+	}
+
+
+	private void spinRight(double rotate) {
+		// number of right rotation is here, named rotate
+		deltaAngle = rotate;
+		if(bs.simulation)
+			currentAngle -= rotate;
+		if (!goingLeft) {
+			spinCounter += rotate;
+		} else {
+			goingLeft = false;
+			spinCounter = rotate;
+		}
+	}
+
+	private void spinLeft(double rotate) {
+		// number of left rotation is here, named rotate
+		deltaAngle = -rotate;
+		if(bs.simulation)
+			currentAngle += rotate;
+		if (goingLeft) {
+			spinCounter += rotate;
+		} else {
+			goingLeft = true;
+			spinCounter = rotate;
+		}
+	}
+
+	private void refractor() { // makes sure that the angle is always inside
+								// [-PI, PI]
+		if (currentAngle > Math.PI) {
+			currentAngle -= 2 * Math.PI;
+		} else if (currentAngle < -Math.PI) {
+			currentAngle += 2 * Math.PI;
+		}
+		if(Xpos>bs.w)
+			Xpos = 0;
+		if(Ypos>bs.h)
+			Ypos = 0;
+		if(Xpos < 0)
+			Xpos = bs.w;
+		if(Ypos < 0)
+			Ypos = bs.h;
+	}
+
+
+
+	/**
+	 * GETTERS
+	 * 
+	 * 
+	 */
+	public double getX() {
+		return Xpos;
+	}
+
+	public double getY() {
+		return Ypos;
+	}
+
+	public double getAngle() {
+			return currentAngle;
+	}
+
+	public int[] getMotor() {
+		int[] a = new int[2];
+		
+		/*if (Math.abs(deltaAngle) < 0.01) {
+			return new int[] { (int) (2*speed), (int) (2*speed) };
+
+		}*/
+//		if (deltaAngle > 0) {
+			a[0] = (int)lspeed; 
+			a[1] = (int)rspeed;
+			//if((a[0] < 100 || a[1]<100) && (a[0]+a[1]>0)) System.out.println(a[0]+" - "+a[1]);
+			if(a[0] < 35) a[0] = 0;
+			if(a[1] < 35) a[1] = 0;
+			if(a[0] > 255) a[0] = 255;
+			if(a[1] > 255) a[1] = 255;
+			//if(this.redLightAhead())System.out.println(a[0]+" "+a[1]+" --- "+deltaAngle);
+//		} else {
+//			a[0] = (int)(speed-(deltaAngle*1000));//(int) ((speed * Math.sin(deltaAngle) / Math.sin(2 * deltaAngle)) + 30) * 1;
+//			a[1] = (int)(speed+(deltaAngle*1000));//(int) ((speed * Math.sin(deltaAngle) / Math.sin(2 * deltaAngle)) - 30) * 1;
+//		}
+		return a;
+	}
+}

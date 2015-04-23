@@ -1,0 +1,112 @@
+package com.idi.ntnu.chirpremote;
+
+import com.idi.ntnu.chirpremote.Bluetooth.BluetoothException;
+import com.idi.ntnu.chirpremote.TouchSurface.TouchListener;
+
+/**
+ * A class to handle communication between the remote control and the robot.
+ * The class contains functionality for sending commands to the robot, and to
+ * receive data from the robot.
+ * @author Erik Samuelsson
+ *
+ */
+public class Commander implements TouchListener{
+
+	private Bluetooth bluetooth;
+
+	/**
+	 * Constructor taking the Bluetooth connection object.
+	 * @param bluetooth The connection used for communication.
+	 */
+	public Commander(Bluetooth bluetooth) {
+		this.bluetooth = bluetooth;
+	}
+	
+	/**
+	 * Tell the robot that the game has ended with a victory.
+	 * @throws BluetoothException
+	 */
+	public void sendVictory() throws BluetoothException {
+		byte[] bytes = new byte[3];
+		bytes[0] = 'w';
+		bluetooth.send(bytes);
+	}
+	
+	/**
+	 * Tell the robot that the game is finished.
+	 * @throws BluetoothException
+	 */
+	public void sendGameEnd() throws BluetoothException {
+		byte[] bytes = new byte[3];
+		bytes[0] = 'n';
+		bluetooth.send(bytes);
+	}
+	
+	/**
+	 * Send the light threshold values to the robot. 
+	 * @param minLightIntensity The light intensity of the start area.
+	 * @param maxLightIntensity The light intensity of the end area.
+	 * @throws BluetoothException
+	 */
+	public void sendTħreshold(byte minLightIntensity, byte maxLightIntensity) throws BluetoothException {
+		byte[] bytes = new byte[3];
+		bytes[0] = 't';
+		bytes[1] = minLightIntensity;
+		bytes[2] = maxLightIntensity;
+		bluetooth.send(bytes);
+	}
+
+//	@Override
+//	public void event(double magnitude, double angle) {
+//		byte[] bytes = new byte[3];
+//		bytes[0] = 'm';
+//
+//		if (magnitude < 0.10){
+//			bytes[1] = 0;
+//			bytes[2] = 0;
+//		} else {
+//			double powerLeft;
+//			double powerRight;
+//			double innerMotor, outerMotor;
+//			double angleAbs = Math.abs(angle);
+//			
+//			innerMotor = Math.cos(angleAbs*2);
+//			if(angleAbs > Math.PI * 3f/4f) {
+//				innerMotor *= -1;
+//			}
+//			if(angleAbs < Math.PI/2) {
+//				outerMotor = 1;
+//			} else if(angleAbs < Math.PI * 3f/4f) {
+//				outerMotor = Math.cos(angleAbs*4);
+//			} else {
+//				outerMotor = -1;
+//			}
+//			
+//			innerMotor = 1 - 2 * Math.acos(innerMotor) / Math.PI;
+//			outerMotor = 1 - 2 * Math.acos(outerMotor) / Math.PI;
+//			
+//			
+//			if(Math.signum(angle) > 0) {
+//				powerRight = innerMotor;
+//				powerLeft = outerMotor;
+//			} else {
+//				powerRight = outerMotor;
+//				powerLeft = innerMotor;
+//			}
+//			powerLeft *= magnitude;
+//			powerRight *= magnitude;
+//			
+//			bytes[1] = (byte) (127 * powerLeft);
+//			bytes[2] = (byte) (127 * powerRight);
+//		}
+//		
+//
+//		try {
+//			bluetooth.send(bytes);
+//		} catch (BluetoothException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
+
+}

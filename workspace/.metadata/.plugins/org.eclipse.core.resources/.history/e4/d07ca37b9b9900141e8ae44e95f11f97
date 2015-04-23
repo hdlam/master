@@ -1,0 +1,374 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package boidSim;
+
+import java.awt.Point;
+import java.awt.RenderingHints.Key;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.lang.reflect.Array;
+import java.net.Inet4Address;
+import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import no.ntnu.idi.chirp.Multicast;
+import no.ntnu.idi.chirp.MulticastListener;
+import no.ntnu.idi.chirp.rxtx.RxtxClass;
+
+import org.lwjgl.LWJGLException;
+import org.lwjgl.Sys;
+import org.lwjgl.input.Keyboard;
+import org.lwjgl.opengl.Display;
+import org.lwjgl.opengl.DisplayMode;
+import org.lwjgl.opengl.GL11;
+import org.newdawn.slick.AppGameContainer;
+import org.newdawn.slick.BasicGame;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
+
+/**
+ * This is the main class for the project
+ *
+ * @author HD
+ */
+public class BoidSim extends BasicGame implements MulticastListener{
+	ArrayList<ChirpRobot> prototype;
+	static boolean redlight, smartCarSim; 
+	final int size = 50;
+	static int w = 800;
+	static int h = 652;
+	boolean render;
+	Input input;
+	double angle;
+	boolean averaging;
+	//800 * 652
+	//Threshold values
+	static double distance;
+	static double nearestDist;
+	private int numOfBots = 4;
+	private Multicast mc;
+	private ArrayList<RxtxClass> rxtxrobots = new ArrayList<>();
+	public boolean simulation = true;
+	
+	public BoidSim(String title, Multicast mc) {
+		super(title);
+		prototype = new ArrayList<ChirpRobot>();
+		this.mc = mc;
+		rxtxrobots = RxtxClass.getRobotHandles();
+	}
+	
+	@Override
+	public void init(GameContainer gc) throws SlickException {
+		distance = 80;
+		angle = Math.PI/3;
+		nearestDist = 23;
+		render = true;
+		
+		prototype = new ArrayList<ChirpRobot>();
+		redlight = true; smartCarSim = false;
+		averaging = false;
+		
+		input = gc.getInput();
+		if(simulation){
+			for (int i = 0; i < numOfBots; i++) {
+				prototype.add(new ChirpRobot(Math.random()*w, Math.random()*h, Math.random(), i+"", this));
+			}
+		}
+		
+	}
+	
+	public List<ChirpRobot> getPrototype() {
+		return prototype;
+	}
+
+
+	@Override
+	public void render(GameContainer gc, Graphics graphics) throws SlickException {
+		
+		graphics.setColor(Color.white);
+		graphics.drawString("platooning is:" + (smartCarSim?"on":"off"), 50, 50);
+		graphics.drawString("robots from udp?:" + (simulation?"on":"off"), 50, 38);
+		for (int i = 0; i < prototype.size(); i++) {
+			prototype.get(i).draw(graphics);
+		}
+		//graphics.drawString(prototype.size()+"", 300f, 300f);
+		
+	}
+	
+	
+	
+	/**
+	 * KEYBOARD SHORTCUTS
+	 * x - redlight toggle
+	 * q - quit
+	 * z - platooning toggle
+	 * r - render hitboxes
+	 * a - pair COM port
+	 * c - each robot finds its closest point
+	 * u - refreshes the robots on the comm port (not sure)
+	 **/
+	@Override
+	public void update(GameContainer gc, int delta) throws SlickException {
+		for (int j = 0; j < prototype.size(); j++) {
+			prototype.get(j).move(delta);
+		}
+		if(input.isKeyPressed(Input.KEY_X)){
+			redlight = !redlight;
+		}
+		if(input.isKeyPressed(Input.KEY_Q) || input.isKeyPressed(Input.KEY_ESCAPE))
+			closeRequested();
+		if(input.isKeyPressed(Input.KEY_Z))
+			smartCarSim =!smartCarSim;
+		
+		if(input.isKeyPressed(Input.KEY_R)){
+			render = !render;
+		}
+		
+		if(input.isKeyPressed(Input.KEY_A)){
+			stopAllRobots();
+			for (RxtxClass ser : rxtxrobots) {
+				checkRxTx(ser).setRxtx(ser);
+			}
+		}
+		if(input.isKeyPressed(Input.KEY_U))
+		{
+			for (RxtxClass r : rxtxrobots)
+			{
+				r.sendRobotData(0, 0);
+				try 
+				{
+					Thread.sleep(50);
+				} 
+				catch (InterruptedException e)
+				{
+					e.printStackTrace();
+				}
+				r.Stop();
+			}
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			rxtxrobots.clear();
+			rxtxrobots = RxtxClass.getRobotHandles();
+			System.out.println("Found "+rxtxrobots.size()+" robot(s)");
+		}
+		if(input.isKeyPressed(Input.KEY_P)){
+			prototype = new ArrayList<ChirpRobot>();
+			if(simulation){
+				for (int i = 0; i < numOfBots; i++) {
+					prototype.add(new ChirpRobot(Math.random()*w, Math.random()*h, Math.random(), i+"", this));
+				}
+			}
+			
+		}
+		if(input.isKeyPressed(Input.KEY_S)){
+			simulation = !simulation;
+		}
+		
+		
+		
+	}
+	
+	public long getTime() {
+		return (Sys.getTime() * 1000) / Sys.getTimerResolution();
+	}
+
+	public static void main(String[] args) throws UnknownHostException {
+		// TODO code application logic here
+
+		BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
+		Multicast mc = new Multicast(Inet4Address.getLocalHost().getHostAddress());
+		BoidSim sim = new BoidSim("simulator", mc);
+		
+
+		mc.addListener(sim);
+		
+		try {
+			mc.openRecieve();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		
+		try {
+			AppGameContainer appgc;
+			appgc = new AppGameContainer(sim);
+			appgc.setDisplayMode(w, h, false);
+			appgc.setTargetFrameRate(60);
+			appgc.setAlwaysRender(true);
+			appgc.start();
+			
+		} catch (SlickException ex) {
+			Logger.getLogger(BoidSim.class.getName()).log(Level.SEVERE, null, ex);
+		}
+
+		try {
+			mc.send(inFromUser.readLine());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		mc.closeRecieve();
+	}
+	
+	public boolean closeRequested() {
+		mc.closeRecieve();
+		for (RxtxClass r : rxtxrobots)
+		{
+			r.sendRobotData(0, 0);
+			try 
+			{
+				Thread.sleep(50);
+			} 
+			catch (InterruptedException e)
+			{
+				e.printStackTrace();
+			}
+			r.Stop();
+		}
+		System.exit(0);
+		//TODO
+		return true;
+		
+	}
+	
+
+	public ChirpRobot nearest(double x, double y) {
+         double dist = Double.MAX_VALUE;
+         ChirpRobot nearest = null;
+         for (ChirpRobot robot : prototype) {
+             if(Math.hypot(x-robot.getX(), y-robot.getY())<dist){
+                 dist = Math.hypot(x-robot.getX(), y-robot.getY());
+                 nearest = robot;
+             }
+         }
+         return nearest;
+	 }
+	
+	@Override
+	public void multiCastRecieved(String str) {
+		//System.out.println(str);
+		for (String part : str.split("\\|")) {
+        	if (!part.matches("(X\\d+:\\d\\.\\d+);(Y\\d+:\\d\\.\\d+);(R\\d+:\\d(\\.\\d+)?)"))
+        		continue;
+            String[] split = part.split(";");
+            String id = split[0].split(":")[0].substring(1);
+            double x = Double.parseDouble(split[0].split(":")[1])*w;
+            double y = Double.parseDouble(split[1].split(":")[1])*h;
+            double r = Double.parseDouble(split[2].split(":")[1]);
+            
+            updateRobotPosition(id, x, y, r);
+        }
+	}
+
+	private void updateRobotPosition(String id, double x, double y, double r) {
+		boolean found = false;
+		
+		for(ChirpRobot robot : prototype) {
+			if (robot.getID().equals(id)) {
+				robot.setAngle(r);
+				robot.setPosition(x, y);
+				found = true;
+			}
+		}
+		if (!found) {
+			if (prototype.size() == numOfBots) {
+				ChirpRobot nearest = nearest(x,y);
+				nearest.setID(id);
+				nearest.setAngle(r);
+				nearest.setPosition(x, y);
+				//TODO: check rxtx?
+			} else {
+				ChirpRobot robot = new ChirpRobot(x, y, r, id, this);
+				//TODO: fix denne her..
+				prototype.add(robot);
+			}
+		}
+	}
+	
+	private void stopAllRobots() {
+		for (RxtxClass serial : rxtxrobots) 
+		{
+			serial.sendRobotData(0, 0);
+		}
+		try 
+		{
+			Thread.sleep(50);
+		} 
+		catch (InterruptedException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	private ChirpRobot checkRxTx(RxtxClass rxtx) 
+	{
+		String lastmsg = mc.getLastMsg();
+		//System.out.println("end"+lastmsg);
+		multiCastRecieved(lastmsg);
+		ChirpRobot[] robots = new ChirpRobot[prototype.size()];
+		double[] angles = new double[prototype.size()];
+		for (int i = 0; i < angles.length; i++) 
+		{
+			ChirpRobot rob = prototype.get(i);
+			robots[i] = rob;
+			angles[i] = rob.getAngle();
+			//System.out.println("---- "+rob.getID()+" "+rob.getAngle());
+		}
+		//Start rotate:
+		rxtx.sendRobotData(-255, 255);
+		try {
+			Thread.sleep(500);
+		
+			rxtx.sendRobotData(0, 0);
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		lastmsg = mc.getLastMsg();
+		//System.out.println("end"+lastmsg);
+		multiCastRecieved(lastmsg);
+		
+		// who rotated?
+		ChirpRobot maxRotRob = robots[0];
+		double maxRotAngle = 0;
+		for (int i = 0; i < angles.length; i++) 
+		{
+			ChirpRobot rob = robots[i];
+			//System.out.println("---- "+rob.getID()+" "+rob.getAngle());
+			double deltaAngle = Math.abs(((rob.getAngle()-angles[i]) + Math.PI) % (Math.PI*2) - Math.PI);
+			//System.out.println("robot "+rob.getID()+" rotated: "+deltaAngle+"     "+lastmsg);
+			if(maxRotAngle<deltaAngle)
+			{ 
+				maxRotRob = rob;
+				maxRotAngle = deltaAngle;//rob.getAngle()-angles[i];
+			}
+		}
+		
+		try {
+			Thread.sleep(500);
+			
+			rxtx.sendRobotData(255, -255);
+		
+			Thread.sleep(500);
+			rxtx.sendRobotData(0, 0);
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+		//System.out.println("robot "+maxRotRob.getID()+" got assigned: "+rxtx.portName);
+		return maxRotRob;
+	}
+
+}

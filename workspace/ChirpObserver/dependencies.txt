@@ -1,0 +1,6 @@
+pthread
+boost_program_options
+boost_system
+opencv_imgproc
+opencv_core
+opencv_highgui

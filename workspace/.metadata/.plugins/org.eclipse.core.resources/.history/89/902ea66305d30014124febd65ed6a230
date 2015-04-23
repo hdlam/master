@@ -1,0 +1,241 @@
+package boidsSimulatorJava;
+
+import org.newdawn.slick.*;
+import org.newdawn.slick.geom.Circle;
+import org.newdawn.slick.geom.Shape;
+import org.lwjgl.input.Keyboard;
+
+import java.util.ArrayList;
+import java.util.Random;
+
+/**
+ * Created with IntelliJ IDEA.
+ * Created By: Lyndon Armitage
+ * Date: 22/02/13
+ */
+public class BoidsGame extends BasicGame {
+
+	private static final int WIDTH = 800;
+	private static final int HEIGHT = 652;
+	private static int targetFrameRate = 60;
+
+	private boolean debugOn = true;
+	private boolean drawGrid = true;
+	private boolean drawArc = true;
+	
+	private AppGameContainer container = null;
+	private boolean paused = true;
+	private ArrayList<ChirpBoid> boids = null;
+	private static int numOfBots = 4;
+	
+	private ArrayList<Shape> obstacles;
+	
+	Input input;
+
+	public static void main(String args[]) {
+		BoidsGame game = new BoidsGame("Boids simulator");
+		AppGameContainer appgc;
+		try {
+			appgc = new AppGameContainer(game, WIDTH, HEIGHT, false);
+			appgc.setShowFPS(true);
+			appgc.setTargetFrameRate(targetFrameRate);
+			appgc.setPaused(true);
+			appgc.setAlwaysRender(true);
+			game.container = appgc;
+			appgc.start();
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public BoidsGame(String title) {
+		super(title);
+	}
+
+	
+	
+	
+	@Override
+	public void init(GameContainer gc) throws SlickException {
+		Random rnd = new Random();
+		boids = new ArrayList<ChirpBoid>();
+		// add the boids
+		input = gc.getInput();
+		createBoids();
+		obstacles = new ArrayList<Shape>();
+		createObstacles();
+		gc.setPaused(false);
+	}
+
+	@Override
+	public void update(GameContainer gc, int delta) throws SlickException {
+		//System.out.println(delta);
+ 
+		if(input.isKeyPressed(Input.KEY_Q) || input.isKeyPressed(Input.KEY_ESCAPE))
+			gc.exit();
+	
+	if(input.isKeyPressed(Input.KEY_P)){
+		createBoids();
+	}
+
+	if(input.isKeyPressed(Input.KEY_1))
+		numOfBots = 1;
+	if(input.isKeyPressed(Input.KEY_2))
+		numOfBots = 2;
+	if(input.isKeyPressed(Input.KEY_3))
+		numOfBots = 3;
+	if(input.isKeyPressed(Input.KEY_4))
+		numOfBots = 4;
+	if(input.isKeyPressed(Input.KEY_5))
+		numOfBots = 5;
+	if(input.isKeyPressed(Input.KEY_6))
+		numOfBots = 6;
+	if(input.isKeyPressed(Input.KEY_7))
+		numOfBots = 7;
+	if(input.isKeyPressed(Input.KEY_8))
+		numOfBots = 8;
+		
+	if (input.isMousePressed(input.MOUSE_LEFT_BUTTON)) {
+		ChirpBoid boid = new ChirpBoid((int)(Math.random()*WIDTH), (int)(Math.random()*HEIGHT), intToCol((int)(Math.random()*10)), (int)(Math.random()*120)-60, (int)(Math.random()*120)-60);
+		boids.add(boid);
+	}
+	
+	if(input.isKeyPressed(Input.KEY_SPACE))
+		paused = !paused;
+	if(paused)
+		return;
+	for (ChirpBoid b : boids) {
+		b.update(gc, delta, boids, obstacles);
+	}
+//	if(input.isKeyPressed(Input.KEY_R)){
+//		render = !render;
+//	}
+//	
+//	if(input.isKeyPressed(Input.KEY_A)){
+//		stopAllRobots();
+//		for (RxtxClass ser : rxtxrobots) {
+//			checkRxTx(ser).setRxtx(ser);
+//		}
+//	}
+//	if(input.isKeyPressed(Input.KEY_U))
+//	{
+//		for (RxtxClass r : rxtxrobots)
+//		{
+//			r.sendRobotData(0, 0);
+//			try 
+//			{
+//				Thread.sleep(50);
+//			} 
+//			catch (InterruptedException e)
+//			{
+//				e.printStackTrace();
+//			}
+//			r.Stop();
+//		}
+//		try {
+//			Thread.sleep(1000);
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
+//		rxtxrobots.clear();
+//		rxtxrobots = RxtxClass.getRobotHandles();
+//		System.out.println("Found "+rxtxrobots.size()+" robot(s)");
+//	}
+}
+	
+	private void createBoids(){
+		boids.clear();
+//		for (int i = 0; i < numOfBots; i++) {
+////			ChirpBoid boid = new ChirpBoid((int)(Math.random()*WIDTH), (int)(Math.random()*HEIGHT), intToCol(i), rnd.nextInt(200) - 100, rnd.nextInt(200) - 100);
+//			ChirpBoid boid = new ChirpBoid((int)(Math.random()*WIDTH), (int)(Math.random()*HEIGHT), intToCol((int)(Math.random()*10)), (int)(Math.random()*120)-60, (int)(Math.random()*120)-60);
+////			ChirpBoid boid = new ChirpBoid((WIDTH)/2, (HEIGHT)/2, intToCol(i), (int)(Math.random()*120)-60, (int)(Math.random()*120)-60);
+//			boids.add(boid);
+//			
+//		}{-414.481, -279.654}
+		boids.add(new ChirpBoid(424.58f, 270.87f, intToCol(0), 0, 0));
+		boids.add(new ChirpBoid(158, 191.28f, intToCol(0), 0, 0));
+		boids.add(new ChirpBoid(483.10f, 310.36f, intToCol(0), 0, 0));
+		boids.add(new ChirpBoid(175.06f, 485.43f, intToCol(0), 0, 0));
+	}
+
+	@Override
+	public void render(GameContainer gc, Graphics g) throws SlickException {
+
+		if (drawGrid) {
+			drawGrid(g);
+		}
+
+		for (ChirpBoid b : boids) {
+			b.render(gc, g);
+			if (drawArc) {
+				b.renderArc(g);
+			}
+		}
+		g.setColor(Color.red);
+		for(Shape s : obstacles){
+			g.draw(s);
+		}
+
+		if (debugOn) {
+			g.setColor(Color.green);
+			g.drawString("0,0", 10f, 0f);
+			g.drawString(WIDTH + "," + HEIGHT, WIDTH - 65, HEIGHT - 18);
+		}
+	}
+
+	/**
+	 * Draw a grid for debugging
+	 *
+	 * @param g graphics context
+	 */
+	private void drawGrid(Graphics g) {
+		final int gridSize = 100;
+		g.setColor(Color.darkGray);
+		for (int x = 0; x < WIDTH; x += gridSize) {
+			g.drawLine(x, 0f, x, HEIGHT);
+		}
+		for (int y = 0; y < HEIGHT; y += gridSize) {
+			g.drawLine(0f, y, WIDTH, y);
+		}
+	}
+	
+	private void createObstacles(){
+		for (int i = 0; i < 5; i++) {
+			float x = (float) (Math.random()*WIDTH);
+			float y = (float) (Math.random()*HEIGHT);
+			Shape s = new Circle(x, y, (float) (Math.random()*40));
+			obstacles.add(s);
+		}
+	}
+	
+	
+	private Color intToCol(int i){
+		switch (i) {
+		case 0:
+			return Color.lightGray;
+		case 1:
+			return Color.magenta;
+	
+		case 2:
+			return Color.cyan;
+			
+		case 3:
+			return Color.blue;
+			
+		case 4:
+			return Color.yellow;
+			
+		case 5:
+			return Color.orange;
+			
+		case 6:
+			return Color.pink;
+			
+		case 7:
+			return Color.gray;
+			
+		default:
+			return Color.white;
+		}
+	}
+}

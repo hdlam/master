@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item value="297" key="DIALOG_WIDTH"/>
+		<item value="139" key="DIALOG_Y_ORIGIN"/>
+		<item value="663" key="DIALOG_X_ORIGIN"/>
+		<item value="399" key="DIALOG_HEIGHT"/>
+		<item value="1|Droid Sans|12.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item value="true" key="wrap"/>
+		<item value="false" key="casesensitive"/>
+		<item value="false" key="isRegEx"/>
+		<item value="false" key="incremental"/>
+		<item value="false" key="wholeword"/>
+		<item value="send" key="selection"/>
+		<list key="findhistory">
+			<item value="send"/>
+			<item value="key"/>
+			<item value="System."/>
+			<item value="S"/>
+			<item value="move"/>
+			<item value="draw"/>
+			<item value="steerTo"/>
+			<item value="set"/>
+		</list>
+		<list key="replacehistory">
+			<item value="ts.size"/>
+			<item value="*4"/>
+		</list>
+	</section>
+	<section name="org.eclipse.ui.texteditor.GotoLineAction$GotoLineDialog_dialogBounds">
+		<item value="838" key="DIALOG_Y_ORIGIN"/>
+		<item value="300" key="DIALOG_X_ORIGIN"/>
+	</section>
+</section>

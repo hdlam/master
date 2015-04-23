@@ -1,0 +1,288 @@
+package com.idi.ntnu.chirpremote;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Set;
+import java.util.UUID;
+
+import android.app.Activity;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
+import android.content.Intent;
+import android.support.v4.util.LogWriter;
+import android.util.Log;
+
+/**
+ * Allows a Bluetooth connection to a device to be established.
+ * Data can then be transmitted and received using byte arrays.
+ * @author ??? and Erik Samuelsson
+ *
+ */
+public class Bluetooth {
+	
+	/**
+	 * An exception for the Bluetooth functionality.
+	 * @author erik
+	 *
+	 */
+	public class BluetoothException extends IOException {
+		private static final long serialVersionUID = 2220758507024563332L;
+
+		/**
+		 * Constructor taking a message describing the exception.
+		 * @param detailMessage
+		 */
+		public BluetoothException(String detailMessage) {
+			super(detailMessage);
+		}
+		
+	}
+	
+	/**
+	 * An interface needed to receive data from the Bluetooth connection.
+	 * @author erik
+	 *
+	 */
+	public interface BluetoothCommunicator {
+		/**
+		 * This method is called when data is received by the connection, once for each byte received.
+		 * @param data Raw data received by the connection.
+		 */
+		public void receiveBluetoothData(byte data);
+	}
+	
+	//Note, you will need to change this to match the name of your device
+//	private static String deviceString = "Piaget";
+	private static String deviceString = "MrBackup";
+	
+	private BluetoothAdapter 	adapter;
+	private BluetoothDevice		device;
+	private BluetoothSocket		socket;
+	private OutputStream 		outputStream;
+	private InputStream 		inputStream;
+	
+	private boolean 			stopWorker		= false;
+	private boolean 			isConnected 		= false;
+	private BluetoothCommunicator communicator;
+	private Activity 			activity;
+
+	/**
+	 * Constructor taking an activity to control the Bluetooth functionality of the host device, 
+	 * and the communicator that will read the received data.
+	 * @param activity The activity in control of the Bluetooth functionality of the host device. 
+	 * @param communicator The object reading the received data.
+	 */
+	public Bluetooth(Activity activity, BluetoothCommunicator communicator) {
+		this.activity = activity;
+		this.communicator = communicator;
+	}
+	
+	/**
+	 * Connect the Bluetooth connection. This method should only be called when unconnected.
+	 * @throws BluetoothException If an exception occurs during the connect.
+	 */
+	public void connect() throws BluetoothException {
+		setAdapter();
+		enableAdapter(activity);
+		findDevice(deviceString);
+		connectDevice();
+	}
+	
+	/**
+	 * Disconnect the Bluetooth connection. This method should only be called when not connected.
+	 * @throws BluetoothException If an exception occurs during the disconnect.
+	 */
+	public void disconnect() throws BluetoothException {
+		if(!isConnected) {
+			throw new BluetoothException("Attempted to disconnect from device when not connected");
+		}
+		
+		try	{
+			stopWorker = true;
+			outputStream.close();
+			inputStream.close();
+			socket.close();
+			isConnected = false;
+		} 
+		catch (IOException e) {
+			throw new BluetoothException("I/O error occured during disconnect from decive");
+		}
+	}
+	
+	/**
+	 * Send bytes over the connection. 
+	 * @param bytes The bytes to be sent.
+	 * @throws BluetoothException If an exception occurs during the transfer.
+	 */
+	public void send(byte[] bytes) throws BluetoothException {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < bytes.length; i++) {
+			sb.append(bytes[i] + "     ");
+		}
+		Log.d("test", sb.toString());
+		
+		if(!isConnected) {
+			throw new BluetoothException("Attempted to send while not connected");
+		}
+		try {
+			outputStream.write(bytes);
+		} catch (IOException e) {
+			throw new BluetoothException("Error occured during sending of data");
+		}
+	}
+	
+	/**
+	 * 
+	 * @return <code>true</code> if the connection is up, <code>false</code> otherwise.
+	 */
+	public boolean isConnected() {
+		Log.d("test", "connected");
+		return isConnected;
+	}
+	
+	
+	/**
+	 * Set the adapter of the Bluetooth connection. This needs to be called before connecting for the first time.
+	 * @throws BluetoothException If no Bluetooth adapter is found.
+	 */
+	private void setAdapter() throws BluetoothException {
+		adapter = BluetoothAdapter.getDefaultAdapter();
+		if(adapter == null) {
+			throw new BluetoothException("No bluetooth on this device");
+		}
+	}
+	
+	/**
+	 * Enable the Bluetooth adapter. This needs to be called before connecting for the first time, but after setting the adapter.
+	 * @param activity The activity in control of the adapter.
+	 */
+	private void enableAdapter(Activity activity) {
+		if(!adapter.isEnabled())
+		{
+			Intent enableBluetooth = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+			activity.startActivityForResult(enableBluetooth, 0);
+			return;
+		}
+	}
+	
+	/**
+	 * Search for a device in the list of paired devices. 
+	 * Needs to be called before connecting for the first time, but after the adapter is set.
+	 * @param deviceName The name of the device.
+	 * @throws BluetoothException If the device is not found.
+	 */
+	private void findDevice(String deviceName) throws BluetoothException {
+		
+		Set<BluetoothDevice> pairedDevices = adapter.getBondedDevices();
+		
+		if(pairedDevices.size() > 0) {
+			for(BluetoothDevice device : pairedDevices) {
+				if(device.getName().equals(deviceName)) {
+					this.device = adapter.getRemoteDevice(device.getAddress());
+					return;
+				}
+			}
+		}
+		
+		throw new BluetoothException("Device not found: " + deviceName);
+	}
+	
+	/**
+	 * Initiate the connection. After this method succeeds, the connection can be used to transfer data.
+	 * @throws BluetoothException
+	 */
+	private void connectDevice() throws BluetoothException {
+		
+		
+		UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"); //Standard SerialPortService ID
+		
+		// initialize socket
+		try {
+			Method m = device.getClass().getMethod("createRfcommSocket", new Class[] {int.class});
+			socket = (BluetoothSocket) m.invoke(device, 1);
+		} catch (NullPointerException e) {
+			try {
+				socket = device.createRfcommSocketToServiceRecord(uuid);
+			} catch (IOException e2) {
+				throw new BluetoothException("Failed to connect to the device.");
+			} 
+		} catch (NoSuchMethodException e) {
+			throw new BluetoothException("No such method exception");
+		} catch (IllegalArgumentException e) {
+			throw new BluetoothException("Illegal argument exception");
+		} catch (IllegalAccessException e) {
+			throw new BluetoothException("Illegal access exception");
+		} catch (InvocationTargetException e) {
+			throw new BluetoothException("Invocation target exception");
+		} 
+		
+		
+		// connect socket
+		adapter.cancelDiscovery();
+		try {
+			socket.connect();
+		} catch (IOException e1) {
+			throw new BluetoothException("Failed to open socket to device");
+		}
+		
+		// open streams
+		try {
+			outputStream 	= socket.getOutputStream();
+			inputStream 	= socket.getInputStream();
+		} catch (IOException e1) {
+			throw new BluetoothException("Failed to open I/O-stream");
+		}
+		
+		
+		// create thread for receiving data
+		stopWorker = false;
+		Thread workerThread = new Thread(new Runnable() {
+
+			public void run()
+			{					
+				try {
+					byte[] buffer = new byte[1024];
+					int bufferindex = 0;
+					int bytesAvailable;
+					
+					while(!Thread.currentThread().isInterrupted() && !stopWorker)
+					{
+						//fetch the input:
+						bytesAvailable = inputStream.available();
+						if(bytesAvailable > 0)
+						{
+							inputStream.read(buffer, bufferindex, bytesAvailable);
+							bufferindex += bytesAvailable;
+							for (int i=0; i < bytesAvailable; i++) 
+							{
+								communicator.receiveBluetoothData(buffer[i]);
+								Log.d("test", "received data");
+									
+							}
+							//reset buffer:
+							buffer = new byte[1024];
+							bufferindex = 0;
+						}
+						try 
+						{
+							Thread.sleep(100);
+						} 
+						catch (InterruptedException e) {}
+					}		
+				} catch (IOException e) {
+					System.out.println("Failed to read data from Bluetooth stream");
+					e.printStackTrace();
+				}
+			}
+		});		
+		workerThread.start();
+
+		isConnected = true;
+	}
+	
+}

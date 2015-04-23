@@ -1,0 +1,55 @@
+package snippet;
+
+import gnu.io.CommPortIdentifier;
+
+import java.util.*;
+
+public class Snippet {
+	//
+	// Platform specific port name, here= a Unix name
+	//
+	// NOTE: On at least one Unix JavaComm implementation JavaComm 
+	//       enumerates the ports as "COM1" ... "COMx", too, and not
+	//       by their Unix device names "/dev/tty...". 
+	//       Yet another good reason to not hard-code the wanted
+	//       port, but instead make it user configurable.
+	//
+	
+	public static void main(String[] args) {
+		
+	
+	String wantedPortName = "/dev/rfcomm0";
+	 
+	//
+	// Get an enumeration of all ports known to JavaComm
+	//
+	Enumeration portIdentifiers = CommPortIdentifier.getPortIdentifiers();
+	//
+	// Check each port identifier if 
+	//   (a) it indicates a serial (not a parallel) port, and
+	//   (b) matches the desired name.
+	//
+	CommPortIdentifier portId = null;
+	System.out.println(portIdentifiers.nextElement());
+	while (portIdentifiers.hasMoreElements())
+	{
+	    CommPortIdentifier pid = (CommPortIdentifier) portIdentifiers.nextElement();
+	    System.out.println("something" + pid.getName());
+	    if(pid.getPortType() == CommPortIdentifier.PORT_SERIAL &&
+	    		pid.getName().equals(wantedPortName)) 
+	    {
+	        portId = pid;
+	        break;
+	    }
+	}
+	if(portId == null)
+	{
+	    System.err.println("Could not find serial port " + wantedPortName);
+	    System.exit(1);
+	}
+	//
+	// Use port identifier for acquiring the port
+	//
+} // will be set if port found
+}
+

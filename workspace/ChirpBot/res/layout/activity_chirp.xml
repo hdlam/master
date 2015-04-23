@@ -1,0 +1,98 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="fill_horizontal"
+    tools:context=".ChirpActivity" >
+
+    <Button
+        android:id="@+id/forwardbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/stopbutton"
+        android:layout_centerHorizontal="true"
+        android:text="Fwd" />
+
+    <Button
+        android:id="@+id/rightbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/stopbutton"
+        android:layout_alignBottom="@+id/stopbutton"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/stopbutton"
+        android:text="Right" />
+
+    <Button
+        android:id="@+id/leftbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/stopbutton"
+        android:layout_alignBottom="@+id/stopbutton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/leftbuttonfwd"
+        android:text="Left" />
+
+    <Button
+        android:id="@+id/connectbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="Connect" />
+
+    <TextView
+        android:id="@+id/statustext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:text="Status" />
+
+    <Button
+        android:id="@+id/reversebutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/statustext"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:text="Rev" />
+
+    <Button
+        android:id="@+id/stopbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/reversebutton"
+        android:layout_centerHorizontal="true"
+        android:text="Stop" />
+
+    <no.ntnu.chirp_bot.drawables.SensorView
+        android:id="@+id/sensorView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/forwardbutton"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/connectbutton" >
+    </no.ntnu.chirp_bot.drawables.SensorView>
+
+    <Button
+        android:id="@+id/rightbuttonfwd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/rightbutton"
+        android:layout_alignLeft="@+id/rightbutton"
+        android:layout_alignParentRight="true"
+        android:text="Right" />
+
+    <Button
+        android:id="@+id/leftbuttonfwd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/sensorView1"
+        android:layout_toLeftOf="@+id/forwardbutton"
+        android:text="Left" />
+
+</RelativeLayout>

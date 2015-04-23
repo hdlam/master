@@ -1,0 +1,2 @@
+eclipse.preferences.version=1
+org.eclipse.jdt.launching.PREF_VM_XML=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\n<vmSettings defaultVM\="57,org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType13,1425043862074" defaultVMConnector\="">\n<vmType id\="org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType">\n<vm id\="1409757878779" name\="java-7-oracle" path\="/usr/lib/jvm/java-7-oracle"/>\n<vm id\="1425043862074" name\="java-7-oracle-root" path\="/usr/lib/jvm/java-7-oracle" vmargs\="--run-as-root"/>\n</vmType>\n</vmSettings>\n

@@ -1,0 +1,102 @@
+package com.lyndonarmitage.boids;
+
+import org.newdawn.slick.*;
+
+import java.util.ArrayList;
+import java.util.Random;
+
+/**
+ * Created with IntelliJ IDEA.
+ * Created By: Lyndon Armitage
+ * Date: 22/02/13
+ */
+public class BoidsGame extends BasicGame {
+
+	private static final int WIDTH = 800;
+	private static final int HEIGHT = 600;
+	private static int targetFrameRate = 30;
+
+	private boolean debugOn = true;
+	private boolean drawGrid = false;
+	private boolean drawArc = true;
+
+	private AppGameContainer container = null;
+	private boolean paused = true;
+	private ArrayList<Boid> boids = null;
+
+	public static void main(String args[]) {
+		BoidsGame game = new BoidsGame("Boids - By Lyndon Armitage");
+		AppGameContainer app;
+		try {
+			app = new AppGameContainer(game, WIDTH, HEIGHT, false);
+			app.setShowFPS(false);
+			app.setTargetFrameRate(targetFrameRate);
+			app.setPaused(true);
+			game.container = app;
+			app.start();
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public BoidsGame(String title) {
+		super(title);
+	}
+
+	@Override
+	public void init(GameContainer gc) throws SlickException {
+		Random rnd = new Random();
+		boids = new ArrayList<Boid>();
+		// add the boids
+		Boid boid1 = new Boid(WIDTH / 2, HEIGHT / 2, rnd.nextInt(200) - 100, rnd.nextInt(200) - 100);
+		boids.add(boid1);
+		Boid boid2 = new Boid(WIDTH / 4, HEIGHT / 2, rnd.nextInt(200) - 100, rnd.nextInt(200) - 100);
+		boids.add(boid2);
+		gc.setPaused(false);
+	}
+
+	@Override
+	public void update(GameContainer gc, int delta) throws SlickException {
+		//System.out.println(delta);
+		for (Boid b : boids) {
+			b.update(gc, delta, boids);
+		}
+	}
+
+	@Override
+	public void render(GameContainer gc, Graphics g) throws SlickException {
+
+		if (drawGrid) {
+			drawGrid(g);
+		}
+
+		for (Boid b : boids) {
+			b.render(gc, g);
+			if (drawArc) {
+				b.renderArc(g);
+			}
+		}
+
+		if (debugOn) {
+			g.setColor(Color.green);
+			g.drawString("0,0", 10f, 0f);
+			g.drawString(WIDTH + "," + HEIGHT, WIDTH - 65, HEIGHT - 18);
+		}
+	}
+
+	/**
+	 * Draw a grid for debugging
+	 *
+	 * @param g graphics context
+	 */
+	private void drawGrid(Graphics g) {
+		final int gridSize = 100;
+		g.setColor(Color.darkGray);
+		for (int x = 0; x < WIDTH; x += gridSize) {
+			g.drawLine(x, 0f, x, HEIGHT);
+		}
+		for (int y = 0; y < HEIGHT; y += gridSize) {
+			g.drawLine(0f, y, WIDTH, y);
+		}
+	}
+}
