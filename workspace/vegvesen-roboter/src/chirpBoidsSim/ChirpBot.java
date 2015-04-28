@@ -76,7 +76,7 @@ public class ChirpBot implements RxtxListener{
 	}
 	
 	public void canSend(){
-		canSend =true;
+		canSend = true;
 	}
 	
 	

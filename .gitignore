@@ -22,3 +22,10 @@
 *.out
 *.synctex.gz
 *.pdf
+workspace/.metadata/*
+.classpath
+.project
+.settings
+.metadata
+.ini
+.jar

@@ -31,7 +31,7 @@ void setup()
   count = -1;
   ir.begin(front_addr, back_addr);
   motor.begin(motor_addr);
-
+  //test
 }
 
 float convert(byte array[], int start){

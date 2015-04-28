@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import jssc.SerialPortException;
-
+//HD
 
 public class RxtxClass implements Runnable
 {
@@ -136,6 +136,7 @@ public class RxtxClass implements Runnable
 	{
 		long timeout = System.currentTimeMillis();
 		if(!portName.startsWith("/dev/rfcomm")) return false;
+		if(portName.contains("/dev/rfcomm3")) return false;
 //		if(!portName.startsWith("/dev/ttyACM")) return false;
 		try
 		{

@@ -172,10 +172,11 @@ public class ChirpBoidWatcher extends BasicGame implements MulticastListener{
 		
 		//mouse assignment;
 		if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
-            if(numOfRobotAssigned < numOfBots-1)
-			nearest(input.getMouseX(),input.getMouseY()).setRxtx(rxtxrobots.get(numOfRobotAssigned));
-            rxtxrobots.get(numOfRobotAssigned).sendSingleByte(0);
-            numOfRobotAssigned++;
+            if(numOfRobotAssigned < numOfBots-1){
+            	nearest(input.getMouseX(),input.getMouseY()).setRxtx(rxtxrobots.get(numOfRobotAssigned));
+            	rxtxrobots.get(numOfRobotAssigned).sendSingleByte(0);
+            	numOfRobotAssigned++;
+            }
             
         }
 		if(input.isKeyPressed(Input.KEY_Q) || input.isKeyPressed(Input.KEY_ESCAPE))
