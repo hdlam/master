@@ -1,0 +1,292 @@
+\hypertarget{class_motors}{\section{Motors Class Reference}
+\label{class_motors}\index{Motors@{Motors}}
+}
+
+
+{\ttfamily \#include $<$Motors.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_motors_aef975cec60f33785886ce661226e7cfd}{Motors} ()
+\item 
+void \hyperlink{class_motors_a0dcf7acd7f2f0661b8a965b3565b5da5}{begin} (uint8\-\_\-t addr)
+\item 
+void \hyperlink{class_motors_add7dbb21bb40761547b70339e49b6c0c}{move\-At\-Speeds} (int left, int right)
+\item 
+void \hyperlink{class_motors_a2017e90a68d1125b4c830a298609d882}{set\-Speeds} (int left, int right)
+\item 
+void \hyperlink{class_motors_a177352e839ab155408f17a7b58bea35a}{set\-Left\-Speed} (int speed)
+\item 
+void \hyperlink{class_motors_a87f3fc3f7ea6d1e6a1105581e3ede7eb}{set\-Right\-Speed} (int speed)
+\item 
+void \hyperlink{class_motors_a9c9fdd51c844764d78dfeb4239824308}{set\-Acceleration} (int acc)
+\item 
+void \hyperlink{class_motors_af6c313e7a9902d0da0e7b737a4b6c60a}{set\-Move} (bool status)
+\item 
+int \hyperlink{class_motors_aa092596b27c58ecf3848b0cd14ca5d46}{steps\-Left} ()
+\item 
+void \hyperlink{class_motors_aa606cccc8cf4b5406b03fdb9885200b7}{start\-Stepping} (int, int)
+\item 
+void \hyperlink{class_motors_ae54c7865650a7f34327aaa954cbfe436}{move\-Steps} (int)
+\item 
+void \hyperlink{class_motors_ade2ea4fcade07f0f7691bfafec445f36}{move\-Steps} (int, int)
+\item 
+void \hyperlink{class_motors_aa10044c63b6a3e396c4d6170d5fde6a6}{move\-Steps} (int, int, int)
+\item 
+void \hyperlink{class_motors_a9a5ec290a3e233d022b343feab1707e6}{move\-Steps} (int, int, int, int)
+\item 
+void \hyperlink{class_motors_aa094015e8ea1e028567920eeadee3542}{turn\-Degrees} (int)
+\item 
+void \hyperlink{class_motors_a179485eb76f61384742dcf16805b4eb4}{turn\-Degrees} (int, int)
+\item 
+float \hyperlink{class_motors_ab5330f3f866ae5a5439c7df7c1594e1d}{get\-Steps\-Per\-C\-M} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_motors_aef975cec60f33785886ce661226e7cfd}{\index{Motors@{Motors}!Motors@{Motors}}
+\index{Motors@{Motors}!Motors@{Motors}}
+\subsubsection[{Motors}]{\setlength{\rightskip}{0pt plus 5cm}Motors\-::\-Motors (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_motors_aef975cec60f33785886ce661226e7cfd}
+Constructor. Resets the i2c\-Command. 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_motors_a0dcf7acd7f2f0661b8a965b3565b5da5}{\index{Motors@{Motors}!begin@{begin}}
+\index{begin@{begin}!Motors@{Motors}}
+\subsubsection[{begin}]{\setlength{\rightskip}{0pt plus 5cm}void Motors\-::begin (
+\begin{DoxyParamCaption}
+\item[{uint8\-\_\-t}]{addr}
+\end{DoxyParamCaption}
+)}}\label{class_motors_a0dcf7acd7f2f0661b8a965b3565b5da5}
+Sets the motor address.
+
+
+\begin{DoxyParams}{Parameters}
+{\em addr} & The new address. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_motors_ab5330f3f866ae5a5439c7df7c1594e1d}{\index{Motors@{Motors}!get\-Steps\-Per\-C\-M@{get\-Steps\-Per\-C\-M}}
+\index{get\-Steps\-Per\-C\-M@{get\-Steps\-Per\-C\-M}!Motors@{Motors}}
+\subsubsection[{get\-Steps\-Per\-C\-M}]{\setlength{\rightskip}{0pt plus 5cm}float Motors\-::get\-Steps\-Per\-C\-M (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_motors_ab5330f3f866ae5a5439c7df7c1594e1d}
+\hypertarget{class_motors_add7dbb21bb40761547b70339e49b6c0c}{\index{Motors@{Motors}!move\-At\-Speeds@{move\-At\-Speeds}}
+\index{move\-At\-Speeds@{move\-At\-Speeds}!Motors@{Motors}}
+\subsubsection[{move\-At\-Speeds}]{\setlength{\rightskip}{0pt plus 5cm}void Motors\-::move\-At\-Speeds (
+\begin{DoxyParamCaption}
+\item[{int}]{left, }
+\item[{int}]{right}
+\end{DoxyParamCaption}
+)}}\label{class_motors_add7dbb21bb40761547b70339e49b6c0c}
+Sets both wheel speeds, then starts moving.
+
+
+\begin{DoxyParams}{Parameters}
+{\em left} & The left wheel speed in the range \mbox{[}-\/\-C\-H\-I\-R\-P\-\_\-\-M\-A\-X\-S\-P\-E\-E\-D, C\-H\-I\-R\-P\-\_\-\-M\-A\-X\-S\-P\-E\-E\-D\mbox{]} \\
+\hline
+{\em right} & The right wheel speed in the range \mbox{[}-\/\-C\-H\-I\-R\-P\-\_\-\-M\-A\-X\-S\-P\-E\-E\-D, C\-H\-I\-R\-P\-\_\-\-M\-A\-X\-S\-P\-E\-E\-D\mbox{]} \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_motors_ae54c7865650a7f34327aaa954cbfe436}{\index{Motors@{Motors}!move\-Steps@{move\-Steps}}
+\index{move\-Steps@{move\-Steps}!Motors@{Motors}}
+\subsubsection[{move\-Steps}]{\setlength{\rightskip}{0pt plus 5cm}void Motors\-::move\-Steps (
+\begin{DoxyParamCaption}
+\item[{int}]{steps}
+\end{DoxyParamCaption}
+)}}\label{class_motors_ae54c7865650a7f34327aaa954cbfe436}
+Starts moving the given number of steps. Moves at the currently set wheel speeds.
+
+
+\begin{DoxyParams}{Parameters}
+{\em steps} & The number of steps to move both motors \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_motors_ade2ea4fcade07f0f7691bfafec445f36}{\index{Motors@{Motors}!move\-Steps@{move\-Steps}}
+\index{move\-Steps@{move\-Steps}!Motors@{Motors}}
+\subsubsection[{move\-Steps}]{\setlength{\rightskip}{0pt plus 5cm}void Motors\-::move\-Steps (
+\begin{DoxyParamCaption}
+\item[{int}]{steps, }
+\item[{int}]{speed}
+\end{DoxyParamCaption}
+)}}\label{class_motors_ade2ea4fcade07f0f7691bfafec445f36}
+Starts moving the given number of steps. Moves at the given wheel speed.
+
+
+\begin{DoxyParams}{Parameters}
+{\em steps} & The number of steps to move both motors \\
+\hline
+{\em speed} & The speed at which to move both motors \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_motors_aa10044c63b6a3e396c4d6170d5fde6a6}{\index{Motors@{Motors}!move\-Steps@{move\-Steps}}
+\index{move\-Steps@{move\-Steps}!Motors@{Motors}}
+\subsubsection[{move\-Steps}]{\setlength{\rightskip}{0pt plus 5cm}void Motors\-::move\-Steps (
+\begin{DoxyParamCaption}
+\item[{int}]{steps, }
+\item[{int}]{lspeed, }
+\item[{int}]{rspeed}
+\end{DoxyParamCaption}
+)}}\label{class_motors_aa10044c63b6a3e396c4d6170d5fde6a6}
+Starts moving the given number of steps. Moves at the given wheel speed.
+
+
+\begin{DoxyParams}{Parameters}
+{\em steps} & The number of steps to move both motors \\
+\hline
+{\em lspeed} & The speed at which to move the left motor \\
+\hline
+{\em rspeed} & The speed at which to move the right motor \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_motors_a9a5ec290a3e233d022b343feab1707e6}{\index{Motors@{Motors}!move\-Steps@{move\-Steps}}
+\index{move\-Steps@{move\-Steps}!Motors@{Motors}}
+\subsubsection[{move\-Steps}]{\setlength{\rightskip}{0pt plus 5cm}void Motors\-::move\-Steps (
+\begin{DoxyParamCaption}
+\item[{int}]{lsteps, }
+\item[{int}]{rsteps, }
+\item[{int}]{lspeed, }
+\item[{int}]{rspeed}
+\end{DoxyParamCaption}
+)}}\label{class_motors_a9a5ec290a3e233d022b343feab1707e6}
+Starts moving the given number of steps. Moves at the given wheel speed.
+
+
+\begin{DoxyParams}{Parameters}
+{\em lsteps} & The number of steps to move the left motors \\
+\hline
+{\em rsteps} & The number of steps to move the right motors \\
+\hline
+{\em lspeed} & The speed at which to move the left motor \\
+\hline
+{\em rspeed} & The speed at which to move the right motor \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_motors_a9c9fdd51c844764d78dfeb4239824308}{\index{Motors@{Motors}!set\-Acceleration@{set\-Acceleration}}
+\index{set\-Acceleration@{set\-Acceleration}!Motors@{Motors}}
+\subsubsection[{set\-Acceleration}]{\setlength{\rightskip}{0pt plus 5cm}void Motors\-::set\-Acceleration (
+\begin{DoxyParamCaption}
+\item[{int}]{acc}
+\end{DoxyParamCaption}
+)}}\label{class_motors_a9c9fdd51c844764d78dfeb4239824308}
+Sends a command to the motor driver that sets the amount of acceleration used when using stepping. Deafult is 1000.
+
+
+\begin{DoxyParams}{Parameters}
+{\em acc} & The new acceleration value \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_motors_a177352e839ab155408f17a7b58bea35a}{\index{Motors@{Motors}!set\-Left\-Speed@{set\-Left\-Speed}}
+\index{set\-Left\-Speed@{set\-Left\-Speed}!Motors@{Motors}}
+\subsubsection[{set\-Left\-Speed}]{\setlength{\rightskip}{0pt plus 5cm}void Motors\-::set\-Left\-Speed (
+\begin{DoxyParamCaption}
+\item[{int}]{speed}
+\end{DoxyParamCaption}
+)}}\label{class_motors_a177352e839ab155408f17a7b58bea35a}
+Sends a command that sets the speed for the left motor in the motor driver. If the robot is not already moving, you need to call set\-Move to move at the given speed indefinitely, or start\-Stepping to move a given number of steps
+
+
+\begin{DoxyParams}{Parameters}
+{\em speed} & The left wheel speed in the range \mbox{[}-\/\-C\-H\-I\-R\-P\-\_\-\-M\-A\-X\-S\-P\-E\-E\-D, C\-H\-I\-R\-P\-\_\-\-M\-A\-X\-S\-P\-E\-E\-D\mbox{]} \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_motors_af6c313e7a9902d0da0e7b737a4b6c60a}{\index{Motors@{Motors}!set\-Move@{set\-Move}}
+\index{set\-Move@{set\-Move}!Motors@{Motors}}
+\subsubsection[{set\-Move}]{\setlength{\rightskip}{0pt plus 5cm}void Motors\-::set\-Move (
+\begin{DoxyParamCaption}
+\item[{bool}]{status}
+\end{DoxyParamCaption}
+)}}\label{class_motors_af6c313e7a9902d0da0e7b737a4b6c60a}
+Sends a command to the motor driver that (if set to true) makes the robot move at the set speed. If set to false, the robot will stop moving
+
+
+\begin{DoxyParams}{Parameters}
+{\em status} & True to start moving, False to stop moving \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_motors_a87f3fc3f7ea6d1e6a1105581e3ede7eb}{\index{Motors@{Motors}!set\-Right\-Speed@{set\-Right\-Speed}}
+\index{set\-Right\-Speed@{set\-Right\-Speed}!Motors@{Motors}}
+\subsubsection[{set\-Right\-Speed}]{\setlength{\rightskip}{0pt plus 5cm}void Motors\-::set\-Right\-Speed (
+\begin{DoxyParamCaption}
+\item[{int}]{speed}
+\end{DoxyParamCaption}
+)}}\label{class_motors_a87f3fc3f7ea6d1e6a1105581e3ede7eb}
+Sends a command that sets the speed for the right motor in the motor driver. If the robot is not already moving, you need to call set\-Move to move at the given speed indefinitely, or start\-Stepping to move a given number of steps
+
+
+\begin{DoxyParams}{Parameters}
+{\em speed} & The right wheel speed in the range \mbox{[}-\/\-C\-H\-I\-R\-P\-\_\-\-M\-A\-X\-S\-P\-E\-E\-D, C\-H\-I\-R\-P\-\_\-\-M\-A\-X\-S\-P\-E\-E\-D\mbox{]} \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_motors_a2017e90a68d1125b4c830a298609d882}{\index{Motors@{Motors}!set\-Speeds@{set\-Speeds}}
+\index{set\-Speeds@{set\-Speeds}!Motors@{Motors}}
+\subsubsection[{set\-Speeds}]{\setlength{\rightskip}{0pt plus 5cm}void Motors\-::set\-Speeds (
+\begin{DoxyParamCaption}
+\item[{int}]{left, }
+\item[{int}]{right}
+\end{DoxyParamCaption}
+)}}\label{class_motors_a2017e90a68d1125b4c830a298609d882}
+Sends a command that sets the speeds for both motors in the motor driver. If the robot is not already moving, you need to call set\-Move to move at the given speed indefinitely, or start\-Stepping to move a given number of steps
+
+
+\begin{DoxyParams}{Parameters}
+{\em left} & The left wheel speed in the range \mbox{[}-\/\-C\-H\-I\-R\-P\-\_\-\-M\-A\-X\-S\-P\-E\-E\-D, C\-H\-I\-R\-P\-\_\-\-M\-A\-X\-S\-P\-E\-E\-D\mbox{]} \\
+\hline
+{\em right} & The right wheel speed in the range \mbox{[}-\/\-C\-H\-I\-R\-P\-\_\-\-M\-A\-X\-S\-P\-E\-E\-D, C\-H\-I\-R\-P\-\_\-\-M\-A\-X\-S\-P\-E\-E\-D\mbox{]} \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_motors_aa606cccc8cf4b5406b03fdb9885200b7}{\index{Motors@{Motors}!start\-Stepping@{start\-Stepping}}
+\index{start\-Stepping@{start\-Stepping}!Motors@{Motors}}
+\subsubsection[{start\-Stepping}]{\setlength{\rightskip}{0pt plus 5cm}void Motors\-::start\-Stepping (
+\begin{DoxyParamCaption}
+\item[{int}]{lsteps, }
+\item[{int}]{rsteps}
+\end{DoxyParamCaption}
+)}}\label{class_motors_aa606cccc8cf4b5406b03fdb9885200b7}
+Starts moving the given number of steps. Moves at the currently set wheel speeds.
+
+
+\begin{DoxyParams}{Parameters}
+{\em lsteps} & The number of steps to move the left motor \\
+\hline
+{\em rsteps} & The number of steps to move the right motor \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_motors_aa092596b27c58ecf3848b0cd14ca5d46}{\index{Motors@{Motors}!steps\-Left@{steps\-Left}}
+\index{steps\-Left@{steps\-Left}!Motors@{Motors}}
+\subsubsection[{steps\-Left}]{\setlength{\rightskip}{0pt plus 5cm}int Motors\-::steps\-Left (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_motors_aa092596b27c58ecf3848b0cd14ca5d46}
+Requests the number of steps left in the current movement from the motor driver, and returns it.
+
+\begin{DoxyReturn}{Returns}
+The number of steps left in the motor with the most steps left 
+\end{DoxyReturn}
+\hypertarget{class_motors_aa094015e8ea1e028567920eeadee3542}{\index{Motors@{Motors}!turn\-Degrees@{turn\-Degrees}}
+\index{turn\-Degrees@{turn\-Degrees}!Motors@{Motors}}
+\subsubsection[{turn\-Degrees}]{\setlength{\rightskip}{0pt plus 5cm}void Motors\-::turn\-Degrees (
+\begin{DoxyParamCaption}
+\item[{int}]{degrees}
+\end{DoxyParamCaption}
+)}}\label{class_motors_aa094015e8ea1e028567920eeadee3542}
+\hypertarget{class_motors_a179485eb76f61384742dcf16805b4eb4}{\index{Motors@{Motors}!turn\-Degrees@{turn\-Degrees}}
+\index{turn\-Degrees@{turn\-Degrees}!Motors@{Motors}}
+\subsubsection[{turn\-Degrees}]{\setlength{\rightskip}{0pt plus 5cm}void Motors\-::turn\-Degrees (
+\begin{DoxyParamCaption}
+\item[{int}]{degrees, }
+\item[{int}]{speed}
+\end{DoxyParamCaption}
+)}}\label{class_motors_a179485eb76f61384742dcf16805b4eb4}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+utility/\hyperlink{_motors_8h}{Motors.\-h}\item 
+utility/\hyperlink{_motors_8cpp}{Motors.\-cpp}\end{DoxyCompactItemize}

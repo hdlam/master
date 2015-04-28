@@ -1,0 +1,493 @@
+\hypertarget{class_chirp}{\section{Chirp Class Reference}
+\label{class_chirp}\index{Chirp@{Chirp}}
+}
+
+
+{\ttfamily \#include $<$Chirp.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_chirp_adb5f9d25d80d54ca8edc930a7e62ce95}{Chirp} ()
+\item 
+\hyperlink{class_chirp_a16175ededbf308e7e2013f48281e28ae}{$\sim$\-Chirp} ()
+\item 
+void \hyperlink{class_chirp_aeeab19655334edc5df9fe16d41fc8603}{init} ()
+\item 
+void \hyperlink{class_chirp_aad6bc3e54a01c0f4cb7ddd2e1e45b318}{update} ()
+\item 
+void \hyperlink{class_chirp_a3ad23126a33b274e60e109333ba31fe9}{set\-Left\-Speed} (float lspeed)
+\item 
+void \hyperlink{class_chirp_af022256f0e4bb2b6eeffb6d706703d3f}{set\-Right\-Speed} (float rspeed)
+\item 
+void \hyperlink{class_chirp_a59eec2a11e79e12d6acc0aa1178f0864}{set\-Speed} (float lspeed, float rspeed)
+\item 
+void \hyperlink{class_chirp_af1cb7630df8d64d13945b8de3aafc134}{set\-Acceleration} (int acc)
+\item 
+float \hyperlink{class_chirp_ab151f9ab509643d438b0a54a595c297c}{get\-Left\-Speed} ()
+\item 
+float \hyperlink{class_chirp_a5f6d28826cec7bdecc2a01e3d8f1606f}{get\-Right\-Speed} ()
+\item 
+unsigned short $\ast$ \hyperlink{class_chirp_a3c381d01d56cee50e05dd3e33c936aa1}{get\-Light\-Sensor\-Data} ()
+\item 
+unsigned short $\ast$ \hyperlink{class_chirp_a651d2afb0bb8354b282b664caea7eb34}{get\-Distance\-Sensor\-Data} ()
+\item 
+int \hyperlink{class_chirp_ad527a51cbe4419b040977bc8c258d328}{get\-Light\-Sensor} (\hyperlink{_chirp_8h_a840c9267db46ce0db0f44d473c562e66}{leds})
+\item 
+int \hyperlink{class_chirp_ac8ca7ed00220a3074ad0e95d7cc60536}{get\-Light\-Sensor} (uint8\-\_\-t)
+\item 
+int \hyperlink{class_chirp_aed1f66f8d46abb43bfea329aea6e255c}{get\-Distance\-Sensor} (\hyperlink{_chirp_8h_a840c9267db46ce0db0f44d473c562e66}{leds})
+\item 
+int \hyperlink{class_chirp_ada66e5df1a5320b1c59ff64ecba07464}{get\-Distance\-Sensor} (uint8\-\_\-t)
+\item 
+void \hyperlink{class_chirp_a45de71fb95e82c75594b8ba481fe2ae6}{set\-Sensor\-Smoothing} (uint8\-\_\-t value)
+\item 
+unsigned long \hyperlink{class_chirp_ae7a13df4a1c4e5c223eec85dd88398e4}{get\-Time} ()
+\item 
+unsigned long \hyperlink{class_chirp_a69b2fe02e1967fe7fe0a95670b19aa37}{get\-Previous\-Time} ()
+\item 
+unsigned long \hyperlink{class_chirp_a0edf7b385e50774425effaf40daf68d5}{get\-Evaluation\-Time} ()
+\item 
+void \hyperlink{class_chirp_a3a01d0ab696a841c19e665c3e3ca193b}{timed\-Drive\-Straight} (const unsigned short time, const float speed)
+\item 
+void \hyperlink{class_chirp_addfefd68ed3915ae33008497076c6679}{timed\-Drive} (const unsigned short time, const float left\-Speed, const float right\-Speed)
+\item 
+void \hyperlink{class_chirp_a7e74252a548429685f4d88bc5bde8b10}{move\-Steps} (int steps, bool block)
+\item 
+void \hyperlink{class_chirp_a1ce38598a9410c0740ec1d3be1354f3a}{move\-Steps} (int steps, int speed, bool block)
+\item 
+void \hyperlink{class_chirp_ab21f910e6b523761530c728bb4a3aeef}{move\-Steps} (int steps, int lspeed, int rspeed, bool block)
+\item 
+void \hyperlink{class_chirp_a3f16fbc353cea4e9d9475e5581e4bd74}{turn\-Degrees} (int degrees, int speed, bool block)
+\item 
+void \hyperlink{class_chirp_ae9a536d71f0a366cdc0e5947e8b89573}{turn\-Direction} (\hyperlink{_chirp_8h_a840c9267db46ce0db0f44d473c562e66}{leds} direction, int speed, bool block)
+\item 
+void \hyperlink{class_chirp_a80c9049b4787a1bc7b18d7e0242eeabe}{move\-C\-M} (int cm, int speed, bool block)
+\item 
+int \hyperlink{class_chirp_af072be9037b395acc1319032c294a5ef}{get\-Remaining\-Steps} ()
+\item 
+void \hyperlink{class_chirp_ac8a7985ea321ff91fa088019bf4ff220}{set\-Extensions} (\hyperlink{class_i_extension}{I\-Extension} $\ast$extensions)
+\item 
+\hyperlink{class_i_extension}{I\-Extension} $\ast$ \hyperlink{class_chirp_a7b374106975567aa7f222abfd530dd33}{get\-Extension} (const char $\ast$name)
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_chirp_adb5f9d25d80d54ca8edc930a7e62ce95}{\index{Chirp@{Chirp}!Chirp@{Chirp}}
+\index{Chirp@{Chirp}!Chirp@{Chirp}}
+\subsubsection[{Chirp}]{\setlength{\rightskip}{0pt plus 5cm}Chirp\-::\-Chirp (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_chirp_adb5f9d25d80d54ca8edc930a7e62ce95}
+\hypertarget{class_chirp_a16175ededbf308e7e2013f48281e28ae}{\index{Chirp@{Chirp}!$\sim$\-Chirp@{$\sim$\-Chirp}}
+\index{$\sim$\-Chirp@{$\sim$\-Chirp}!Chirp@{Chirp}}
+\subsubsection[{$\sim$\-Chirp}]{\setlength{\rightskip}{0pt plus 5cm}Chirp\-::$\sim$\-Chirp (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_chirp_a16175ededbf308e7e2013f48281e28ae}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_chirp_aed1f66f8d46abb43bfea329aea6e255c}{\index{Chirp@{Chirp}!get\-Distance\-Sensor@{get\-Distance\-Sensor}}
+\index{get\-Distance\-Sensor@{get\-Distance\-Sensor}!Chirp@{Chirp}}
+\subsubsection[{get\-Distance\-Sensor}]{\setlength{\rightskip}{0pt plus 5cm}int Chirp\-::get\-Distance\-Sensor (
+\begin{DoxyParamCaption}
+\item[{{\bf leds}}]{sensor}
+\end{DoxyParamCaption}
+)}}\label{class_chirp_aed1f66f8d46abb43bfea329aea6e255c}
+Returns the last distance sensor data retrieved from the specified sensor.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sensor} & Then sensor the value is to be retrieved from Valud parameters are in the range \mbox{[}0, 7\mbox{]}, beginning with the front sensor and iterating clockwise. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The sensor the value is to be reteived from. Valid parameters are\-: front, front\-\_\-right, right, back\-\_\-right, back, back\-\_\-left, left, front\-\_\-left. 
+\end{DoxyReturn}
+\hypertarget{class_chirp_ada66e5df1a5320b1c59ff64ecba07464}{\index{Chirp@{Chirp}!get\-Distance\-Sensor@{get\-Distance\-Sensor}}
+\index{get\-Distance\-Sensor@{get\-Distance\-Sensor}!Chirp@{Chirp}}
+\subsubsection[{get\-Distance\-Sensor}]{\setlength{\rightskip}{0pt plus 5cm}int Chirp\-::get\-Distance\-Sensor (
+\begin{DoxyParamCaption}
+\item[{uint8\-\_\-t}]{sensor}
+\end{DoxyParamCaption}
+)}}\label{class_chirp_ada66e5df1a5320b1c59ff64ecba07464}
+Returns the last distance sensor data retrieved from the specified sensor.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sensor} & Then sensor the value is to be retrieved from Valud parameters are in the range \mbox{[}0, 7\mbox{]}, beginning with the front sensor and iterating clockwise. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The int value value from the specified sensor, range \mbox{[}0, 700\mbox{]}. 
+\end{DoxyReturn}
+\hypertarget{class_chirp_a651d2afb0bb8354b282b664caea7eb34}{\index{Chirp@{Chirp}!get\-Distance\-Sensor\-Data@{get\-Distance\-Sensor\-Data}}
+\index{get\-Distance\-Sensor\-Data@{get\-Distance\-Sensor\-Data}!Chirp@{Chirp}}
+\subsubsection[{get\-Distance\-Sensor\-Data}]{\setlength{\rightskip}{0pt plus 5cm}unsigned short $\ast$ Chirp\-::get\-Distance\-Sensor\-Data (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_chirp_a651d2afb0bb8354b282b664caea7eb34}
+Returns the last distance sensor data retreived.
+
+\begin{DoxyReturn}{Returns}
+Array of the 8 sensor values in the range \mbox{[}0, 700\mbox{]}, where 0 means nothing detected and 700 is the maximum. 
+\end{DoxyReturn}
+\hypertarget{class_chirp_a0edf7b385e50774425effaf40daf68d5}{\index{Chirp@{Chirp}!get\-Evaluation\-Time@{get\-Evaluation\-Time}}
+\index{get\-Evaluation\-Time@{get\-Evaluation\-Time}!Chirp@{Chirp}}
+\subsubsection[{get\-Evaluation\-Time}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long Chirp\-::get\-Evaluation\-Time (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_chirp_a0edf7b385e50774425effaf40daf68d5}
+Returns the time between the last two \hyperlink{class_chirp_aad6bc3e54a01c0f4cb7ddd2e1e45b318}{update()} calls;
+
+\begin{DoxyReturn}{Returns}
+The time in milliseconds between the last two update calls. 
+\end{DoxyReturn}
+\hypertarget{class_chirp_a7b374106975567aa7f222abfd530dd33}{\index{Chirp@{Chirp}!get\-Extension@{get\-Extension}}
+\index{get\-Extension@{get\-Extension}!Chirp@{Chirp}}
+\subsubsection[{get\-Extension}]{\setlength{\rightskip}{0pt plus 5cm}{\bf I\-Extension} $\ast$ Chirp\-::get\-Extension (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{name}
+\end{DoxyParamCaption}
+)}}\label{class_chirp_a7b374106975567aa7f222abfd530dd33}
+\hypertarget{class_chirp_ab151f9ab509643d438b0a54a595c297c}{\index{Chirp@{Chirp}!get\-Left\-Speed@{get\-Left\-Speed}}
+\index{get\-Left\-Speed@{get\-Left\-Speed}!Chirp@{Chirp}}
+\subsubsection[{get\-Left\-Speed}]{\setlength{\rightskip}{0pt plus 5cm}float Chirp\-::get\-Left\-Speed (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_chirp_ab151f9ab509643d438b0a54a595c297c}
+Retrieves the current speed of the left motor.
+
+\begin{DoxyReturn}{Returns}
+returns the current left wheel speed in the range \mbox{[}100, -\/100\mbox{]}. 
+\end{DoxyReturn}
+\hypertarget{class_chirp_ad527a51cbe4419b040977bc8c258d328}{\index{Chirp@{Chirp}!get\-Light\-Sensor@{get\-Light\-Sensor}}
+\index{get\-Light\-Sensor@{get\-Light\-Sensor}!Chirp@{Chirp}}
+\subsubsection[{get\-Light\-Sensor}]{\setlength{\rightskip}{0pt plus 5cm}int Chirp\-::get\-Light\-Sensor (
+\begin{DoxyParamCaption}
+\item[{{\bf leds}}]{sensor}
+\end{DoxyParamCaption}
+)}}\label{class_chirp_ad527a51cbe4419b040977bc8c258d328}
+Returns the last light sensor data retrieved from the specified sensor.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sensor} & Then sensor the value is to be retrieved from Valud parameters are in the range \mbox{[}0, 7\mbox{]}, beginning with the front sensor and iterating clockwise. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The sensor the value is to be reteived from. Valid parameters are\-: front, front\-\_\-right, right, back\-\_\-right, back, back\-\_\-left, left, front\-\_\-left. doxy 
+\end{DoxyReturn}
+\hypertarget{class_chirp_ac8ca7ed00220a3074ad0e95d7cc60536}{\index{Chirp@{Chirp}!get\-Light\-Sensor@{get\-Light\-Sensor}}
+\index{get\-Light\-Sensor@{get\-Light\-Sensor}!Chirp@{Chirp}}
+\subsubsection[{get\-Light\-Sensor}]{\setlength{\rightskip}{0pt plus 5cm}int Chirp\-::get\-Light\-Sensor (
+\begin{DoxyParamCaption}
+\item[{uint8\-\_\-t}]{sensor}
+\end{DoxyParamCaption}
+)}}\label{class_chirp_ac8ca7ed00220a3074ad0e95d7cc60536}
+Returns the last light sensor data retrieved from the specified sensor.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sensor} & Then sensor the value is to be retrieved from Valud parameters are in the range \mbox{[}0, 7\mbox{]}, beginning with the front sensor and iterating clockwise. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The int value value from the specified sensor, range \mbox{[}0, 700\mbox{]}. 
+\end{DoxyReturn}
+\hypertarget{class_chirp_a3c381d01d56cee50e05dd3e33c936aa1}{\index{Chirp@{Chirp}!get\-Light\-Sensor\-Data@{get\-Light\-Sensor\-Data}}
+\index{get\-Light\-Sensor\-Data@{get\-Light\-Sensor\-Data}!Chirp@{Chirp}}
+\subsubsection[{get\-Light\-Sensor\-Data}]{\setlength{\rightskip}{0pt plus 5cm}unsigned short $\ast$ Chirp\-::get\-Light\-Sensor\-Data (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_chirp_a3c381d01d56cee50e05dd3e33c936aa1}
+Returns the last light sensor data retreived.
+
+\begin{DoxyReturn}{Returns}
+Array of the 8 sensor values in the range \mbox{[}0, 700\mbox{]}, where 0 means nothing detected and 700 is the maximum. 
+\end{DoxyReturn}
+\hypertarget{class_chirp_a69b2fe02e1967fe7fe0a95670b19aa37}{\index{Chirp@{Chirp}!get\-Previous\-Time@{get\-Previous\-Time}}
+\index{get\-Previous\-Time@{get\-Previous\-Time}!Chirp@{Chirp}}
+\subsubsection[{get\-Previous\-Time}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long Chirp\-::get\-Previous\-Time (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_chirp_a69b2fe02e1967fe7fe0a95670b19aa37}
+Returns the time measured passed at the previous update call.
+
+\begin{DoxyReturn}{Returns}
+The time in milliseconds from the previous \hyperlink{class_chirp_aad6bc3e54a01c0f4cb7ddd2e1e45b318}{update()} call 
+\end{DoxyReturn}
+\hypertarget{class_chirp_af072be9037b395acc1319032c294a5ef}{\index{Chirp@{Chirp}!get\-Remaining\-Steps@{get\-Remaining\-Steps}}
+\index{get\-Remaining\-Steps@{get\-Remaining\-Steps}!Chirp@{Chirp}}
+\subsubsection[{get\-Remaining\-Steps}]{\setlength{\rightskip}{0pt plus 5cm}int Chirp\-::get\-Remaining\-Steps (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_chirp_af072be9037b395acc1319032c294a5ef}
+Returns the number of steps remaining in the current command, if any stepping command has been given
+
+\begin{DoxyReturn}{Returns}
+The number of steps remaining. 
+\end{DoxyReturn}
+\hypertarget{class_chirp_a5f6d28826cec7bdecc2a01e3d8f1606f}{\index{Chirp@{Chirp}!get\-Right\-Speed@{get\-Right\-Speed}}
+\index{get\-Right\-Speed@{get\-Right\-Speed}!Chirp@{Chirp}}
+\subsubsection[{get\-Right\-Speed}]{\setlength{\rightskip}{0pt plus 5cm}float Chirp\-::get\-Right\-Speed (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_chirp_a5f6d28826cec7bdecc2a01e3d8f1606f}
+Retrieves the current speed of the right motor.
+
+\begin{DoxyReturn}{Returns}
+returns the current right wheel speed in the range \mbox{[}100, -\/100\mbox{]}. 
+\end{DoxyReturn}
+\hypertarget{class_chirp_ae7a13df4a1c4e5c223eec85dd88398e4}{\index{Chirp@{Chirp}!get\-Time@{get\-Time}}
+\index{get\-Time@{get\-Time}!Chirp@{Chirp}}
+\subsubsection[{get\-Time}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long Chirp\-::get\-Time (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_chirp_ae7a13df4a1c4e5c223eec85dd88398e4}
+Returns the current time passed measured at the last \hyperlink{class_chirp_aad6bc3e54a01c0f4cb7ddd2e1e45b318}{update()} call.
+
+\begin{DoxyReturn}{Returns}
+The time in milliseconds measured at the last \hyperlink{class_chirp_aad6bc3e54a01c0f4cb7ddd2e1e45b318}{update()} call. 
+\end{DoxyReturn}
+\hypertarget{class_chirp_aeeab19655334edc5df9fe16d41fc8603}{\index{Chirp@{Chirp}!init@{init}}
+\index{init@{init}!Chirp@{Chirp}}
+\subsubsection[{init}]{\setlength{\rightskip}{0pt plus 5cm}void Chirp\-::init (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_chirp_aeeab19655334edc5df9fe16d41fc8603}
+Initializes the robot. Sets up the i2c connection to the sensor and motor boards. Must be placed in the setup() function. \hypertarget{class_chirp_a80c9049b4787a1bc7b18d7e0242eeabe}{\index{Chirp@{Chirp}!move\-C\-M@{move\-C\-M}}
+\index{move\-C\-M@{move\-C\-M}!Chirp@{Chirp}}
+\subsubsection[{move\-C\-M}]{\setlength{\rightskip}{0pt plus 5cm}void Chirp\-::move\-C\-M (
+\begin{DoxyParamCaption}
+\item[{int}]{cm, }
+\item[{int}]{speed, }
+\item[{bool}]{block}
+\end{DoxyParamCaption}
+)}}\label{class_chirp_a80c9049b4787a1bc7b18d7e0242eeabe}
+Makes the robot move R\-O\-U\-G\-H\-L\-Y the given distance in cm. It is fairly accurate, but annot guarantee the exact length is driven. speed and direction can be defined by setting the speed.
+
+
+\begin{DoxyParams}{Parameters}
+{\em cm} & The distance to travel in cm. Cannot be negative. \\
+\hline
+{\em speed} & The sped at which to move. Negative speed makes the robot move backwards. \\
+\hline
+{\em block} & Makes the call blocking. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_chirp_a7e74252a548429685f4d88bc5bde8b10}{\index{Chirp@{Chirp}!move\-Steps@{move\-Steps}}
+\index{move\-Steps@{move\-Steps}!Chirp@{Chirp}}
+\subsubsection[{move\-Steps}]{\setlength{\rightskip}{0pt plus 5cm}void Chirp\-::move\-Steps (
+\begin{DoxyParamCaption}
+\item[{int}]{steps, }
+\item[{bool}]{block}
+\end{DoxyParamCaption}
+)}}\label{class_chirp_a7e74252a548429685f4d88bc5bde8b10}
+Makes the robot move x steps at full speed right ahead. Non-\/blocking if block argument set to false. Use \hyperlink{class_chirp_af072be9037b395acc1319032c294a5ef}{get\-Remaining\-Steps()} to see how many steps are left if not using blocking. Does not support negative numbers of steps. To move backwards, use a method here you can set the speed to be negative.
+
+
+\begin{DoxyParams}{Parameters}
+{\em steps} & The number of step to move. Cannot be negative. \\
+\hline
+{\em block} & Whether to automatically use blocking \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_chirp_a1ce38598a9410c0740ec1d3be1354f3a}{\index{Chirp@{Chirp}!move\-Steps@{move\-Steps}}
+\index{move\-Steps@{move\-Steps}!Chirp@{Chirp}}
+\subsubsection[{move\-Steps}]{\setlength{\rightskip}{0pt plus 5cm}void Chirp\-::move\-Steps (
+\begin{DoxyParamCaption}
+\item[{int}]{steps, }
+\item[{int}]{speed, }
+\item[{bool}]{block}
+\end{DoxyParamCaption}
+)}}\label{class_chirp_a1ce38598a9410c0740ec1d3be1354f3a}
+Makes the robot move x steps at the given speed. Non-\/blocking if block argument set to false. Use \hyperlink{class_chirp_af072be9037b395acc1319032c294a5ef}{get\-Remaining\-Steps()} to see how many steps are left if not using blocking. Set a negative speed to move backwards.
+
+
+\begin{DoxyParams}{Parameters}
+{\em steps} & The number of step to move. Cannot be negative \\
+\hline
+{\em speed} & The speed at which to move. \\
+\hline
+{\em block} & Whether to automatically use blocking \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_chirp_ab21f910e6b523761530c728bb4a3aeef}{\index{Chirp@{Chirp}!move\-Steps@{move\-Steps}}
+\index{move\-Steps@{move\-Steps}!Chirp@{Chirp}}
+\subsubsection[{move\-Steps}]{\setlength{\rightskip}{0pt plus 5cm}void Chirp\-::move\-Steps (
+\begin{DoxyParamCaption}
+\item[{int}]{steps, }
+\item[{int}]{lspeed, }
+\item[{int}]{rspeed, }
+\item[{bool}]{block}
+\end{DoxyParamCaption}
+)}}\label{class_chirp_ab21f910e6b523761530c728bb4a3aeef}
+Makes the robot move x steps at the given speeds. Non-\/blocking if block argument set to false. Use \hyperlink{class_chirp_af072be9037b395acc1319032c294a5ef}{get\-Remaining\-Steps()} to see how many steps are left if not using blocking. Set negative speed to move backwards, different speeds to turn, etc.
+
+
+\begin{DoxyParams}{Parameters}
+{\em steps} & The number of step to move. \\
+\hline
+{\em lspeed} & The speed at which to move the left motor. \\
+\hline
+{\em rspeed} & The speed at which to move the right motor. \\
+\hline
+{\em block} & Whether to automatically use blocking. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_chirp_af1cb7630df8d64d13945b8de3aafc134}{\index{Chirp@{Chirp}!set\-Acceleration@{set\-Acceleration}}
+\index{set\-Acceleration@{set\-Acceleration}!Chirp@{Chirp}}
+\subsubsection[{set\-Acceleration}]{\setlength{\rightskip}{0pt plus 5cm}void Chirp\-::set\-Acceleration (
+\begin{DoxyParamCaption}
+\item[{int}]{acc}
+\end{DoxyParamCaption}
+)}}\label{class_chirp_af1cb7630df8d64d13945b8de3aafc134}
+Sets the acceleraton used when using stepping functions. Default is 1000.
+
+
+\begin{DoxyParams}{Parameters}
+{\em acc} & The new acceleration value \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_chirp_ac8a7985ea321ff91fa088019bf4ff220}{\index{Chirp@{Chirp}!set\-Extensions@{set\-Extensions}}
+\index{set\-Extensions@{set\-Extensions}!Chirp@{Chirp}}
+\subsubsection[{set\-Extensions}]{\setlength{\rightskip}{0pt plus 5cm}void Chirp\-::set\-Extensions (
+\begin{DoxyParamCaption}
+\item[{{\bf I\-Extension} $\ast$}]{extensions}
+\end{DoxyParamCaption}
+)}}\label{class_chirp_ac8a7985ea321ff91fa088019bf4ff220}
+\hypertarget{class_chirp_a3ad23126a33b274e60e109333ba31fe9}{\index{Chirp@{Chirp}!set\-Left\-Speed@{set\-Left\-Speed}}
+\index{set\-Left\-Speed@{set\-Left\-Speed}!Chirp@{Chirp}}
+\subsubsection[{set\-Left\-Speed}]{\setlength{\rightskip}{0pt plus 5cm}void Chirp\-::set\-Left\-Speed (
+\begin{DoxyParamCaption}
+\item[{float}]{speed}
+\end{DoxyParamCaption}
+)}}\label{class_chirp_a3ad23126a33b274e60e109333ba31fe9}
+Sets the left wheel speed to be sent to the motor driver using send\-Data.
+
+
+\begin{DoxyParams}{Parameters}
+{\em speed} & The speed to set the motor to in the range \mbox{[}100, -\/100\mbox{]}. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_chirp_af022256f0e4bb2b6eeffb6d706703d3f}{\index{Chirp@{Chirp}!set\-Right\-Speed@{set\-Right\-Speed}}
+\index{set\-Right\-Speed@{set\-Right\-Speed}!Chirp@{Chirp}}
+\subsubsection[{set\-Right\-Speed}]{\setlength{\rightskip}{0pt plus 5cm}void Chirp\-::set\-Right\-Speed (
+\begin{DoxyParamCaption}
+\item[{float}]{speed}
+\end{DoxyParamCaption}
+)}}\label{class_chirp_af022256f0e4bb2b6eeffb6d706703d3f}
+Sets the right wheel speed to be sent to the motor driver using send\-Data.
+
+
+\begin{DoxyParams}{Parameters}
+{\em speed} & The speed to set the motor to in the range \mbox{[}100, -\/100\mbox{]}. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_chirp_a45de71fb95e82c75594b8ba481fe2ae6}{\index{Chirp@{Chirp}!set\-Sensor\-Smoothing@{set\-Sensor\-Smoothing}}
+\index{set\-Sensor\-Smoothing@{set\-Sensor\-Smoothing}!Chirp@{Chirp}}
+\subsubsection[{set\-Sensor\-Smoothing}]{\setlength{\rightskip}{0pt plus 5cm}void Chirp\-::set\-Sensor\-Smoothing (
+\begin{DoxyParamCaption}
+\item[{uint8\-\_\-t}]{value}
+\end{DoxyParamCaption}
+)}}\label{class_chirp_a45de71fb95e82c75594b8ba481fe2ae6}
+\hypertarget{class_chirp_a59eec2a11e79e12d6acc0aa1178f0864}{\index{Chirp@{Chirp}!set\-Speed@{set\-Speed}}
+\index{set\-Speed@{set\-Speed}!Chirp@{Chirp}}
+\subsubsection[{set\-Speed}]{\setlength{\rightskip}{0pt plus 5cm}void Chirp\-::set\-Speed (
+\begin{DoxyParamCaption}
+\item[{float}]{left, }
+\item[{float}]{right}
+\end{DoxyParamCaption}
+)}}\label{class_chirp_a59eec2a11e79e12d6acc0aa1178f0864}
+Sets both wheel speeds to be sent to the motor driver using send\-Data.
+
+
+\begin{DoxyParams}{Parameters}
+{\em left} & The speed to set the left motor to in the range \mbox{[}100, -\/100\mbox{]}. \\
+\hline
+{\em right} & The speed to set the right motor to in the range \mbox{[}100, -\/100\mbox{]}. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_chirp_addfefd68ed3915ae33008497076c6679}{\index{Chirp@{Chirp}!timed\-Drive@{timed\-Drive}}
+\index{timed\-Drive@{timed\-Drive}!Chirp@{Chirp}}
+\subsubsection[{timed\-Drive}]{\setlength{\rightskip}{0pt plus 5cm}void Chirp\-::timed\-Drive (
+\begin{DoxyParamCaption}
+\item[{const unsigned short}]{time, }
+\item[{const float}]{left\-Speed, }
+\item[{const float}]{right\-Speed}
+\end{DoxyParamCaption}
+)}}\label{class_chirp_addfefd68ed3915ae33008497076c6679}
+\hypertarget{class_chirp_a3a01d0ab696a841c19e665c3e3ca193b}{\index{Chirp@{Chirp}!timed\-Drive\-Straight@{timed\-Drive\-Straight}}
+\index{timed\-Drive\-Straight@{timed\-Drive\-Straight}!Chirp@{Chirp}}
+\subsubsection[{timed\-Drive\-Straight}]{\setlength{\rightskip}{0pt plus 5cm}void Chirp\-::timed\-Drive\-Straight (
+\begin{DoxyParamCaption}
+\item[{const unsigned short}]{time, }
+\item[{const float}]{speed}
+\end{DoxyParamCaption}
+)}}\label{class_chirp_a3a01d0ab696a841c19e665c3e3ca193b}
+\hypertarget{class_chirp_a3f16fbc353cea4e9d9475e5581e4bd74}{\index{Chirp@{Chirp}!turn\-Degrees@{turn\-Degrees}}
+\index{turn\-Degrees@{turn\-Degrees}!Chirp@{Chirp}}
+\subsubsection[{turn\-Degrees}]{\setlength{\rightskip}{0pt plus 5cm}void Chirp\-::turn\-Degrees (
+\begin{DoxyParamCaption}
+\item[{int}]{degrees, }
+\item[{int}]{speed, }
+\item[{bool}]{block}
+\end{DoxyParamCaption}
+)}}\label{class_chirp_a3f16fbc353cea4e9d9475e5581e4bd74}
+Turns the robot in place R\-O\-U\-G\-H\-L\-Y by the given number of degrees. Negative numbers makes it turn the other way.
+
+
+\begin{DoxyParams}{Parameters}
+{\em degrees} & The amount and direction to turn. \\
+\hline
+{\em speed} & The speed at which to turn. \\
+\hline
+{\em block} & Whether to make the call blocking. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_chirp_ae9a536d71f0a366cdc0e5947e8b89573}{\index{Chirp@{Chirp}!turn\-Direction@{turn\-Direction}}
+\index{turn\-Direction@{turn\-Direction}!Chirp@{Chirp}}
+\subsubsection[{turn\-Direction}]{\setlength{\rightskip}{0pt plus 5cm}void Chirp\-::turn\-Direction (
+\begin{DoxyParamCaption}
+\item[{{\bf leds}}]{direction, }
+\item[{int}]{speed, }
+\item[{bool}]{block}
+\end{DoxyParamCaption}
+)}}\label{class_chirp_ae9a536d71f0a366cdc0e5947e8b89573}
+Turns the robot R\-O\-U\-G\-H\-L\-Y in the given direction.
+
+
+\begin{DoxyParams}{Parameters}
+{\em direction} & The direction in which to turn. Directions are F\-R\-O\-N\-T, F\-R\-O\-N\-T\-\_\-\-R\-I\-G\-H\-T, R\-I\-G\-H\-T, B\-A\-C\-K\-\_\-\-R\-I\-G\-H\-T, B\-A\-C\-K, B\-A\-C\-K\-\_\-\-L\-E\-F\-T, L\-E\-F\-T, F\-R\-O\-N\-T\-\_\-\-L\-E\-F\-T. \\
+\hline
+{\em speed} & The speed at which to turn \\
+\hline
+{\em block} & Whether to make the call blocking \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_chirp_aad6bc3e54a01c0f4cb7ddd2e1e45b318}{\index{Chirp@{Chirp}!update@{update}}
+\index{update@{update}!Chirp@{Chirp}}
+\subsubsection[{update}]{\setlength{\rightskip}{0pt plus 5cm}void Chirp\-::update (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_chirp_aad6bc3e54a01c0f4cb7ddd2e1e45b318}
+Retrieves the sensor data and sends the set robot data. 
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{_chirp_8h}{Chirp.\-h}\item 
+\hyperlink{_chirp_8cpp}{Chirp.\-cpp}\end{DoxyCompactItemize}
