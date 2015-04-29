@@ -40,6 +40,10 @@ public class RxtxClass implements Runnable
 		this.chirpBotListener = chirpBotListener;
 	}
 	
+	public boolean isRunning(){
+		return running;
+	}
+	
 	public void sendRobotData(int leftSpeed, int rightSpeed)
 	{
 		//System.out.println(portName+" setting l:"+leftSpeed+" r:"+rightSpeed);
@@ -136,7 +140,7 @@ public class RxtxClass implements Runnable
 	{
 		long timeout = System.currentTimeMillis();
 		if(!portName.startsWith("/dev/rfcomm")) return false;
-		if(portName.contains("/dev/rfcomm3")) return false;
+//		if(portName.contains("/dev/rfcomm3")) return false;
 //		if(!portName.startsWith("/dev/ttyACM")) return false;
 		try
 		{

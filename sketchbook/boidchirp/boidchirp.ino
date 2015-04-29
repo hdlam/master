@@ -22,7 +22,7 @@ IrDistCom ir;
 unsigned short dists[8];
 
 int thresh = 40;
-
+int turnCount = 0;
 void setup()
 {
   Wire.begin(); // join i2c bus (address optional for master)

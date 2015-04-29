@@ -168,6 +168,12 @@ public class ChirpBoidWatcher extends BasicGame implements MulticastListener{
 		for (int j = 0; j < prototype.size(); j++) {
 			prototype.get(j).update(delta);
 		}
+		for (int i = 0; i < rxtxrobots.size(); i++) {
+			if(!rxtxrobots.get(i).isRunning()){
+				rxtxrobots.remove(i);
+				System.out.println("something removed");
+			}
+		}
 		
 		
 		//mouse assignment;
@@ -204,6 +210,19 @@ public class ChirpBoidWatcher extends BasicGame implements MulticastListener{
 			nearest(0, 0).setRxtx(rxtxrobots.get(0));
 			nearest(w, 0).setRxtx(rxtxrobots.get(1));
 			nearest(0, h).setRxtx(rxtxrobots.get(2));
+			nearest(w, h).setRxtx(rxtxrobots.get(3));
+			rxtxrobots.get(0).getData();
+			rxtxrobots.get(1).getData();
+			rxtxrobots.get(2).getData();
+			rxtxrobots.get(3).getData();
+			for (int i = 0; i < prototype.size(); i++) {
+				prototype.get(i).test(i);;
+			}
+		}
+		if(input.isKeyPressed(Input.KEY_T)){
+			nearest(0, 0).setRxtx(rxtxrobots.get(0));
+			nearest(w, 0).setRxtx(rxtxrobots.get(1));
+			nearest(0, h).setRxtx(rxtxrobots.get(2));
 //			nearest(w, h).setRxtx(rxtxrobots.get(3));
 			rxtxrobots.get(0).getData();
 			rxtxrobots.get(1).getData();
@@ -212,15 +231,23 @@ public class ChirpBoidWatcher extends BasicGame implements MulticastListener{
 			for (int i = 0; i < prototype.size()-1; i++) {
 					prototype.get(i).test(i);;
 			}
-			ChirpBot temp;
-			for (int i = 0; i < prototype.size(); i++) {
-				if(prototype.get(i).getRxtx() == null){
-					temp = prototype.get(i);
-					prototype.remove(i);
-					prototype.add(temp);
-					break;
+			
+			for (int i = 0; i < rxtxrobots.size(); i++) {
+				if(rxtxrobots.get(i).portName.contains("/dev/rfcomm3")){
+					RxtxClass temp = rxtxrobots.get(i);
+					rxtxrobots.remove(i);
+					temp.Stop();
 				}
 			}
+//			ChirpBot temp;
+//			for (int i = 0; i < prototype.size(); i++) {
+//				if(prototype.get(i).getRxtx() == null){
+//					temp = prototype.get(i);
+//					prototype.remove(i);
+//					prototype.add(temp);
+//					break;
+//				}
+//			}
 		}
 		
 		if(input.isKeyPressed(Input.KEY_R)){
