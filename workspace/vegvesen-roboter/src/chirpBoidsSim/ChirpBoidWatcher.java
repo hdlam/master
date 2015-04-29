@@ -323,9 +323,14 @@ public class ChirpBoidWatcher extends BasicGame implements MulticastListener{
 			prototype = new ArrayList<ChirpBot>();
 			
 		}
-//		if(input.isKeyPressed(Input.KEY_M)){
-//		
-//		}
+		if(input.isKeyPressed(Input.KEY_M)){
+			ArrayList<Float> data = new ArrayList<Float>();
+			
+			for (int i = 0; i < 15; i++) {
+				data.add((float)i);
+			}
+			rxtxrobots.get(0).sendBoidData(data);
+		}
 		
 		
 		

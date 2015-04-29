@@ -31,7 +31,8 @@ void setup()
   count = -1;
   ir.begin(front_addr, back_addr);
   motor.begin(motor_addr);
-  //test
+  randomSeed(analogRead(0));
+
 }
 
 float convert(byte array[], int start){
@@ -50,6 +51,7 @@ float convert(byte array[], int start){
 void turn(float angleToTurn){
   Serial.print("trying to turn:"); 
   Serial.println(angleToTurn);
+  turnCount++;
   motor.turnDegrees(angleToTurn);
   motor.turnDegrees(angleToTurn);
   delay(1000);
@@ -65,23 +67,23 @@ void turnToAngle(float goal){
   angleToTurn = angleToTurn*180/PI;
 
   /*if(!me.boidsNearby(other)){
-    if(angleToTurn > -135 && angleToTurn < -45){
-      if(dists[6] > thresh && dists[0] < thresh){
-        motor.moveAtSpeeds(300,300);
-        motor.moveAtSpeeds(300,300); 
-        delay(1000);
-        return;
-      }
-    }
-    else if(angleToTurn > 45 && angleToTurn < 135){
-      if(dists[2] > thresh && dists[0] < thresh){
-        motor.moveAtSpeeds(300,300);
-        motor.moveAtSpeeds(300,300); 
-        delay(1000);
-        return;
-      }
-    }
-  }*/
+   if(angleToTurn > -135 && angleToTurn < -45){
+   if(dists[6] > thresh && dists[0] < thresh){
+   motor.moveAtSpeeds(300,300);
+   motor.moveAtSpeeds(300,300); 
+   delay(1000);
+   return;
+   }
+   }
+   else if(angleToTurn > 45 && angleToTurn < 135){
+   if(dists[2] > thresh && dists[0] < thresh){
+   motor.moveAtSpeeds(300,300);
+   motor.moveAtSpeeds(300,300); 
+   delay(1000);
+   return;
+   }
+   }
+   }*/
   if(angleToTurn < 1 && angleToTurn > -1){
     delay(1000);
     return;
@@ -105,10 +107,14 @@ boolean checkDist(){
   ir.getDistSensors(dists);
   if(dists[0] > thresh){
     int coinFlip = random(0,2);
+    Serial.print("coinFlip got:");
+    Serial.println(coinFlip);
     if(coinFlip == 0){
-      turn(90);  
+      turn(90);
+      Serial.println("turning right");
     }
     else{
+      Serial.println("turning left");
       turn(-90); 
     }
     me.vel.reset();
@@ -117,22 +123,30 @@ boolean checkDist(){
     motor.moveAtSpeeds(0,0);
     return true;
   }
-  else if(dists[1] > thresh){  //maybe make it 45 deg. instead?
-    turn(90);
-    me.vel.reset();
-    sendBTCommand();
-    motor.moveAtSpeeds(0,0);
-    motor.moveAtSpeeds(0,0);
-    return true;
+  else if(turnCount < 5){
+    if(dists[1] > thresh){  //maybe make it 45 deg. instead?
+      turn(90);
+      me.vel.reset();
+      sendBTCommand();
+      motor.moveAtSpeeds(0,0);
+      motor.moveAtSpeeds(0,0);
+      return true;
+    }
+    else if(dists[7] > thresh){
+      turn(90);
+      me.vel.reset();
+      sendBTCommand();
+      motor.moveAtSpeeds(0,0);
+      motor.moveAtSpeeds(0,0);
+      return true;
+    } 
   }
-  else if(dists[7] > thresh){
-    turn(90);
-    me.vel.reset();
-    sendBTCommand();
-    motor.moveAtSpeeds(0,0);
-    motor.moveAtSpeeds(0,0);
-    return true;
-  } 
+  else{
+   motor.moveAtSpeeds(300,300);
+   motor.moveAtSpeeds(300,300);
+   turnCount = 0; 
+   return true;
+  }
   return false;
 }
 
@@ -167,24 +181,29 @@ void loop()
         Serial.println("got stop");
         motor.moveAtSpeeds(0,0);
         motor.moveAtSpeeds(0,0);
+        turnCount = 0;
       }
       else if(received == 76){ //L rotate left
         motor.moveAtSpeeds(-300,300);
         motor.moveAtSpeeds(-300,300);
+        turnCount = 0;
         Serial.println("got rotate 1");
       }
       else if(received == 82){ //R, rotate right
         Serial.println("got rotate 2");
         motor.moveAtSpeeds(300,-300);
         motor.moveAtSpeeds(300,-300);
+        turnCount = 0;
       }
       else if(received == 87){ //W, forward
         motor.moveAtSpeeds(300,300);
         motor.moveAtSpeeds(300,300);
+        turnCount = 0;
       }
       else if(received == 66){ //B, backward
         motor.moveAtSpeeds(-300,-300);
         motor.moveAtSpeeds(-300,-300);
+        turnCount = 0;
       }
       else if(received == 100){
         count = 0;
@@ -237,6 +256,7 @@ void loop()
           }
           else{
             sendBTCommand();
+            turnCount = 0;
             motor.moveAtSpeeds(me.vel.length()*10, me.vel.length()*10);
             motor.moveAtSpeeds(me.vel.length()*10, me.vel.length()*10);
             Serial.print("speed is set to: ");
@@ -244,6 +264,7 @@ void loop()
           }
         }
         else{
+          turnCount = 0;
           delay(1000); //ensures that the turning and non turning stays synchronized to a certain degree. 
         }
 
@@ -256,6 +277,7 @@ void loop()
   }
 
 }
+
 
 
 
