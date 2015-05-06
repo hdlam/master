@@ -96,7 +96,7 @@ public class ChirpBoid {
 
 	public void update(GameContainer gc, int delta, ArrayList<ChirpBoid> boids, ArrayList<Shape> obs) {
 		moveCalc(boids, delta, obs);
-		if(debug)
+//		if(debug)
 			updatePos(gc, delta);
 	}
 	
@@ -115,16 +115,16 @@ public class ChirpBoid {
 	    avo.scale(3.0f);
 	    //System.out.println(sep);
 		
-//		applyForce(coh, delta);
-//		applyForce(sep, delta);
+		applyForce(coh, delta);
+		applyForce(sep, delta);
 		applyForce(ali, delta);
-//		applyForce(avo, delta);
-		if(debug){
-			System.out.println("acc after applied:");
-			System.out.println(acc);
-			System.out.println();
-		}
-		
+		applyForce(avo, delta);
+//		if(debug){
+//			System.out.println("acc after applied:");
+//			System.out.println(acc);
+//			System.out.println();
+//		}
+//		
 	}
 	
 	private void applyForce(Vector2f force, int delta){
@@ -144,24 +144,24 @@ public class ChirpBoid {
 			vel.y = -maxSpeed;
 		
 		vel.y += acc.y/delta;
-		if(debug){
-			System.out.println("velo:");
-			System.out.println(vel);
+//		if(debug){
+//			System.out.println("velo:");
+//			System.out.println(vel);
+//		}
+		pos.x += vel.x / delta;
+		pos.y += vel.y / delta;
+		if (pos.x > gc.getWidth()) {
+			pos.x = 0;
 		}
-//		pos.x += vel.x / delta;
-//		pos.y += vel.y / delta;
-//		if (pos.x > gc.getWidth()) {
-//			pos.x = 0;
-//		}
-//		if (pos.y > gc.getHeight()) {
-//			pos.y = 0;
-//		}
-//		if (pos.x < 0) {
-//			pos.x = gc.getWidth();
-//		}
-//		if (pos.y < 0) {
-//			pos.y = gc.getHeight();
-//		}
+		if (pos.y > gc.getHeight()) {
+			pos.y = 0;
+		}
+		if (pos.x < 0) {
+			pos.x = gc.getWidth();
+		}
+		if (pos.y < 0) {
+			pos.y = gc.getHeight();
+		}
 		acc.set(0, 0);
 	}
 
@@ -289,6 +289,10 @@ public class ChirpBoid {
 			return desired;
 		}
 		else return new Vector2f(0,0);
+	}
+
+	public float getAngle() {
+		return (float) Math.atan2(vel.y, vel.x);
 	}
 		
 

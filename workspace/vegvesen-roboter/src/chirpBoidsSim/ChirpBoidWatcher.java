@@ -5,6 +5,7 @@
 package chirpBoidsSim;
 
 import java.io.BufferedReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Inet4Address;
@@ -52,9 +53,16 @@ public class ChirpBoidWatcher extends BasicGame implements MulticastListener{
 	
 	private ArrayList<RxtxClass> rxtxrobots = new ArrayList<>();
 	public boolean averaging;
-	public String udpString; 
-	public boolean debug = false;
+	public String udpString;
+	FileWriter fw;
+	String filename = "data.csv";
+	boolean start = false;
+	int iteration;
+	long time;
+	
+	public boolean debug = true;
 	public boolean debugRender = true;
+	
 	public ChirpBoidWatcher(String title, Multicast mc) {
 		super(title);
 		prototype = new ArrayList<ChirpBot>();
@@ -72,11 +80,19 @@ public class ChirpBoidWatcher extends BasicGame implements MulticastListener{
 	public void init(GameContainer gc) throws SlickException {
 		prototype = new ArrayList<ChirpBot>();
 		input = gc.getInput();
-		if(debug)
+		if(debug){
 			for (int i = 0; i < numOfBots; i++) {
 				ChirpBot temp =  new ChirpBot((float) Math.random()*w, (float) Math.random()*h, (float) Math.PI, i+"", this);
 				prototype.add(temp);
 			}
+		}
+		 try {
+			fw = new FileWriter(filename);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		iteration = 0;
+		time = System.currentTimeMillis();
 	}
 	
 	public List<ChirpBot> getPrototype() {
@@ -150,35 +166,125 @@ public class ChirpBoidWatcher extends BasicGame implements MulticastListener{
 		
 	}
 	
+	int factorial(int num){
+		if(num == 0)
+			return 1;
+		else
+			return factorial(num-1)*num;
+	}
 	
+	void refactorAngles(float[] angles){
+		for (int i = 0; i < angles.length; i++) {
+			if (angles[i] > Math.PI) {
+				angles[i] -= 2 * Math.PI;
+			} else if (angles[i] < -Math.PI) {
+				angles[i] += 2 * Math.PI;
+			}
+			
+			angles[i] = Math.abs(angles[i]);
+		}
+	}
+	
+	void createStats(){
+		float distSum = 0;
+		float anglSum = 0;
+		int count = 0;
+		
+		int numToCompare = 2;
+		int numOfCompares = factorial(prototype.size())/((prototype.size()-numToCompare)*factorial(numToCompare)); //4n2
+		
+		
+		float[] dists = new float[numOfCompares];
+		float[] angles = new float[numOfCompares];
+		
+		for (int i = 0; i < prototype.size(); i++) {
+			for (int j = i+1; j < prototype.size(); j++) {
+				if(prototype.get(i) == prototype.get(j)){
+					continue;
+				}
+				else{
+					dists[count] = prototype.get(i).getPos().distance(prototype.get(j).getPos());
+					angles[count] =  Math.abs(prototype.get(i).getAngle() - prototype.get(j).getAngle());
+					distSum += dists[count];
+					count++;
+				}
+			}
+		}
+		
+		
+		refactorAngles(angles);
+		//calc avg. dist
+		
+		for (int i = 0; i < angles.length; i++) {
+			anglSum += angles[i];
+		}
+		float distAvg = distSum/numOfCompares;
+		float anglAvg = anglSum/numOfCompares;
+		float distsdSum = 0;
+		float anglsdSum = 0;
+		for (int i = 0; i < dists.length; i++) {
+			distsdSum += Math.pow((dists[i]-distAvg),2);
+		}
+		for (int i = 0; i < angles.length; i++) {
+			anglsdSum += Math.pow((angles[i]-anglAvg),2);
+		}
+		distsdSum = (float) Math.sqrt(distsdSum / (count));
+		anglsdSum = (float) Math.sqrt(anglsdSum / (count));
+		//sdSum = (float) Math.sqrt(sdSum / (count-1));
+		
+		
+		try {
+			fw.write(iteration + "," + distAvg +","+ distsdSum + "," + anglAvg + "," + anglsdSum + "\n");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		iteration++;
+		
+	}
 	
 	/**
 	 * KEYBOARD SHORTCUTS
 	 * w - pair COM port inplace,  
-	 * a - pair COM port
+	 * a - pair COM porto
 	 * e - getData from all rxtx bots
-	 * s - stops all the robots if they are still moving in the start, does not work whenn they are running
+	 * s - stops all the robots if they are still moving in the start, does not work when they are running
 	 * q - quit
 	 * p - refreshes the list of robots, if any artifacts happens, use this. 
 	 * r - toggle render of information
 	 **/
 	int numOfRobotAssigned = 0;
+	int count = 4;
 	@Override
 	public void update(GameContainer gc, int delta) throws SlickException {
+		if(System.currentTimeMillis()-time > 180000){
+			System.out.println("timeout");
+			closeRequested();
+		}
+		
+		
 		for (int j = 0; j < prototype.size(); j++) {
 			prototype.get(j).update(delta);
 		}
 		for (int i = 0; i < rxtxrobots.size(); i++) {
 			if(!rxtxrobots.get(i).isRunning()){
+				System.out.println(rxtxrobots.get(i).portName +  " removed");
 				rxtxrobots.remove(i);
-				System.out.println("something removed");
 			}
 		}
-		
-		
+		if(start){
+			count++;
+			if(count == 5){
+				createStats();
+				count = 0;
+			}
+		}
+		else{
+			time = System.currentTimeMillis();
+		}
 		//mouse assignment;
 		if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
-            if(numOfRobotAssigned < numOfBots-1){
+            if(numOfRobotAssigned < numOfBots){
             	nearest(input.getMouseX(),input.getMouseY()).setRxtx(rxtxrobots.get(numOfRobotAssigned));
             	rxtxrobots.get(numOfRobotAssigned).sendSingleByte(0);
             	numOfRobotAssigned++;
@@ -189,6 +295,7 @@ public class ChirpBoidWatcher extends BasicGame implements MulticastListener{
 			closeRequested();
 		
 		if(input.isKeyPressed(Input.KEY_E)){
+			start = true;
 			for (int i = 0; i < prototype.size(); i++) {
 				if(prototype.get(i).getRxtx() != null){
 					System.out.println("got from " + i);
@@ -207,6 +314,7 @@ public class ChirpBoidWatcher extends BasicGame implements MulticastListener{
 //			}
 		}
 		if(input.isKeyPressed(Input.KEY_W)){
+			start = true;
 			nearest(0, 0).setRxtx(rxtxrobots.get(0));
 			nearest(w, 0).setRxtx(rxtxrobots.get(1));
 			nearest(0, h).setRxtx(rxtxrobots.get(2));
@@ -252,6 +360,7 @@ public class ChirpBoidWatcher extends BasicGame implements MulticastListener{
 		
 		if(input.isKeyPressed(Input.KEY_R)){
 			debugRender = !debugRender;
+			start = true;
 		}
 			
 		if(input.isKeyPressed(Input.KEY_A)){
@@ -324,12 +433,7 @@ public class ChirpBoidWatcher extends BasicGame implements MulticastListener{
 			
 		}
 		if(input.isKeyPressed(Input.KEY_M)){
-			ArrayList<Float> data = new ArrayList<Float>();
-			
-			for (int i = 0; i < 15; i++) {
-				data.add((float)i);
-			}
-			rxtxrobots.get(0).sendBoidData(data);
+			prototype.get(0).printData();
 		}
 		
 		
@@ -401,6 +505,12 @@ public class ChirpBoidWatcher extends BasicGame implements MulticastListener{
 				e.printStackTrace();
 			}
 			r.Stop();
+		}
+		try {
+			fw.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		System.exit(0);
 		return true;

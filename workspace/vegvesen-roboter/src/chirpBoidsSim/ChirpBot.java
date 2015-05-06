@@ -4,6 +4,7 @@
  */
 package chirpBoidsSim;
 
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
 import no.ntnu.idi.chirp.rxtx.RxtxClass;
@@ -147,19 +148,29 @@ public class ChirpBot implements RxtxListener{
 //		g.drawString(t+"", pos.x, pos.y-12);
 	}
 	
-//	private void tempMove(long delta){
-//		pos.x += vel.x/delta;
-//		pos.y += vel.y/delta;
-//		if(pos.x > cbw.w)
-//			pos.x = 0;
-//		if(pos.x < 0)
-//			pos.x = cbw.w;
-//		if(pos.y > cbw.h)
-//			pos.y = 0;
-//		if(pos.y < 0)
-//			pos.y = cbw.h;
-//	}
+	private void tempMove(long delta){
+		pos.x += vel.x/delta;
+		pos.y += vel.y/delta;
+		if(pos.x > cbw.w)
+			pos.x = 0;
+		if(pos.x < 0)
+			pos.x = cbw.w;
+		if(pos.y > cbw.h)
+			pos.y = 0;
+		if(pos.y < 0)
+			pos.y = cbw.h;
+	}
 	
+	
+	private void createTempData(ArrayList<Float> data, int size){
+		int numOfInts = 3+4*(size-1);
+		float i=0;
+		while(data.size() < numOfInts){
+			data.add(i);
+			i++;
+		}
+		System.out.println(data.size());
+	}
 	public void update(long delta) {
 		refractor();
 		
@@ -175,6 +186,11 @@ public class ChirpBot implements RxtxListener{
 			timeSinceLastRxTx = 0;
 		}
 		
+//		ArrayList<Float> data = new ArrayList<Float>();//float[3+(cbw.prototype.size()-1)*4];
+//		this.vel.x += (float)Math.random()*120 - 60;
+//		this.vel.y += (float)Math.random()*120 - 60;
+//		this.currentAngle = (float) Math.atan2(vel.y, vel.x);
+//		tempMove(delta);
 		if(rxtx != null && canSend && !quit) {
 			/* 3 floats for posx, posy, angle
 			*  4 floats for each OTHER chirpBots, because the first 3 bytes already have been used for "this".
@@ -182,6 +198,7 @@ public class ChirpBot implements RxtxListener{
 			*/
 			ArrayList<Float> data = new ArrayList<Float>();//float[3+(cbw.prototype.size()-1)*4];
 //			tempData(data);
+
 			data.add(getX());
 			data.add(getY());
 			data.add(getAngle());
@@ -195,6 +212,11 @@ public class ChirpBot implements RxtxListener{
 				data.add(current.getVelX());
 				data.add(current.getVelY());
 			}
+			
+			//TODO debug
+//			createTempData(data, 5);
+			
+			
 //			System.out.println("attempting to send data");
 //			if(data.size() < 15){
 //				tempData(data, data.size());
@@ -218,9 +240,65 @@ public class ChirpBot implements RxtxListener{
 //		}
 	}
 	
+	
+	public void printData(){
+		ArrayList<Float> data = new ArrayList<Float>();//float[3+(cbw.prototype.size()-1)*4];
+//		tempData(data);
+		data.add(getX());
+		data.add(getY());
+		data.add(getAngle());
+		
+		for (int i = 0; i < cbw.prototype.size(); i++) {
+			ChirpBot current =  cbw.prototype.get(i);
+			if(current == this)
+				continue;
+			data.add(current.getX());
+			data.add(current.getY());
+			data.add(current.getVelX());
+			data.add(current.getVelY());
+		}
+		createTempData(data, cbw.prototype.size());
+		printBoidData(data);
+	}
+	
+	public void printBoidData(ArrayList<Float> data){
+		byte byteArray[] =  new byte[data.size()*4+1];
+		byteArray[0] = (byte)100;
+		for(int i = 0; i < data.size(); i++){
+			byte temp[] = float2ByteArrayReversed(data.get(i));
+			for (int j = 0; j < 4; j++) {
+				byteArray[i*4+j+1] = temp[j];
+			}
+		}
+		System.out.println("data start");
+		for (int i = 0; i < byteArray.length; i++) {
+			System.out.println(byteArray[i]);
+		}
+		System.out.println("data end");
+		System.out.println("length is " + byteArray.length);
+		
+	}
+	public static byte [] float2ByteArrayReversed (float value)
+	{   
+		byte temp[] = ByteBuffer.allocate(4).putFloat(value).array();
+//		for (int i = 0; i < temp.length; i++) {
+//			System.out.print((int)temp[i]);
+//		}
+		for (int i = 0; i < temp.length/2; i++) {
+			byte placeHolder = temp[3-i];
+			temp[3-i] = temp[i];
+			temp[i] = placeHolder;
+		}
+//		System.out.println();
+		return temp;
+	}
+	
+	
 	public boolean quit(){
 		quit = true;
 		if(rxtx == null)
+			return true;
+		if(!rxtx.isRunning())
 			return true;
 		if(canSend){
 			rxtx.sendSingleByte(0);
@@ -253,6 +331,11 @@ public class ChirpBot implements RxtxListener{
 	 * 
 	 * 
 	 */
+	
+	public Vector2f getPos(){
+		return pos;
+	}
+	
 	public float getX() {
 		return pos.x;
 	}
@@ -265,6 +348,9 @@ public class ChirpBot implements RxtxListener{
 			return currentAngle;
 		
 	}
+	
+	
+	
 
 
 

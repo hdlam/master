@@ -5,6 +5,8 @@ import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Shape;
 import org.lwjgl.input.Keyboard;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -15,8 +17,8 @@ import java.util.Random;
  */
 public class BoidsGame extends BasicGame {
 
-	private static final int WIDTH = 800;
-	private static final int HEIGHT = 652;
+	private static final int WIDTH = 1024;
+	private static final int HEIGHT = 1024;
 	private static int targetFrameRate = 60;
 
 	private boolean debugOn = true;
@@ -39,7 +41,7 @@ public class BoidsGame extends BasicGame {
 			appgc = new AppGameContainer(game, WIDTH, HEIGHT, false);
 			appgc.setShowFPS(true);
 			appgc.setTargetFrameRate(targetFrameRate);
-			appgc.setPaused(true);
+			appgc.setPaused(false);
 			appgc.setAlwaysRender(true);
 			game.container = appgc;
 			appgc.start();
@@ -65,47 +67,155 @@ public class BoidsGame extends BasicGame {
 		obstacles = new ArrayList<Shape>();
 		createObstacles();
 		gc.setPaused(false);
+		try {
+			fw = new FileWriter("simulTest.csv");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		time = System.currentTimeMillis();
+	}
+	
+	int factorial(int num){
+		if(num == 0)
+			return 1;
+		else
+			return factorial(num-1)*num;
+	}
+	
+	void refactorAngles(float[] angles){
+		for (int i = 0; i < angles.length; i++) {
+			if (angles[i] > Math.PI) {
+				angles[i] -= 2 * Math.PI;
+			} else if (angles[i] < -Math.PI) {
+				angles[i] += 2 * Math.PI;
+			}
+			
+			angles[i] = Math.abs(angles[i]);
+		}
 	}
 
+	int iteration = 0;
+	FileWriter fw;
+	private long time;
+	void createStats(){
+		float distSum = 0;
+		float anglSum = 0;
+		int count = 0;
+		
+		int numToCompare = 2;
+		int numOfCompares = factorial(boids.size())/((boids.size()-numToCompare)*factorial(numToCompare)); //4n2
+		
+		
+		float[] dists = new float[numOfCompares];
+		float[] angles = new float[numOfCompares];
+		
+		for (int i = 0; i < boids.size(); i++) {
+			for (int j = i+1; j < boids.size(); j++) {
+				if(boids.get(i) == boids.get(j)){
+					continue;
+				}
+				else{
+					dists[count] = boids.get(i).getPos().distance(boids.get(j).getPos());
+					angles[count] =  Math.abs(boids.get(i).getAngle() - boids.get(j).getAngle());
+					distSum += dists[count];
+					count++;
+				}
+			}
+		}
+		
+		
+		refactorAngles(angles);
+		//calc avg. dist
+		
+		for (int i = 0; i < angles.length; i++) {
+			anglSum += angles[i];
+		}
+		float distAvg = distSum/numOfCompares;
+		float anglAvg = anglSum/numOfCompares;
+		float distsdSum = 0;
+		float anglsdSum = 0;
+		for (int i = 0; i < dists.length; i++) {
+			distsdSum += Math.pow((dists[i]-distAvg),2);
+		}
+		for (int i = 0; i < angles.length; i++) {
+			anglsdSum += Math.pow((angles[i]-anglAvg),2);
+		}
+		distsdSum = (float) Math.sqrt(distsdSum / (count));
+		anglsdSum = (float) Math.sqrt(anglsdSum / (count));
+		//sdSum = (float) Math.sqrt(sdSum / (count-1));
+		
+		
+		try {
+			fw.write(iteration + "," + distAvg +","+ distsdSum + "," + anglAvg + "," + anglsdSum + "\n");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		iteration++;
+		
+	}
+	
+	int count = 4;
 	@Override
 	public void update(GameContainer gc, int delta) throws SlickException {
 		//System.out.println(delta);
- 
-		if(input.isKeyPressed(Input.KEY_Q) || input.isKeyPressed(Input.KEY_ESCAPE))
+		if(System.currentTimeMillis()-time > 180000){
+			System.out.println("timeout");
+			closeRequested();
 			gc.exit();
-	
-	if(input.isKeyPressed(Input.KEY_P)){
-		createBoids();
-	}
+		}
+ 
+		if(input.isKeyPressed(Input.KEY_Q) || input.isKeyPressed(Input.KEY_ESCAPE)){
+			try {
+				fw.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			gc.exit();
+		}
+		if (input.isKeyPressed(Input.KEY_P)) {
+			createBoids();
+		}
+		if (input.isKeyPressed(Input.KEY_1))
+			numOfBots = 1;
+		if (input.isKeyPressed(Input.KEY_2))
+			numOfBots = 2;
+		if (input.isKeyPressed(Input.KEY_3))
+			numOfBots = 3;
+		if (input.isKeyPressed(Input.KEY_4))
+			numOfBots = 4;
+		if (input.isKeyPressed(Input.KEY_5))
+			numOfBots = 5;
+		if (input.isKeyPressed(Input.KEY_6))
+			numOfBots = 6;
+		if (input.isKeyPressed(Input.KEY_7))
+			numOfBots = 7;
+		if (input.isKeyPressed(Input.KEY_8))
+			numOfBots = 8;
 
-	if(input.isKeyPressed(Input.KEY_1))
-		numOfBots = 1;
-	if(input.isKeyPressed(Input.KEY_2))
-		numOfBots = 2;
-	if(input.isKeyPressed(Input.KEY_3))
-		numOfBots = 3;
-	if(input.isKeyPressed(Input.KEY_4))
-		numOfBots = 4;
-	if(input.isKeyPressed(Input.KEY_5))
-		numOfBots = 5;
-	if(input.isKeyPressed(Input.KEY_6))
-		numOfBots = 6;
-	if(input.isKeyPressed(Input.KEY_7))
-		numOfBots = 7;
-	if(input.isKeyPressed(Input.KEY_8))
-		numOfBots = 8;
-		
-	if (input.isMousePressed(input.MOUSE_LEFT_BUTTON)) {
-		ChirpBoid boid = new ChirpBoid((int)(Math.random()*WIDTH), (int)(Math.random()*HEIGHT), intToCol((int)(Math.random()*10)), (int)(Math.random()*120)-60, (int)(Math.random()*120)-60);
-		boids.add(boid);
-	}
-	
-	if(input.isKeyPressed(Input.KEY_SPACE))
-		paused = !paused;
-	if(paused)
-		return;
-	for (ChirpBoid b : boids) {
+		if (input.isMousePressed(input.MOUSE_LEFT_BUTTON)) {
+			ChirpBoid boid = new ChirpBoid((int) (Math.random() * WIDTH),
+					(int) (Math.random() * HEIGHT),
+					intToCol((int) (Math.random() * 10)),
+					(int) (Math.random() * 120) - 60,
+					(int) (Math.random() * 120) - 60);
+			boids.add(boid);
+		}
+
+		if (input.isKeyPressed(Input.KEY_SPACE))
+			paused = !paused;
+		if (paused){
+			time = System.currentTimeMillis();
+			return;
+		}
+		for (ChirpBoid b : boids) {
 		b.update(gc, delta, boids, obstacles);
+		count++;
+		if(count == 5){
+			createStats();
+			count = 0;
+		}
 	}
 //	if(input.isKeyPressed(Input.KEY_R)){
 //		render = !render;

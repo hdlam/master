@@ -43,17 +43,20 @@
 <fullyQualifiedTypeName name="org.newdawn.slick.Color"/>
 <fullyQualifiedTypeName name="java.lang.reflect.Array"/>
 <fullyQualifiedTypeName name="org.newdawn.slick.geom.Shape"/>
-<fullyQualifiedTypeName name="java.lang.Math"/>
-<fullyQualifiedTypeName name="no.ntnu.idi.chirp.rxtx.RxtxClass"/>
 <fullyQualifiedTypeName name="android.support.v4.util.LogWriter"/>
 <fullyQualifiedTypeName name="android.util.Log"/>
 <fullyQualifiedTypeName name="java.lang.StringBuilder"/>
-<fullyQualifiedTypeName name="chirpBoidsSim.ChirpBoidWatcher"/>
 <fullyQualifiedTypeName name="chirpBoidsSim.ChirpBot"/>
-<fullyQualifiedTypeName name="java.util.Arrays"/>
 <fullyQualifiedTypeName name="java.util.Collections"/>
 <fullyQualifiedTypeName name="java.lang.String"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="java.lang.StringBuffer"/>
+<fullyQualifiedTypeName name="no.ntnu.idi.chirp.rxtx.RxtxClass"/>
+<fullyQualifiedTypeName name="java.lang.Integer"/>
+<fullyQualifiedTypeName name="java.util.Arrays"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="org.newdawn.slick.geom.Vector2f"/>
+<fullyQualifiedTypeName name="chirpBoidsSim.ChirpBoidWatcher"/>
+<fullyQualifiedTypeName name="java.io.IOException"/>
+<fullyQualifiedTypeName name="java.lang.Math"/>
+<fullyQualifiedTypeName name="java.io.FileWriter"/>
 </qualifiedTypeNameHistroy>

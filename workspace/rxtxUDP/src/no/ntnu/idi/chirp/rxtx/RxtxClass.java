@@ -79,6 +79,8 @@ public class RxtxClass implements Runnable
 		}
 		sendData(byteArray);
 	}
+	
+	
 	public static byte [] float2ByteArrayReversed (float value)
 	{   
 		byte temp[] = ByteBuffer.allocate(4).putFloat(value).array();

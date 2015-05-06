@@ -21,12 +21,12 @@ void setup()
   Serial.begin(9600);
   motor.begin(motor_addr);
   ir.begin(front_addr, back_addr);
-  
+
   for(byte i = 0; i < 10; i++){
-     delay(1000);
-     Serial.println(i); 
+    delay(1000);
+    Serial.println(i); 
   }
-  
+
 }
 
 
@@ -37,18 +37,28 @@ void loop()
   Serial.println("new round");
   ir.getDistSensors(dists);
   for(byte i = 0; i < 8; i++){
-     Serial.println(dists[i]);
+    Serial.println(dists[i]);
   }
-  if(dists[0] > tresh)
-    motor.moveAtSpeeds(500,0);
-  if(dists[1] > tresh)
-    motor.moveAtSpeeds(0,500);
-  if(dists[7] > tresh)
-    motor.moveAtSpeeds(500,0);
-  else
+  if(dists[0] > tresh){
+    motor.moveAtSpeeds(500,-500);
+    motor.moveAtSpeeds(500,-500);
+  }
+  if(dists[1] > tresh){
+    motor.moveAtSpeeds(-500,500);
+    motor.moveAtSpeeds(-500,500);
+  }
+  if(dists[7] > tresh){
+    motor.moveAtSpeeds(500,-500);
+    motor.moveAtSpeeds(500,-500);
+  }
+  else{
     motor.moveAtSpeeds(500,500);  
+    motor.moveAtSpeeds(500,500);
+  }
   delay(200);
 }
+
+
 
 
 
