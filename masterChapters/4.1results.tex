@@ -1,0 +1,22 @@
+results
+
+%TODO rewrite
+The system used consists of two computers running xubuntu, one machine is connected to the camera and tracks the robots' position and angle. A string of the each robots' id, position and angle is constructed and sent to a predefined ip address via UDP. Information received from the camera tracking software is forwarded to each robot. The robots calculates a vector for each behavior; cohesion, alignment and separation. These three vectors are added together for a final vector which is the direction the robot would want to go. This final vector is sent back to the simulator so it can forward the velocity of this robot to the other robots on the next iteration.
+
+The Boids algorithm are supposed to keep the robots flocked together and preferably they should face the same direction as well. The simulator knows where each robot is, and it knows which direction each robot is facing. The simulator measures the distance between each robot and the angle difference between the robots every five frame, it then calculates the mean and standard deviation of the distances and angles and saves it to a file.
+To keep the data as consistent between each run the simulator stops all the robots and saves the files after three minutes.
+The distance measured are in pixels, and the measurement of the sandbox is 151.6 cm wide and 123.9 cm long. The simulator uses 800x652 pixels, which means that 1 cm is approximately 5.3 pixels on the simulator. The measured angles are shown in radians.
+
+
+The first run are when the robots 
+
+%TODO graphs and interpretation of results
+The graph below shows
+
+
+
+
+
+Discussion.
+From the results we can see that the robots quickly flock together, they start out on each corner of the sandbox then drive into the center of the sandbox, this is shown in the graph by the first drop. 
+The angles measured seems to vary a lot, even if the alignment-behavior tries to make all the robots face the same way. The reason this happens is because the allowed space to travel is not infinite and the robots encounters different types of obstacles like the surrounding wall, each other and the two water bottle placed inside the sandbox. The same behavior is found on the Boids that were ran exclusively on a simulator.
