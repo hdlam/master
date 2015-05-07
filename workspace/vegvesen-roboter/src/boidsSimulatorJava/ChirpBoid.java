@@ -95,23 +95,25 @@ public class ChirpBoid {
 	}
 
 	public void update(GameContainer gc, int delta, ArrayList<ChirpBoid> boids, ArrayList<Shape> obs) {
-		moveCalc(boids, delta, obs);
+		moveCalc(boids, delta, obs, gc);
 //		if(debug)
 			updatePos(gc, delta);
 	}
 	
-	private void moveCalc(ArrayList<ChirpBoid> boi, int delta, ArrayList<Shape> obs){
+	private void moveCalc(ArrayList<ChirpBoid> boi, int delta, ArrayList<Shape> obs, GameContainer gc){
 		ArrayList<ChirpBoid> boids = (ArrayList<ChirpBoid>) boi.clone();
 		bb = boi;
 		Vector2f coh = cohesion(boids);
 		Vector2f sep = separation(boids);
 		Vector2f ali = alignment(boids);
+		Vector2f afw = awayFromWall(boids, gc);
 		Vector2f avo = avoidObstacle(obs);
 		
 		
 		coh.scale(2.0f);
 	    sep.scale(3.0f);
 	    ali.scale(2.0f);
+	    afw.scale(1.0f);
 	    avo.scale(3.0f);
 	    //System.out.println(sep);
 		
@@ -119,6 +121,7 @@ public class ChirpBoid {
 		applyForce(sep, delta);
 		applyForce(ali, delta);
 		applyForce(avo, delta);
+		applyForce(afw, delta);
 //		if(debug){
 //			System.out.println("acc after applied:");
 //			System.out.println(acc);
@@ -150,17 +153,17 @@ public class ChirpBoid {
 //		}
 		pos.x += vel.x / delta;
 		pos.y += vel.y / delta;
-		if (pos.x > gc.getWidth()) {
-			pos.x = 0;
+		if (pos.x+viewDistance/2 > gc.getWidth()) {
+			vel.x = 0;
 		}
-		if (pos.y > gc.getHeight()) {
-			pos.y = 0;
+		if (pos.y+viewDistance/2 > gc.getHeight()) {
+			vel.y = 0;
 		}
-		if (pos.x < 0) {
-			pos.x = gc.getWidth();
+		if (pos.x-viewDistance/2 < 0) {
+			vel.x = 0;
 		}
-		if (pos.y < 0) {
-			pos.y = gc.getHeight();
+		if (pos.y-viewDistance/2 < 0) {
+			vel.y = 0;
 		}
 		acc.set(0, 0);
 	}
@@ -269,6 +272,24 @@ public class ChirpBoid {
 		
 		return sep;
 	}
+	
+	private Vector2f awayFromWall(ArrayList<ChirpBoid> boids, GameContainer gc){
+	    Vector2f awayFromWall = new Vector2f(0,0);
+	    if(pos.x > gc.getWidth() - sepDist/2){
+	        awayFromWall.x = -30;
+	    }   
+	    else if(pos.x < sepDist/2){
+	        awayFromWall.x = 30; 
+	    }   
+	    if(pos.y > gc.getHeight() - sepDist/2){
+	        awayFromWall.y = -30;
+	    }   
+	    else if(pos.y < sepDist/2){
+	        awayFromWall.y = 30; 
+	    }   
+	    return awayFromWall;
+	}
+
 	
 	
 	

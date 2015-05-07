@@ -3,12 +3,17 @@ results
 %TODO rewrite
 The system used consists of two computers running xubuntu, one machine is connected to the camera and tracks the robots' position and angle. A string of the each robots' id, position and angle is constructed and sent to a predefined ip address via UDP. Information received from the camera tracking software is forwarded to each robot. The robots calculates a vector for each behavior; cohesion, alignment and separation. These three vectors are added together for a final vector which is the direction the robot would want to go. This final vector is sent back to the simulator so it can forward the velocity of this robot to the other robots on the next iteration.
 
+%TODO much repeat here
 The Boids algorithm are supposed to keep the robots flocked together and preferably they should face the same direction as well. The simulator knows where each robot is, and it knows which direction each robot is facing. The simulator measures the distance between each robot and the angle difference between the robots every five frame, it then calculates the mean and standard deviation of the distances and angles and saves it to a file.
 To keep the data as consistent between each run the simulator stops all the robots and saves the files after three minutes.
-The distance measured are in pixels, and the measurement of the sandbox is 151.6 cm wide and 123.9 cm long. The simulator uses 800x652 pixels, which means that 1 cm is approximately 5.3 pixels on the simulator. The measured angles are shown in radians.
+The distance measured are in pixels, and the measurement of the sandbox is 151.6 cm wide and 123.9 cm long. The watcher software spawns a window that has a resolution 800x652 pixels, which means that 1 cm is approximately 5.3 pixels on the screen. The measured angles are shown in radians.
 
+The data generated are measured by measuring the distance between each robot, and averaging the distances each time steps along with the standard deviation of the data. The same procedure was applied to the angle of each robot.
+The speed of each Boids in the simulator is logged each time step and averaged along with the standard deviation. On the physical robot on the other hand, the velocity could not be measured as easily. The watcher had to save the position of the last time step, and then compare it with the new position of this time step to create the velocity data.
 
-The first run are when the robots 
+The first scenario where all the robots/Boids are placed in each corner with only one obstacle in the middle of the sandbox. 
+
+The second scenario
 
 %TODO graphs and interpretation of results
 The graph below shows

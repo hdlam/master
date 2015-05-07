@@ -2,13 +2,13 @@
 \label{sec:futureWork}
 
 %TODO write intro to this chapter here
-Something something; here a 
+This section will look further upon what research question is still unanswered.
 
 \textbf{More robots}
 %TODO NOTES:
-The current implementation of the system only supports four robot simultaneously, a new robot can not be added to the system without uploading the code to each robot in use. The reason behind this is that the array of bytes received from the computer is stored inside a byte array on the robot, and it is 60 bytes long. Whereas if we wanted to have five robots instead we would need to change some few parameters inside the Boids library and change the size of the byte array to 76, following the formula: $ 12+16*(number of robots - 1) $.
+The current implementation of the system only supports four robot simultaneously, a new robot can not be added to the system without uploading the code to each robot in use. 
+This is because the robot needs to know how many other robots there will be, because it will need to know how much data it is going to store before processing it. This has to be changed manually in the code and then uploaded to the robot again.
 A working flocking flock should have more than four robots running simultaneously, and we should be able to add a new robot without re-uploading the code to the robots.
-%This is because a float data type is made up of 4 bytes, and we need 15 floats altogether for each iteration. The first three floats consists of the x-position, y-position and angle of the current robot. The next 4 floats are
 
 \textbf{More fluid movement}
 The current implementation does not punish the robot for standing still nor for only rotating on the same spot. The only escape from continuously spinning around on the same spot is a counter, which forces the robot to move forward if it has been stuck on a spot for five iterations and if there is nothing in front of it. 

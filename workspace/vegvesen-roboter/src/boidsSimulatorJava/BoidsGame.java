@@ -161,8 +161,15 @@ public class BoidsGame extends BasicGame {
 		//System.out.println(delta);
 		if(System.currentTimeMillis()-time > 180000){
 			System.out.println("timeout");
-			closeRequested();
+			try {
+				fw.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+//			paused=true;
 			gc.exit();
+			System.exit(0);
 		}
  
 		if(input.isKeyPressed(Input.KEY_Q) || input.isKeyPressed(Input.KEY_ESCAPE)){
@@ -172,7 +179,8 @@ public class BoidsGame extends BasicGame {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			gc.exit();
+//			paused=true;
+			System.exit(0);
 		}
 		if (input.isKeyPressed(Input.KEY_P)) {
 			createBoids();
@@ -195,11 +203,7 @@ public class BoidsGame extends BasicGame {
 			numOfBots = 8;
 
 		if (input.isMousePressed(input.MOUSE_LEFT_BUTTON)) {
-			ChirpBoid boid = new ChirpBoid((int) (Math.random() * WIDTH),
-					(int) (Math.random() * HEIGHT),
-					intToCol((int) (Math.random() * 10)),
-					(int) (Math.random() * 120) - 60,
-					(int) (Math.random() * 120) - 60);
+			ChirpBoid boid = new ChirpBoid((int) (Math.random() * WIDTH), (int) (Math.random() * HEIGHT), intToCol((int) (Math.random() * 10)),(int) (Math.random() * 120) - 60,(int) (Math.random() * 120) - 60);
 			boids.add(boid);
 		}
 
@@ -262,11 +266,16 @@ public class BoidsGame extends BasicGame {
 //			boids.add(boid);
 //			
 //		}{-414.481, -279.654}
-		boids.add(new ChirpBoid(424.58f, 270.87f, intToCol(0), 0, 0));
-		boids.get(0).debug = true;
-		boids.add(new ChirpBoid(158, 191.28f, intToCol(0), -100, 0));
-		boids.add(new ChirpBoid(483.10f, 310.36f, intToCol(0), 100, 0));
-		boids.add(new ChirpBoid(175.06f, 485.43f, intToCol(0), -100, 30));
+//		boids.add(new ChirpBoid(424.58f, 270.87f, intToCol(0), 0, 0));
+//		boids.add(new ChirpBoid(158, 191.28f, intToCol(0), -100, 0));
+//		boids.add(new ChirpBoid(483.10f, 310.36f, intToCol(0), 100, 0));
+//		boids.add(new ChirpBoid(175.06f, 485.43f, intToCol(0), -100, 30));
+
+		
+		boids.add(new ChirpBoid(30f, 30f, intToCol(0), 0, 0));
+		boids.add(new ChirpBoid(30f, HEIGHT-30, intToCol(0), 0, 0));
+		boids.add(new ChirpBoid(WIDTH-30, 30f, intToCol(0), 0, 0));
+		boids.add(new ChirpBoid(WIDTH-30, HEIGHT-30, intToCol(0), 0, 0));
 	}
 
 	@Override
