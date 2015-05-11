@@ -1,5 +1,6 @@
-results
+result
 
+\label{sec:results}
 %TODO rewrite
 The system used consists of two computers running xubuntu, one machine is connected to the camera and tracks the robots' position and angle. A string of the each robots' id, position and angle is constructed and sent to a predefined ip address via UDP. Information received from the camera tracking software is forwarded to each robot. The robots calculates a vector for each behavior; cohesion, alignment and separation. These three vectors are added together for a final vector which is the direction the robot would want to go. This final vector is sent back to the simulator so it can forward the velocity of this robot to the other robots on the next iteration.
 

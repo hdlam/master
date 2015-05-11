@@ -12,7 +12,7 @@ import java.util.Random;
 
 /**
  * Created with IntelliJ IDEA.
- * Created By: Lyndon Armitage
+ * Created By: Lyndon Armitage, ported by HD
  * Date: 22/02/13
  */
 public class BoidsGame extends BasicGame {
@@ -100,6 +100,7 @@ public class BoidsGame extends BasicGame {
 	void createStats(){
 		float distSum = 0;
 		float anglSum = 0;
+		float speedSum = 0;
 		int count = 0;
 		
 		int numToCompare = 2;
@@ -122,7 +123,10 @@ public class BoidsGame extends BasicGame {
 				}
 			}
 		}
-		
+		for (ChirpBoid cb : boids) {
+			speedSum += cb.getVel().length();
+		}
+		float speedAvg = speedSum/numOfBots;
 		
 		refactorAngles(angles);
 		//calc avg. dist
@@ -134,19 +138,22 @@ public class BoidsGame extends BasicGame {
 		float anglAvg = anglSum/numOfCompares;
 		float distsdSum = 0;
 		float anglsdSum = 0;
+		float speedsdSum = 0;
 		for (int i = 0; i < dists.length; i++) {
 			distsdSum += Math.pow((dists[i]-distAvg),2);
-		}
-		for (int i = 0; i < angles.length; i++) {
 			anglsdSum += Math.pow((angles[i]-anglAvg),2);
+		}
+		for (int i = 0; i < numOfBots; i++) {
+			speedsdSum += Math.pow((boids.get(i).getVel().length()-speedAvg),2);
 		}
 		distsdSum = (float) Math.sqrt(distsdSum / (count));
 		anglsdSum = (float) Math.sqrt(anglsdSum / (count));
+		speedsdSum = (float) Math.sqrt(speedsdSum / (count));
 		//sdSum = (float) Math.sqrt(sdSum / (count-1));
 		
 		
 		try {
-			fw.write(iteration + "," + distAvg +","+ distsdSum + "," + anglAvg + "," + anglsdSum + "\n");
+			fw.write(iteration + "," + distAvg +","+ distsdSum + "," + anglAvg + "," + anglsdSum + "," + speedAvg + "," +speedsdSum+ "\n");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

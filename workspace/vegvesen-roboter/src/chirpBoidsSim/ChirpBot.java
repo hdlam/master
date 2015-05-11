@@ -18,7 +18,7 @@ import org.newdawn.slick.geom.Vector2f;
  */
 public class ChirpBot implements RxtxListener{
 
-	private Vector2f pos,vel;
+	private Vector2f pos,vel, prevPos;
 	private ChirpBoidWatcher cbw;
 	private float currentAngle; // in radians
 	private String ID;
@@ -69,6 +69,7 @@ public class ChirpBot implements RxtxListener{
 		this.cbw = cbw;
 		pos = new Vector2f(initX, initY);
 		vel = new Vector2f(0, 0);
+		prevPos = new Vector2f(0, 0);
 		currentAngle = initAngle;
 		ID = id;
 		canSend = true;
@@ -347,6 +348,12 @@ public class ChirpBot implements RxtxListener{
 	public float getAngle() {
 			return currentAngle;
 		
+	}
+
+	public float getVelocity() {
+		Vector2f temp = new Vector2f(vel.x, vel.y);
+		temp.sub(prevPos);
+		return temp.length();
 	}
 	
 	
