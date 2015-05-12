@@ -101,11 +101,17 @@ boolean checkDist(){
       Serial.println("turning left");
       turn(-90); 
     }
-    me.vel.reset();
-    sendBTCommand();
-    motor.moveAtSpeeds(0,0);
-    motor.moveAtSpeeds(0,0);
-    return true;
+    if(turnCount >= 5){
+        checkDist();
+        return false;
+    }
+    else{
+        me.vel.reset();
+        sendBTCommand();
+        motor.moveAtSpeeds(0,0);
+        motor.moveAtSpeeds(0,0);
+        return true;
+    }
   }
   else if(turnCount < 5){
     Serial.println("turnCount <5");
@@ -126,11 +132,11 @@ boolean checkDist(){
       return true;
     }
   }
-  else{
-   motor.moveAtSpeeds(300,300);
-   motor.moveAtSpeeds(300,300);
-   turnCount = 0; 
-   return true;
+  else if(turnCount >=5){
+    motor.moveAtSpeeds(300,300);
+    motor.moveAtSpeeds(300,300);
+    turnCount = 0; 
+    return true;
   }
   Serial.println("false");
   return false;
@@ -201,12 +207,12 @@ void loop()
     }
     else{
       data[count] = received;
-//      Serial.print(count);
-//      Serial.print(":");
-//      Serial.println(received);
+      //      Serial.print(count);
+      //      Serial.print(":");
+      //      Serial.println(received);
       count++;
       if(count == (12+16*(me.getNumOfBots()-1))){
-        
+
         count = -1;
         me.setPos(convert(data,0),convert(data, 1));
         me.setAngle(convert(data, 2));
@@ -237,25 +243,23 @@ void loop()
         delay(50);
         //MOTOR
         Serial.println("delay of 50");
+
+        turnToAngle(atan2(me.vel.y, me.vel.x));
         if(checkDist()){
           Serial.println("checkDist == true");
+          sendBTCommand();
         }
         else if(me.vel.length() > 0){
           Serial.println("vel > 0");
-          turnToAngle(atan2(me.vel.y, me.vel.x));
           Serial.println("angle turned");
-          if(checkDist()){
-            sendBTCommand();
-          }
-          else{
-            Serial.println("drive with vector");
-            sendBTCommand();
-            turnCount = 0;
-            motor.moveAtSpeeds(me.vel.length()*10, me.vel.length()*10);
-            motor.moveAtSpeeds(me.vel.length()*10, me.vel.length()*10);
-            Serial.print("speed is set to: ");
-            Serial.println(me.vel.length());
-          }
+
+          Serial.println("drive with vector");
+          sendBTCommand();
+          turnCount = 0;
+          motor.moveAtSpeeds(me.vel.length()*10, me.vel.length()*10);
+          motor.moveAtSpeeds(me.vel.length()*10, me.vel.length()*10);
+          Serial.print("speed is set to: ");
+          Serial.println(me.vel.length());
         }
         else{
           Serial.println("drive forward");
@@ -272,6 +276,7 @@ void loop()
   }
 
 }
+
 
 
 

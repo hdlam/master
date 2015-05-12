@@ -91,6 +91,8 @@
 		<item value="2" key="AccessModifier"/>
 	</section>
 	<section name="completion_proposal_size">
+		<item value="312" key="contextSelector.size.x"/>
+		<item value="262" key="contextSelector.size.y"/>
 	</section>
 	<section name="JavaElementSearchActions">
 	</section>

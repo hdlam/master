@@ -28,6 +28,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
+import org.newdawn.slick.util.FastTrig;
 
 /**
  * This is the main class for the Boids, it will render the Boids as seen on screen.
@@ -60,7 +61,7 @@ public class ChirpBoidWatcher extends BasicGame implements MulticastListener{
 	int iteration;
 	long time;
 	
-	public boolean debug = true;
+	public boolean debug = false;
 	public boolean debugRender = true;
 	
 	public ChirpBoidWatcher(String title, Multicast mc) {

@@ -69,7 +69,7 @@ public class ChirpBot implements RxtxListener{
 		this.cbw = cbw;
 		pos = new Vector2f(initX, initY);
 		vel = new Vector2f(0, 0);
-		prevPos = new Vector2f(0, 0);
+		prevPos = new Vector2f(initX, initY);
 		currentAngle = initAngle;
 		ID = id;
 		canSend = true;
@@ -351,8 +351,10 @@ public class ChirpBot implements RxtxListener{
 	}
 
 	public float getVelocity() {
-		Vector2f temp = new Vector2f(vel.x, vel.y);
+		Vector2f temp = new Vector2f(pos.x, pos.y);
 		temp.sub(prevPos);
+		prevPos.x = pos.x;
+		prevPos.y = pos.y;
 		return temp.length();
 	}
 	

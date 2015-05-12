@@ -27,12 +27,12 @@ public class ChirpBoid {
 	private ArrayList<ChirpBoid> bb;
 	public boolean debug = false;
 	
-//	private final float cohDist = 250f;
-//	private final float sepDist = 120f;
-//	private final float aliDist = 175f;
-	private final float cohDist = 800f;
-	private final float sepDist = 200f;
-	private final float aliDist = 500f;
+	private final float cohDist = 250f;
+	private final float sepDist = 120f;
+	private final float aliDist = 175f;
+//	private final float cohDist = 800f;
+//	private final float sepDist = 200f;
+//	private final float aliDist = 500f;
 	
 	private final float maxSpeed = 30f;
 	private final float maxF = 50f;
