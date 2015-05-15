@@ -2,20 +2,24 @@
 \label{sec:futureWork}
 
 %TODO write intro to this chapter here
-This section will look further upon what research question is still unanswered.
+This section will look further upon what research question is still unanswered and what can be improved.
 
 \textbf{More robots}
-%TODO NOTES:
-The current implementation of the system only supports four robot simultaneously, a new robot can not be added to the system without uploading the code to each robot in use. 
-This is because the robot needs to know how many other robots there will be, because it will need to know how much data it is going to store before processing it. This has to be changed manually in the code and then uploaded to the robot again.
+The current implementation of the system only supports four simultaneous robots at the same time. A new robot can not be added to the system without uploading the code to each robot in use, nor can a robot disappear from the system. The camera tracking software loads a configuration file at startup that specifies how many robots will be tracked, this value has to be manually changed by the user and reloaded.
+The watcher software needs to know which robot on its screen belongs to which bluetooth serial port. If one of the robots' bluetooth connection disconnects or times out, everything has to stop and reconnected again for it to work.
+
+The main idea behind swarm robots is that it should be able to run continuously without having to reboot or stop the swarm to add a new robot or remove one. If one of the entity in a swarm is defected, injured or not working, the other ones should still be operable.
+
+The current implementation of this project relies on the robot needing to know how many other robots there will be in the sandbox at the same time, because it will need to know how much data it is going to store before processing it. This has to be changed manually in the code and then uploaded to the robot again.
 A working flocking flock should have more than four robots running simultaneously, and we should be able to add a new robot without re-uploading the code to the robots.
 
-\textbf{More fluid movement}
-The current implementation does not punish the robot for standing still nor for only rotating on the same spot. The only escape from continuously spinning around on the same spot is a counter, which forces the robot to move forward if it has been stuck on a spot for five iterations and if there is nothing in front of it. 
-Make the movement of the robots more fluid
+\textbf{More fluid movement} %TODO rewrite
+The current implementation does not punish the robot for standing still nor for only rotating on the same spot. The only escape from continuously spinning on the same spot is a spin counter, which forces the robot to move forward if the robot has been stuck on a spot for five iterations and if there is nothing in front of it. 
 
-[From template] %TODO remove
-Consider where you would like to extend this work. These extensions might either be continuing the ongoing direction or taking a side direction that became obvious during the work. Further, possible solutions to limitations in the work conducted, highlighted in ~\ref{sec:Discussion} may be presented. 
+Each robot also stops when it turns around and whenever they need to change direction. When birds fly together as a flock they do not stop when they need to turn. The robots should be able to move and rotate without stopping.
+
+%[From template] %TODO remove
+%Consider where you would like to extend this work. These extensions might either be continuing the ongoing direction or taking a side direction that became obvious during the work. Further, possible solutions to limitations in the work conducted, highlighted in ~\ref{sec:Discussion} may be presented. 
 
 
 

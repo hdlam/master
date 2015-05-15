@@ -1,28 +1,105 @@
-result
+\chapter{Experiments and Results}
+\label{cha:ResearchAndResults}
 
+{\it In this chapter, the results from the experiments will be presented and discussed. Section \ref{sec:results} contains the actual results created by running each scenario. Section \ref{sec:discussion} will discuss the results seen in section \ref{sec:results}, and a discussion on the differences between the results from the simulator and the physical robots.}
+
+\section{Experimental Plan}
+\label{sec:experimentalPlan}
+
+The results are created by writing to a text file in the form of a .csv file, which can be open directly by spreadsheet softwares. A .csv file is simply a text file with comma separated values, a row in the .csv file would correspond to a row in the spreadsheet, and a column in the spreadsheet software is separated by a comma in the .csv file.
+
+The watcher software have no way to find the actual speed of the robots, because the wheels still move when the robot is spinning in situ. 
+We want to find out whether the position 
+The way the watcher software calculates the velocity of each robot is to save the old position of the robot, then compare the new position and see how far off it is.
+The formula used to find the mean value of all the robots at a time step is defined as:
+\begin{equation}
+\mu_{velocity} = \frac{1}{N} \Sigma_{i=1}^N (\vec{p_i}_{new} - \vec{p_i}_{old})
+\end{equation}
+
+where:
+\\
+$\vec{p_i}_{new}$ = the new updated position of the robot
+\\
+$\vec{p_i}_{old}$ = the old position of the robot from last time step
+\\
+$N$ = number of robots used, in this experiment $N =  4$ 
+\\
+$\mu_{velocity}$ = the mean of the velocities in that time step
+
+The average distance seen in section \ref{sec:results} are calculated the same way for both the physical experiment and in the simulator. Each entity's position is found and compared with the position of all the other entities. The length of the distance between each of them are used to find the average and the standard deviation.
+The formula to find 
+
+\begin{equation}
+\mu_{distances} = \frac{1}{ {N \choose R}} \Sigma_1^{N \choose R} | P_x - P_y |
+\end{equation}
+
+where:
+\\
+$P_x$ = the position of robot x, and $x \neq y$
+\\
+$P_y$ = the position of robot y, and $x \neq y$
+\\
+$N$ = the number of robots or Boids used
+\\
+$R$ = the amount of entities that are being compared each time, in this experiment we only measures the distance between two entities at the same time, therefore $R = 2$.
+\\
+$N \choose R$ = the combination operator, this corresponds to $ \frac{N!}{R! (N-K)!}$
+\\
+$\mu_{distances}$ = the mean of the compared distances in that time step
+\\
+
+The same procedure was applied for the angle of each entity: 
+\begin{equation}
+\mu_{angles} = \frac{1}{ {N \choose R}} \Sigma_1^{N \choose R} | A_x - A_y |
+\end{equation}
+where:
+\\
+$A_x$ = the angle of robot x, and $x \neq y$
+\\
+$A_y$ = the angle of robot y, and $x \neq y$
+\\
+$\mu_{angles}$ = the mean of the compared angles in that time step.
+\\
+
+To find the standard deviation of the velocity, the formula in equation \ref{eq:sd} was used, but a modification was done for the standard deviation of the distances and angles as seen in equation \ref{eq:sd2} because we had $ {N \choose R}$ number of distances and angles. The reason for $ {N \choose R}$ number of distances is because this is the number of comparisons between each robot. For these experiments, $N$ would be 4, and $R$ would always be 2.
+
+
+\begin{equation}
+\label{eq:sd}
+\sigma =  \sqrt{\frac{1}{N}\Sigma(X-\mu)^2}
+\end{equation}
+
+\begin{equation}
+\label{eq:sd2}
+\sigma =  \sqrt{\frac{1}{{N \choose R}}\Sigma(X-\mu)^2}
+\end{equation}
+
+%from template: Trying and failing is a major part of research. However, to have a chance of success you need a plan driving the experimental research, just as you need a plan for your literature search. Further, plans are made to be revised and this revision ensures that any further decisions made are in line with the work already completed. The plan should include what experiments or series of experiments are planned and what question the individual or set of experiments aim to answer. Such questions should be connected to your research questions so that in the evaluation of your results you can discuss the results wrt to the research questions.  
+
+\section{Experimental Setup}
+\label{sec:experimentalSetup}
+
+The experimental setup should include all data - parameters etc, that would allow a person to repeat your experiments. 
+
+
+\section{Results}
 \label{sec:results}
-%TODO rewrite
-The system used consists of two computers running xubuntu, one machine is connected to the camera and tracks the robots' position and angle. A string of the each robots' id, position and angle is constructed and sent to a predefined ip address via UDP. Information received from the camera tracking software is forwarded to each robot. The robots calculates a vector for each behavior; cohesion, alignment and separation. These three vectors are added together for a final vector which is the direction the robot would want to go. This final vector is sent back to the simulator so it can forward the velocity of this robot to the other robots on the next iteration.
 
 %TODO much repeat here
-The Boids algorithm are supposed to keep the robots flocked together and preferably they should face the same direction as well. The simulator knows where each robot is, and it knows which direction each robot is facing. The simulator measures the distance between each robot and the angle difference between the robots every five frame, it then calculates the mean and standard deviation of the distances and angles and saves it to a file.
-To keep the data as consistent between each run the simulator stops all the robots and saves the files after three minutes.
-The distance measured are in pixels, and the measurement of the sandbox is 151.6 cm wide and 123.9 cm long. The watcher software spawns a window that has a resolution 800x652 pixels, which means that 1 cm is approximately 5.3 pixels on the screen. The measured angles are shown in radians.
+The Boids algorithm are supposed to keep the robots flocked together and preferably they should face the same direction as well. The watcher knows where each robot is, and it knows which direction each robot is facing. The watcher measures the distance between each robot and the angle difference between the robots every five frame or twelve times each second, it then calculates the mean and standard deviation of the distances and angles and saves it to a file. The mean and standard deviation of the velocity is recorded as well, in the simulator the velocity is measured directly by getting the velocity vector on each object, for the physical robot, the change in position is measured instead.
+To keep the data as consistent between each run the watcher stops all the robots and saves the data file exactly three minutes or 180000 milliseconds after the robots have started to move.
+The distance measured are in pixels. The measurement of the sandbox is 151.6 cm wide and 123.9 cm long. The watcher software creates a window that has a resolution 800x652 pixels, which means that 1 cm is approximately 5.3 pixels on the screen. The measured angles are shown in radians.
 
-The data generated are measured by measuring the distance between each robot, and averaging the distances each time steps along with the standard deviation of the data. The same procedure was applied to the angle of each robot.
-The speed of each Boids in the simulator is logged each time step and averaged along with the standard deviation. On the physical robot on the other hand, the velocity could not be measured as easily. The watcher had to save the position of the last time step, and then compare it with the new position of this time step to create the velocity data.
+The first scenario where all the robots/Boids are placed in each corner with only one obstacle in the middle of the sandbox as seen in figure \ref{fig:scenario0}. 
 
-The first scenario where all the robots/Boids are placed in each corner with only one obstacle in the middle of the sandbox. 
-
-The second scenario
+The second scenario in figure \ref{fig:scenario1}
+The third scenario in figure \ref{fig:scenario2}
 
 %TODO graphs and interpretation of results
 The graph below shows
 
-
-
-
-
-Discussion.
+All the graphs that was generated during the experiment can be found in the appendix.
+\section{Discussion}
+\label{sec:discussion}
 From the results we can see that the robots quickly flock together, they start out on each corner of the sandbox then drive into the center of the sandbox, this is shown in the graph by the first drop. 
 The angles measured seems to vary a lot, even if the alignment-behavior tries to make all the robots face the same way. The reason this happens is because the allowed space to travel is not infinite and the robots encounters different types of obstacles like the surrounding wall, each other and the two water bottle placed inside the sandbox. The same behavior is found on the Boids that were ran exclusively on a simulator.

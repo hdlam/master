@@ -1,9 +1,9 @@
-\section{Sorting algorithms}
+\chapter{Sorting algorithms}
 \label{app:sorting} This section will explain some of the sorting algorithms that are used in some of the papers mentioned in chapter \ref{sec:background}. 
-\subsection{Odd even sort}
+\section{Odd even sort}
 Odd even sort is a sorting algorithm which resembles bubble sort. The algorithm takes a list of elements, then compares all the odd placed element with the element next to it. That is; compare list[i] with list[i+1] where $i$ is an odd number. Then the algorithm does the same for all $i$ even number. This is done repeatedly until we get a sorted list.
 
-\subsection{Bitonic sort}
+\section{Bitonic sort}
 Bitonic sort is a highly parallel sorting algorithm, the idea is to have the elements in the list in a bitonic sequence. A bitonic sequence is a sequence where the list is increasing, then decreasing and then eventually increasing again. However the last increasing part are not allowed to increase past the first element in the list.
 \begin{figure}[H]
     \centering

@@ -12,20 +12,17 @@ import java.util.Random;
 
 /**
  * Created with IntelliJ IDEA.
- * Created By: Lyndon Armitage, ported by HD
+ * Created By: Lyndon Armitage, edited by HD
  * Date: 22/02/13
  */
 public class BoidsGame extends BasicGame {
 
 	private static final int WIDTH = 1024;
 	private static final int HEIGHT = 1024;
-	private static int targetFrameRate = 60;
 
 	private boolean debugOn = true;
-	private boolean drawGrid = true;
 	private boolean drawArc = true;
 	
-	private AppGameContainer container = null;
 	private boolean paused = true;
 	private ArrayList<ChirpBoid> boids = null;
 	private static int numOfBots = 4;
@@ -40,10 +37,8 @@ public class BoidsGame extends BasicGame {
 		try {
 			appgc = new AppGameContainer(game, WIDTH, HEIGHT, false);
 			appgc.setShowFPS(true);
-			appgc.setTargetFrameRate(targetFrameRate);
 			appgc.setPaused(false);
 			appgc.setAlwaysRender(true);
-			game.container = appgc;
 			appgc.start();
 		} catch (SlickException e) {
 			e.printStackTrace();
@@ -59,7 +54,6 @@ public class BoidsGame extends BasicGame {
 	
 	@Override
 	public void init(GameContainer gc) throws SlickException {
-		Random rnd = new Random();
 		boids = new ArrayList<ChirpBoid>();
 		// add the boids
 		input = gc.getInput();
@@ -165,7 +159,6 @@ public class BoidsGame extends BasicGame {
 	int count = 4;
 	@Override
 	public void update(GameContainer gc, int delta) throws SlickException {
-		//System.out.println(delta);
 		if(System.currentTimeMillis()-time > 180000){
 			System.out.println("timeout");
 			try {
@@ -192,22 +185,22 @@ public class BoidsGame extends BasicGame {
 		if (input.isKeyPressed(Input.KEY_P)) {
 			createBoids();
 		}
-		if (input.isKeyPressed(Input.KEY_1))
-			numOfBots = 1;
-		if (input.isKeyPressed(Input.KEY_2))
-			numOfBots = 2;
-		if (input.isKeyPressed(Input.KEY_3))
-			numOfBots = 3;
-		if (input.isKeyPressed(Input.KEY_4))
-			numOfBots = 4;
-		if (input.isKeyPressed(Input.KEY_5))
-			numOfBots = 5;
-		if (input.isKeyPressed(Input.KEY_6))
-			numOfBots = 6;
-		if (input.isKeyPressed(Input.KEY_7))
-			numOfBots = 7;
-		if (input.isKeyPressed(Input.KEY_8))
-			numOfBots = 8;
+//		if (input.isKeyPressed(Input.KEY_1))
+//			numOfBots = 1;
+//		if (input.isKeyPressed(Input.KEY_2))
+//			numOfBots = 2;
+//		if (input.isKeyPressed(Input.KEY_3))
+//			numOfBots = 3;
+//		if (input.isKeyPressed(Input.KEY_4))
+//			numOfBots = 4;
+//		if (input.isKeyPressed(Input.KEY_5))
+//			numOfBots = 5;
+//		if (input.isKeyPressed(Input.KEY_6))
+//			numOfBots = 6;
+//		if (input.isKeyPressed(Input.KEY_7))
+//			numOfBots = 7;
+//		if (input.isKeyPressed(Input.KEY_8))
+//			numOfBots = 8;
 
 		if (input.isMousePressed(input.MOUSE_LEFT_BUTTON)) {
 			ChirpBoid boid = new ChirpBoid((int) (Math.random() * WIDTH), (int) (Math.random() * HEIGHT), intToCol((int) (Math.random() * 10)),(int) (Math.random() * 120) - 60,(int) (Math.random() * 120) - 60);
@@ -228,40 +221,6 @@ public class BoidsGame extends BasicGame {
 			count = 0;
 		}
 	}
-//	if(input.isKeyPressed(Input.KEY_R)){
-//		render = !render;
-//	}
-//	
-//	if(input.isKeyPressed(Input.KEY_A)){
-//		stopAllRobots();
-//		for (RxtxClass ser : rxtxrobots) {
-//			checkRxTx(ser).setRxtx(ser);
-//		}
-//	}
-//	if(input.isKeyPressed(Input.KEY_U))
-//	{
-//		for (RxtxClass r : rxtxrobots)
-//		{
-//			r.sendRobotData(0, 0);
-//			try 
-//			{
-//				Thread.sleep(50);
-//			} 
-//			catch (InterruptedException e)
-//			{
-//				e.printStackTrace();
-//			}
-//			r.Stop();
-//		}
-//		try {
-//			Thread.sleep(1000);
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
-//		rxtxrobots.clear();
-//		rxtxrobots = RxtxClass.getRobotHandles();
-//		System.out.println("Found "+rxtxrobots.size()+" robot(s)");
-//	}
 }
 	
 	private void createBoids(){
@@ -273,12 +232,7 @@ public class BoidsGame extends BasicGame {
 //			boids.add(boid);
 //			
 //		}{-414.481, -279.654}
-//		boids.add(new ChirpBoid(424.58f, 270.87f, intToCol(0), 0, 0));
-//		boids.add(new ChirpBoid(158, 191.28f, intToCol(0), -100, 0));
-//		boids.add(new ChirpBoid(483.10f, 310.36f, intToCol(0), 100, 0));
-//		boids.add(new ChirpBoid(175.06f, 485.43f, intToCol(0), -100, 30));
 
-		
 		boids.add(new ChirpBoid(30f, 30f, intToCol(0), 0, 0));
 		boids.add(new ChirpBoid(30f, HEIGHT-30, intToCol(0), 0, 0));
 		boids.add(new ChirpBoid(WIDTH-30, 30f, intToCol(0), 0, 0));
@@ -288,15 +242,8 @@ public class BoidsGame extends BasicGame {
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException {
 
-		if (drawGrid) {
-			drawGrid(g);
-		}
-
 		for (ChirpBoid b : boids) {
 			b.render(gc, g);
-			if (drawArc) {
-				b.renderArc(g);
-			}
 		}
 		g.setColor(Color.red);
 		for(Shape s : obstacles){
@@ -310,22 +257,6 @@ public class BoidsGame extends BasicGame {
 		}
 	}
 
-	/**
-	 * Draw a grid for debugging
-	 *
-	 * @param g graphics context
-	 */
-	private void drawGrid(Graphics g) {
-		final int gridSize = 100;
-		g.setColor(Color.darkGray);
-		for (int x = 0; x < WIDTH; x += gridSize) {
-			g.drawLine(x, 0f, x, HEIGHT);
-		}
-		for (int y = 0; y < HEIGHT; y += gridSize) {
-			g.drawLine(0f, y, WIDTH, y);
-		}
-	}
-	
 	private void createObstacles(){
 		for (int i = 0; i < 5; i++) {
 			float x = (float) (Math.random()*WIDTH);

@@ -27,20 +27,19 @@ public class ChirpBoid {
 	private ArrayList<ChirpBoid> bb;
 	public boolean debug = false;
 	
-	private final float cohDist = 250f;
-	private final float sepDist = 120f;
-	private final float aliDist = 175f;
+	private float cohDist = 250f;
+	private float sepDist = 120f;
+	private float aliDist = 175f;
 //	private final float cohDist = 800f;
 //	private final float sepDist = 200f;
 //	private final float aliDist = 500f;
 	
-	private final float maxSpeed = 30f;
-	private final float maxF = 50f;
+	private float maxSpeed = 30f;
+	private float maxF = 50f;
 	
-	
-	private static final int lineWidth = 1;
+	int size = 50;
 
-	private static final float viewDistance = 50f;
+
 
 	public ChirpBoid(float x, float y, Color color, float velX, float velY) {
 		pos = new Vector2f(x, y);
@@ -64,35 +63,35 @@ public class ChirpBoid {
 	}
 
 	public void render(GameContainer gc, Graphics g) {
+		g.setLineWidth(1);
 		g.setColor(color);
 		g.rotate(pos.x, pos.y, angle);
-		g.setLineWidth(lineWidth);
 		g.setColor(color);
 		double a = Math.atan2((vel.y), (vel.x));//currentAngle;
-		g.setLineWidth(lineWidth*5);
-		g.drawLine((float)(pos.x),(float)(pos.y),	(float)(pos.x + vel.length() * Math.cos(a) + 1 * Math.sin(a)), (float)(pos.y + vel.length() * Math.sin(a) - 1 * Math.cos(a)));
-		a = a-90;
-		g.setLineWidth(lineWidth);
-		g.drawLine((float)(pos.x),(float)(pos.y),	(float)(pos.x + 5 * Math.cos(a) + 1 * Math.sin(a)), (float)(pos.y + 20 * Math.sin(a) - 1 * Math.cos(a)));
-		a = a+180;
-		g.drawLine((float)(pos.x),(float)(pos.y),	(float)(pos.x + 5 * Math.cos(a) + 1 * Math.sin(a)), (float)(pos.y + 20 * Math.sin(a) - 1 * Math.cos(a)));
 		if(bb != null){
 			g.setColor(Color.red);
 			Vector2f coh = cohesion(bb);
 			Vector2f sep = separation(bb);
 			Vector2f ali = alignment(bb);
-//			g.drawLine((float)(pos.x),(float)(pos.y), pos.x+coh.x, pos.y+coh.y);
+			g.drawLine((float)(pos.x),(float)(pos.y), pos.x+coh.x, pos.y+coh.y);
 			g.drawLine((float)(pos.x),(float)(pos.y), pos.x+sep.x, pos.y+sep.y);
-//			g.drawLine((float)(pos.x),(float)(pos.y), pos.x+ali.x, pos.y+ali.y);
-			g.drawString(sep+"", pos.x, pos.y+24);
+			g.drawLine((float)(pos.x),(float)(pos.y), pos.x+ali.x, pos.y+ali.y);
 		}
+		g.setColor(Color.cyan);
+		a = a-90;
+		g.drawLine((float)(pos.x),(float)(pos.y),	(float)(pos.x + 5 * Math.cos(a) + 1 * Math.sin(a)), (float)(pos.y + 20 * Math.sin(a) - 1 * Math.cos(a)));
+		a = a+180;
+		g.drawLine((float)(pos.x),(float)(pos.y),	(float)(pos.x + 5 * Math.cos(a) + 1 * Math.sin(a)), (float)(pos.y + 20 * Math.sin(a) - 1 * Math.cos(a)));
+		g.setColor(Color.green);
+		g.setLineWidth(5);
+		a = a+-90;
+		g.drawLine((float)(pos.x),(float)(pos.y),	(float)(pos.x + vel.length() * Math.cos(a) + 1 * Math.sin(a)), (float)(pos.y + vel.length() * Math.sin(a) - 1 * Math.cos(a)));
+		g.setLineWidth(1);
 		g.resetTransform();
+		g.setColor(color);
+		g.drawOval(pos.x - (size / 2), pos.y - (size / 2), size, size);
 	}
 	
-	public void renderArc(Graphics g) {
-		g.setColor(color);
-		g.drawOval(pos.x - (viewDistance / 2), pos.y - (viewDistance / 2), viewDistance, viewDistance);
-	}
 
 	public void update(GameContainer gc, int delta, ArrayList<ChirpBoid> boids, ArrayList<Shape> obs) {
 		moveCalc(boids, delta, obs, gc);
@@ -113,7 +112,7 @@ public class ChirpBoid {
 		coh.scale(2.0f);
 	    sep.scale(3.0f);
 	    ali.scale(2.0f);
-	    afw.scale(1.0f);
+	    afw.scale(2.0f);
 	    avo.scale(3.0f);
 	    //System.out.println(sep);
 		
@@ -153,16 +152,16 @@ public class ChirpBoid {
 //		}
 		pos.x += vel.x / delta;
 		pos.y += vel.y / delta;
-		if (pos.x+viewDistance/2 > gc.getWidth()) {
+		if (pos.x+size/2 > gc.getWidth()) {
 			vel.x = 0;
 		}
-		if (pos.y+viewDistance/2 > gc.getHeight()) {
+		if (pos.y+size/2 > gc.getHeight()) {
 			vel.y = 0;
 		}
-		if (pos.x-viewDistance/2 < 0) {
+		if (pos.x-size/2 < 0) {
 			vel.x = 0;
 		}
-		if (pos.y-viewDistance/2 < 0) {
+		if (pos.y-size/2 < 0) {
 			vel.y = 0;
 		}
 		acc.set(0, 0);

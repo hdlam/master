@@ -9,7 +9,8 @@
 %\usepackage[center]					% For cropping documents
 \usepackage{caption}
 \usepackage{subcaption}
-
+\usepackage{float}
+\usepackage{listings}
 % B5 (uncomment to convert to B5 format)
  \geometry{b5paper}
  
@@ -23,8 +24,8 @@
 % Fill in here, and use commands in the text. 
 \newcommand{\thesisAuthor}{Hong-Dang Lam}
 \newcommand{\thesisTitle}{Implementing Boids behavior on ChIRP robot}
-\newcommand{\thesisType}{master project}
-\newcommand{\thesisDate}{spring 2015}
+\newcommand{\thesisType}{Master thesis}
+\newcommand{\thesisDate}{Spring 2015}
 
 % PDF info
 \hypersetup{pdfauthor={\thesisAuthor}}
@@ -78,30 +79,6 @@
 \frontmatter
 
 \input{masterChapters/0abstract}
-
-This paper provides a template for writing AI project rapports for either the AI specialization project; masters "datateknikk" or masters "informatikk". The use of the template is recommended and is written in English as we encourage students to submit their project and masters theses in English. 
-The template does not form a compulsory style that you are obliged to use. However, the format and contents are a result of a joint AI group initiative thus providing a common starting point for all AI students. For a given project tuning of the template may still be required. Such tuning might involve moving a chapter to a section or vice versa due to the nature of the project. 
-
-The abstract is your sales pitch which encourages people to read your work but unlike sales it should be realistic with respect to the contributions of the work. It should include:
-\begin{itemize}
-\item the field of research
-\item a brief motivation for the work
-\item what the research topic is and
-\item the research approach(es) applied. 
-\item contributions
-\end{itemize}
-
-The abstract length should be roughly half a page of text --- without lists, tables or figures.  
-
-\clearpage
-
-\section*{Preface}
-
-
-
-\vspace{1cm}
-
-The preface includes the facts - what type of project, where it is conducted, who supervised and any acknowledgements you wish to give. 
 
 \vfill
 
@@ -202,63 +179,7 @@ This section provides the reader with an overview of what is coming in the next 
 
 
 \section{Background Theory}
-\label{sec:no1}
-
-The background theory depth and breadth depends on the depth needed to understand your project in the different disciplines that your project crosses.  It is not a place to just write about everything you know that is vaguely connected to your project. The theory is here to help the reader that does not know the theoretical basis of your work so that he/she can gain sufficient understanding to understand your contributions. In particular, the theory section provides an opportunity to introduce terminology that can later be used without disturbing the text with a definition.  In some cases it will be more appropriate to have a separate section for different theory. However, watch that you don't end up with too short sections. Subsections may also be used to separate different background theory. 
-
-When introducing techniques or results, always reference the source. Be careful to reference the original contributor of a technique and not just someone who happens to use the technique. For relevant results to your work, you would want to look particularly at newer results so that you have referenced the most up-to-date work in your area. If you don't have the source handy when writing, mark the test that a reference is needed and add it later. 
-
-Web pages are not reliable sources --- they might be there one day and removed the next; and thus should be avoided, if possible. A verbal discussion is not a source and should not be referenced or described in the text.  
-
-The bulk of citations in the report will appear in section~\ref{cit}. However, you will often need to introduce some terminology and key citations already in this chapter. 
-
-You can cite a paper in the following manners: 
-
-\begin{itemize}
-\item when referring to authors:\\
- \citet{authorson10:_secon_best_paper_in_world} stated something rather nice.
-\item to cite indirectly: \\
- Papers should be written nicely \citep{authorson10:_secon_best_paper_in_world}\\
-or\\
-In \cite{authorson10:_secon_best_paper_in_world}, a less detailed template was presented.
-\item To just cite the authors: \\
-\citeauthor{authorson10:_secon_best_paper_in_world} wrote a nice paper.
-%\item Or just the year: \citeyear{authorson10:_secon_best_paper_in_world}.
-%\item You can even cite specific pages: \citet[p. 3]{authorson10:_secon_best_paper_in_world}.
-\end{itemize}
-
-\vspace{0.5cm}
-
-\noindent
-{\bf Introducing figures:} \\
-
-\begin{figure}[ht]
-\begin{center}
-%\includegraphics[width=0.5\columnwidth]{figs/figure1.pdf}
-\caption[Boxes and arrows are nice]{Boxes and arrows are nice (adapted from \citet{authorson10:_secon_best_paper_in_world})}
-\label{fig:BoxesAndArrowsAreNice}
-\end{center}
-\end{figure}
-
-Remember that when you borrow figures you should always credit the original author --- such as Figure \ref{fig:BoxesAndArrowsAreNice} (adapted from \citet{authorson10:_secon_best_paper_in_world}). Also don't just put the figure in and leave it to the author to try to understand what the figure is. The figure should be put in to convey a message and you need to help the author to understand the message intended by explaining the figure in the text. 
-
-\vspace{0.5cm}
-
-\noindent
-{\bf Introducing tables in the report: }\\
-
-\begin{table}[htdp]
-\begin{center}
-\begin{tabular}{|c|c|c|c|c|}\hline\hline
-This & is & a & nice & table\\\hline
-This & is & a & nice & table\\\hline\hline
-\end{tabular}
-\caption{Example Table}
-\end{center}
-\label{tab:ExampleTable}
-\end{table}%
-
-As you can see from Table \ref{tab:ExampleTable}, tables are nice. However, again, you need to discuss the contents of the table in the text. You don't need to describe every entry but draw the authors attention to what is important for he/she to glean from the table. 
+\input{masterChapters/2background}
 
 \section{Structured Literature Review Protocol}
 
@@ -272,27 +193,9 @@ What other research has been conducted in this area and how is it related to you
 \input{masterChapters/3.0methodology}
 
 
-\chapter{Experiments and Results}
-\label{cha:ResearchAndResults}
+\include{masterChapters/4.1results}
 
-{\it Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam consequat pulvinar hendrerit. Praesent sit amet elementum ipsum. Praesent id suscipit est. Maecenas gravida pretium magna non interdum. Donec augue felis, rhoncus quis laoreet sed, gravida nec nisi. Fusce iaculis fermentum elit in suscipit. Donec rutrum tincidunt tellus, ac tempor diam posuere quis. }
 
-\section{Experimental Plan}
-\label{sec:experimentalPlan}
-
-Trying and failing is a major part of research. However, to have a chance of success you need a plan driving the experimental research, just as you need a plan for your literature search. Further, plans are made to be revised and this revision ensures that any further decisions made are in line with the work already completed.  
-
-The plan should include what experiments or series of experiments are planned and what question the individual or set of experiments aim to answer. Such questions should be connected to your research questions so that in the evaluation of your results you can discuss the results wrt to the research questions.  
-
-\section{Experimental Setup}
-\label{sec:experimentalSetup}
-
-The experimental setup should include all data - parameters etc, that would allow a person to repeat your experiments. 
-
-\section{Experimental Results}
-\label{sec:experimentalResults}
-
-Results should be clearly displayed and should provide a suitable representation of your results for the points you wish to make. Graphs should be labeled in a legible font and if more than one result is displayed on the same graph then these should be clearly marked.   Please choose carefully rather than presenting every results. Too much information is hard to read and often hides the key information you wish to present. Make use of statistical methods when presenting results, where possible to strengthen the results.  Further, the format of the presentation of results should be chosen based on what issues in the results you wish to highlight. You may wish to present a subset in the experimental section and provide additional results in the appendix.
 
 \chapter{Evaluation and Conclusion}
 \label{cha:evaluationAndConclusion}
@@ -304,10 +207,8 @@ Results should be clearly displayed and should provide a suitable representation
 
 When evaluating your results, avoid drawing grand conclusions, beyond that which your results can in fact support. Further, although you may have designed your experiments to answer certain questions, the results may raise other questions in the eyes of the reader. It is important that you study the graphs/tables to look for unusual features/entries and discuss these aswell as discussing the main findings in the results. 
 
-\section{Discussion}
-\label{sec:Discussion}
 
-In the discussion it is important to include a discussion of not just the merits of the work conducted but also the limitations. 
+
 
 \section{Contributions}~\label{cont}
 \label{sec:Contributions}
@@ -319,10 +220,11 @@ What are the main contributions made to the field and how significant are these 
 \backmatter
 
 \addcontentsline{toc}{chapter}{Bibliography}
-\bibliography{bibtex/bibliography}
-
-\chapter{Appendices}
+\bibliography{citations}
+\nocite{*}
+\appendix
 \label{cha:appendices}
-
+\input{chapters/appendix/chirpObserverConfig}
+\input{chapters/appendix/sorting}
 
 \end{document}

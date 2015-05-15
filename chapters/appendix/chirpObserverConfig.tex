@@ -1,4 +1,4 @@
-\section{Camera tracking configuration file}
+\chapter{Camera tracking configuration file}
 \label{app:opencvcfg}
 chirpObserverConfig.cfg
 \begin{lstlisting}
@@ -50,14 +50,15 @@ maxNumObjects = 1000
 #the minimum object area to recognize (in pixels). 
 #Any object smaller than this is ignored.
 minObjectArea = 10
-# upper limit of the size of leds compared to min(frame width, frame height)
+# upper limit of the size of leds compared to 
+# min(frame width, frame height)
 ledSize = 0.01
 
 # settings governing the colors in the captured frame
 # the settings are potentially specific to each camera
 # linux application "guvcview" provides details
-# the settings appear to be sticky, so an application like "guvcview"
-# may be necessary to revert to default state
+# the settings appear to be sticky, so an application like 
+#"guvcview" may be necessary to revert to default state
 #
 # if the value is less than 0, the application won't change
 # the camera's setting for that property

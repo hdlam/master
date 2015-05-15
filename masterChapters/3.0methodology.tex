@@ -13,63 +13,70 @@ An overview of the system is presented in chapter \ref{sec:overview}. A descript
 
 \section{System overview}
 \label{sec:overview}
+
 The system used in this experiment consists of three primary components as illustrated in figure \ref{fig:overview}: the camera which is used by tracking software, the "Boid-watcher" which is a centralized computer that acts as a GPS and the ChIRP robots.
-The camera tracking software tracks each robot's position and its angle, which is sent to the Boid-watcher. The Boid-watcher then forward this information to the robots, it acts as a GPS for the robots. 
-The Boid watcher does not only work as a GPS but it is also a bridge between the robots, it provides information about the position and velocity of each robot to all the other robots. The robots can not connect to each other directly, that is why it needs to pass information to other robots via the Boids watcher software.
-Even if it is possible for one computer to run both the camera tracking and the watcher software, two different computers were used in this setup. The camera tracking software being run on a stationary desktop computer, and the camera is attached to a pole above a sandbox where the robots roam around. The camera is connected to the stationary desktop. 
+The camera tracking software tracks each robot's position and its angle, which is sent to the Boid-watcher. The Boid-watcher then forward this information to the robots via the bluetooth serial port.
 
-The watcher is run on a different computer, in this experiment it was run on a laptop with bluetooth. The watcher software needs to communicate with all the robots simultaneously and that requires processing powers.
-The desktop computer was not able to run both the camera tracking software and the watcher software at the same time while sending bluetooth data to all four of the robots. Which lead to the camera not being able to update fast enough and thus crashed quite so often. The bluetooth connection between the computer and the robots might not always be stable, if the connection were to be unstable at times, a reboot of the robot or/and a reconnection of the bluetooth would usually fix the problem.
+The Boid watcher does not only work as a GPS but it is also a bridge between the robots, it provides information about the position and velocity of each robot to all the other robots. The robots are not able to connect the other robots directly, that is why the robots need to pass information to other robots via the Boids watcher software.
+
+Even if it is possible for one computer to run both the camera tracking and the watcher software, two separate computers were used in this setup. The camera tracking software being run on a stationary desktop computer, and the camera is attached to a pole above a sandbox where the robots roam around. The camera is connected to the stationary desktop. 
+
+In this experiment, the watcher software runs on a laptop with built in bluetooth adapter. The watcher software needs to communicate with all the robots simultaneously and that requires a bit of processing powers.
+The desktop computer was not able to run both the camera tracking software and the watcher software at the same time while sending bluetooth data to all four of the robots. When it tried to run both, it was not able to read the data from the camera fast enough and thus the tracking software would crash. The bluetooth connection between the computer and the robots might not always be stable, if the connection were to be unstable at times, a reboot of the robot or/and a reconnection of the bluetooth would usually fix the problem.
+
 The camera tracks the robots using image recognition, it recognizes the robots by the two post it notes that are placed on top of each robot. 
+To filter out all the noise from the surrounding and remove the colors that are irrelevant to track, the camera tracking software needs to have a threshold for what it considers to be red and what it considers to be green. This was specified in a configuration file that the camera tracking software loaded whenever it was launched. An example of the configuration file can be seen in the appendix on section \ref{app:opencvcfg}. As seen in the example, each color is defined by six boundaries, a minimum value and a maximum value. If a color seen by the camera is inside this boundary it will be considered as the color it is looking for. 
 
-%TODO :A simulator created entirely in software were created as well
+The camera might detect red or green colors that do not belong to the robot, for instance when the sun shines into the room, the green part of the floor around the sandbox might be detected as "green" by the camera tracking software. This is not a problem for the camera tracking software, it tracks only tracks inside a predefined box. %TODO check if this is actually true
+Detecting red or green color inside the sandbox that does not belong to the robots' post it notes imposes a bigger problem than detecting these colors outside the box. This might happen if there is a green shaded shadow or a reflection of an object inside the room reflects onto the sandboxes' surface. 
+Detection of green or red color that do not belong to the robot is usually not a problem when the green and the red color are far apart from each other, because the camera tracking software does not do anything unless both these colors are paired. If these noise colors do disrupt the movement or angle of the robots, then a recalibration needs to be done to filter out the colors that it should not track.
 
 \section{Robots}
 \label{sec:robot}
-\begin{figure}
+\begin{figure}[H]
     \centering
     \begin{subfigure}[b]{0.3\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figs/robotschema.png}
         \caption{$y=x$}
-        \label{fig:y equals x}
+        \label{fig:robot0}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.3\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figs/scenario0.png}
         \caption{$y=3sinx$}
-        \label{fig:three sin x}
+        \label{fig:robot1}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.3\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figs/scenario1.png}
         \caption{$y=5/x$}
-        \label{fig:five over x}
+        \label{fig:robot2}
     \end{subfigure}
-    \caption{Three simple graphs}
-    \label{fig:three graphs}
+    \caption[ChIRP robot]{ChIRP robot seen from various angles}
+    \label{fig:robot}
 \end{figure}
 
 
 The robot swarm consist of four ChIRP robots. The ChIRP robot is a circular shaped robot with differential wheel. A differential wheeled robot is a robot with two separate driven wheels on each side, which it can use move itself. If it wants to change its direction it can vary the relative speed of each wheel/motor. For instance if the right wheel moves faster than the left one, the robot will turn to its left.
+The advantage of differential wheel is that an additional steering motor is not required for the robot to move around. Usually a caster or additional wheels are added to balance a differential wheeled robot, but the ChIRP robot does not have anything of the sort. Whenever it is moving, the back or the front of the robot is scraping against the floor depending on which way it is moving. Scraping against the floor does not affect the movement of the ChIRP robot.
 
-The advantage of differential wheel is that an additional steering motor is not required for the robot to move around. Usually a caster or additional wheels are added to balance a differential wheeled robot, but the ChIRP robot does not have anything of the sort. Whenever it is moving, the back or the front of the robot is scraping against the floor depending on which way it is moving. This does not affect the movement of the robot.
+Each robot is equipped with eight infrared LED lights and receivers used for measuring distance. Infrared light are emitted the LED lights, reflected of a surface and received in the infrared receiver. For the robot to know how far from an obstacle it is, it measures the amount of infrared it receives. The higher the amount, the closer to the object it is. This method of measuring distances works very well for bright or colored surfaces, dark surfaces on the other hand do cause problems because the infrared light is not reflected so well.
 
-Each robot is equipped with eight infrared LED lights and receivers used for measuring distance. Infrared light are emitted, reflected of a surface and received in the infrared receiver. For the robot to know how far from an obstacle it is, it measures the amount of infrared it receives. The higher the amount, the closer to the object it is. This holds true for bright or colored surfaces, dark surfaces on the other hand do cause problems because the infrared light is not reflected so well.
-
-The distance sensors are spaced evenly around the robot, where one of the sensors are directly in front of the robot. This sensor can be used to detect whether there is an obstacle directly in front of the robot or not. For this experiment, only the three sensors in front are used. In this experiment the robots should only need to use the three distance sensors in front because the robot only moves forward, so it only needs to determine whether there's an obstacle directly in front of it or not.
+The distance sensors are spaced evenly around the robot, where one of the sensors are directly in front of the robot. This sensor can be used to detect whether there is an obstacle directly in front of the robot or not. For this experiment, only the three sensors in front are used. Because the robots only moves forward, so it only needs to determine whether there is an obstacle directly in front of it or not. It does not matter if there is anything behind or next to the robot because it does not move in that direction.
 
 Each of the ChIRP robot is equipped with a bluetooth module, which it uses to communicate with the watcher/GPS computer wirelessly. 
-The robots are very hollow on top as seen in figure \ref{fig:robot}, and the distance sensors have difficulties sensing other robots due to the hollowness. To counteract the hollowness, a white paper strip was taped around the robots. This makes it easier for the robot to detect the other robots nearby. The same principle was applied to the obstacle used in this experiment. The obstacle is a water bottle filled with water, and a white paper wrapped around it. The water inside the bottle is used to make the bottle heavier, so it does not fall over. And the paper around the bottle is there to reflect the infrared light that the robot uses for measuring distances.
+The robots are very hollow on top as seen in figure \ref{fig:robot}, and the distance sensors have difficulties sensing other robots due to the hollowness. To counteract the hollowness, a white paper strip was taped around the robots. This makes it easier for the robot to detect the other robots nearby because the paper will reflect the infrared light that the robot uses to determine the distance. To be sure that the robot would be able to detect the obstacles placed in the sandbox, the obstacles would be wrapped with a white paper around it as well.
+%TODO
+The obstacle is a water bottle filled with water. The water inside the bottle is used to make the bottle heavier, so it does not fall over. And the paper around the bottle is there to reflect the infrared light that the robot uses for measuring distances.
 
-The camera uses image recognition to track the robots. That is why each robot need to have a red and a green post it note on top of it. The red one determines where in the sandbox the robot is located, and the green one is used to determine which way it is pointing. 
-
+The camera tracking software uses image recognition to track the robots. That is why each robot need to have a red and a green post it note on top of it. The red one determines where in the sandbox the robot is located, and the green one is used to determine which way it is pointing and to determine the angle of the robots.
 
 \section{Scenarios}
 This section explains the setup of each scenario, where each robot is placed in the sandbox, which way it is rotated and where the obstacle is placed. Each scenario have a purpose to demonstrate, which will be explained more in detail.
-For this project experiments, three scenarios have been used to generate the results.
+For this project experiment, three scenarios have been used to create the results seen in section \ref{sec:results}.
 \label{sec:scenario}
 \begin{figure}[h]
 \begin{center}
@@ -79,7 +86,7 @@ For this project experiments, three scenarios have been used to generate the res
 \label{fig:scenario0}
 \end{figure}
 
-The first scenario is shown in figure \ref{fig:scenario0}, consists of four robots placed on each corner of the sandbox. The reason behind placing each of the robots on each corner of the sandbox is that each robot will be as far from each other as possible. This scenario should demonstrate that the entities are able to flock together, and then stay together as a flock. There is one obstacle placed nearby the middle of the sandbox, the obstacle is placed near the middle to ensure that the robots would encounter it at least once. This scenario would be able to see if the robots actually flocked together like they are supposed to do, and at the same time would be able to avoid the obstacle without bumping or crashing into it.
+The first scenario is shown in figure \ref{fig:scenario0}, consists of four robots placed on each corner of the sandbox. The reason behind placing each of the robots on each corner of the sandbox is that each robot will be as far from each other as possible. This scenario should demonstrate that the entities are able to flock together, and then stay together as a flock. There is one obstacle placed nearby the middle of the sandbox, the obstacle is placed near the middle to ensure that the robots would encounter it at least once. This scenario would be able to see if the robots actually flocked together like they are supposed to do, and at the same time would be able to avoid the obstacle without bumping or crashing into it. The robots should also move together after they have flocked together.
 
 \begin{figure}[h]
 \begin{center}
@@ -89,9 +96,10 @@ The first scenario is shown in figure \ref{fig:scenario0}, consists of four robo
 \label{fig:scenario1}
 \end{figure}
 
-The second scenario puts three of entities in one corner, and the last entity is placed on the opposing corner as seen in figure \ref{fig:scenario1}. However the last entity that is placed on the lower right corner by itself will not move, in the case of the physical robot, it will not be turned on. The reason that this entity is a sitting duck placed on the opposite corner of all the other entities is that this robot will act as a goal for the other entities. The obstacle is placed between the lonely robot and the three robots that are clumped up together. The idea behind this setup is that the three robots that start together would try to move to the one that are stationary because they need to flock together. The obstacle in the middle will hinder the robots from moving in a straight line to their goal, which forces them to choose a way around it. 
+The second scenario puts three of entities in one corner, and the last entity is placed on the opposing corner as seen in figure \ref{fig:scenario1}. However the last entity that is placed on the lower right corner by itself will not move, in the case of the physical robot, it will not be turned on. The reason that this entity is a sitting duck placed on the opposite corner of all the other entities is that this robot will act as a goal for the other entities. The obstacle is placed between the lonely robot and the three robots that are clumped up together. The idea behind this setup is that the three robots that start together would try to move to the one that are stationary because they need to flock together. The robot that start by itself does not move because it is not turned on.
+The obstacle in the middle will hinder the robots from moving in a straight line to their goal, which forces them to choose a way around it. The robots move around the obstacle when they approach it. As explained in section \ref{sec:robotArch}, the robots will turn either right or left randomly when moving directly towards an obstacle. The robots will probably move around the obstacle on each side of the obstacle, and flock together again on the other side when they have move past the obstacle.
 
-The third scenario is a scenario where the robots are placed randomly around in the sandbox. The two first scenarios were designed for a specific purpose. The purpose of the third scenario is to demonstrate that the Boids behavior are still intact, even when the robots are placed randomly. The position of the robots, where it should be placed and which way it is pointing was generated randomly by a random number generator. The starting point for this scenario is illustrated in figure \ref{fig:scenario2}.
+The third scenario is a scenario where the robots are placed randomly around in the sandbox. The two first scenarios were designed for a specific purpose. The purpose of the third scenario is to demonstrate that the Boids behaviors are still intact, even when the robots are placed randomly in the sandbox. The position of the robots, where it should be placed and which way it is pointing was generated randomly by a random number generator. The starting point for this scenario is illustrated in figure \ref{fig:scenario2}.
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=0.8\linewidth]{figs/scenario1}
@@ -100,15 +108,31 @@ The third scenario is a scenario where the robots are placed randomly around in 
 \label{fig:scenario2}
 \end{figure}
 
-All the scenarios explained in this thesis used the same sandbox, which is a sandbox with the size of 151.6 cm wide and 123.9 cm long. The only difference between the scenarios are the placement of the robots and the placement of the obstacle. Each scenario were run ten times to generate the data seen in section \ref{sec:results}.
+All the scenarios explained in this thesis uses the same sandbox, which is a sandbox with the size of 151.6 cm wide and 123.9 cm long. The only difference between the scenarios are the placement and rotation of the robots and the placement of the obstacle. Each scenario were run ten times to generate the data seen in section \ref{sec:results}.
 In between each run, the robots had to be placed manually back into their starting position before a new run could take place. To keep the data as consistent as possible, everything else would stay as exactly the same.
 
 \section{Robot controller}
-When the robot first is turned on and a bluetooth device is paired with its bluetooth module the robot will stand still and wait. The robot is waiting for a command or data from the watcher software. A human an send command to manually control the robot if needed. If the watcher sends data to the robot, it will start to calculate where it should go based on the data it received. 
+When the robot first is turned on and a bluetooth device is paired with its bluetooth module the robot will stand still and wait. The robot is waiting for a command or data from the watcher software. A human can send commands to manually control the robot if needed, this can be used for leader following as explained in section \ref{boids:behaviors}. 
 
-When the robot have received all the data it needs to be able to calculate its new direction that it should move to. The robot takes into consideration the position of all the other robots, and their velocity. The position of the other robots are used to determine the sum of the cohesion vector and separation vector. The velocity of the the other robots is used to determine which way they are pointing, and is used to find the alignment vector. A fourth behavior was added for this experiment, which is called the "away from wall" behavior. As the name implies, this is a vector that will lead the robot away from the wall of the sandbox.
+If the watcher sends data to the robot, it will start to calculate where it should go based on the data it received. 
+When the robot have received all the data it needs to be able to calculate its new direction that it should move to. The robot takes into consideration the position of all the other robots, and their velocity. The position of the other robots are used to determine the sum of the cohesion vector and the separation vector. The velocity of the other robots are used to determine which way they are pointing, and this is used to find the alignment vector. A fourth behavior was added for this experiment, which is called the "away from wall" behavior. As the name implies, this is a vector that will lead the robot away from the wall of the sandbox if the robot is too near the wall. After calculating each of these vectors, they are multiplied with a weight depending on how much that specific behavior should impact the movement of the robot. For example the separation vector should have higher impact on the movement of the robot because it needs to avoid the other robots when it is too close to one. Cohesion vector on the other hand does not need to affect the robot as much, it is mostly there to guide the robot into the flock. Therefore the separation vector is multiplied with a higher number than the other ones.
 
-, then it will first check the whether there is an obstacle in front of it. %TODO
+The equation for how the final vector which decides the direction the robot is going to move is expressed as:
+\begin{equation}
+\label{eq:vecsum}
+\vec{F} = \Sigma W_x\vec{B_x}
+\end{equation}
+
+where:
+\\
+$\vec{F}$ = the final vector that determines which direction the robot will move
+\\
+$B_x$ = the behavior $x$, for example $B_0$ could be cohesion $B_1$ alignment etc.
+\\
+$W_x$ = the weight for the behavior $B_x$\\
+
+
+
 When the robot has calculated which direction it wants to go, it will find out which direction it needs to face and turn itself approximately in that direction. The robot will then measure the distances once again, in case it has turned towards an obstacle. If there is no obstacle in front of it, it will move forward and wait for new data from the watcher software. If the robot did find an obstacle in front of it, it will turn 90\textdegree to either the right or the left randomly. The robot will stop after turning and wait for new data from the watcher software. 
 \begin{figure}[h!]
 \begin{center}
@@ -119,12 +143,24 @@ When the robot has calculated which direction it wants to go, it will find out w
 \end{figure}
 
 \section{Simulator}
-A simulator was created where the Boids was implemented solely in software, and rendered on screen, that is no physical robots were used in the simulator. The reason to use a simulator was to see how the Boids were supposed to behave and have a working example to compare with. A typical Boids simulator usually have a wraparound space. If one of the Boids goes outside the window, it will "teleport" to the other side of the window. For example if one of the Boids flies too far to the right and hits the right border, it will loop around and end up on the left side of the screen. That is how the Boids algorithm usually works on a simulator. But physical robots can not loop around the stage like the Boids on the simulator. That is why the simulator used in this project stops the Boids from moving beyond the walls of the window.
+A simulator was created where the Boids was implemented solely in software, and rendered on screen, that is no physical robots were used in the simulator. The reason to use a simulator was to see how the Boids were supposed to behave and have a working example to compare with. A screenshot of the simulator is shown in figure \ref{fig:simulator}.
 
+A typical Boids simulator usually have a wraparound space. If one of the Boids goes outside the window, it will "teleport" to the other side of the window. For example if one of the Boids flies too far to the right and hits the right border, it will loop around and end up on the left side of the screen. That is how the Boids algorithm usually works on a simulator. But physical robots can not loop around the stage like the Boids on the simulator. That is why the simulator used in this project stops the Boids from moving beyond the walls of the window.
 
+The same "away from wall" behavior is also implemented in the simulator, so the Boids do not move into the wall aimlessly.
+For each frame, the Boids will update it velocity by calculating a vector for each behavior, and then these vectors are added to the acceleration vector by using the formula found in equation \ref{eq:vecsum}. The acceleration vector is then added to the velocity vector, and the velocity is capped off if the length of the vector exceeds maximum allowed speed. If there is no velocity cap, the Boids' velocity would increase towards infinity. The velocity then decides where the Boids are going to move.
+Before the next time step, the acceleration has to be reset to a null vector for it to work.
 
-\section{Differences between physical and simulator}
-The physical robots are trying to mimic the behavior of the Boids created in the simulator. However a physical robot is different than the Boids created in the simulator by nature. As discussed in section \ref{sec:robot}, the robots are a type of differential wheeled robots, which means that it can only move forward or backwards, turn on the spot or move and turn at the same time. The Boids in simulator software did not have any direction, they were able to move freely in all 360\textdegree direction. Which means that if the a Boid in simulator were to move in one direction, it could change its momentum and move the other direct almost instantly. The robot on the other hand would need to turn 180\textdegree before moving forward. The robot is able to reverse its motor to drive backwards, but these Boids robot are not allowed to move backward, and thus have to turn around to move in another direction.
+The Boids in the simulator does not have any form of rotation, the angle seen on screen are calculated by taking the arctangent of the velocity vector. That is why the Boids in the simulator do not need to rotate; they rotate instantly by changing their velocity.
+
+In the simulator, there is no need for any type of sensors. Each Boid have access to the location of all the obstacles and all the other entities.
+
+Each Boids in the simulator are circular, so they are as similar as the real ChIRP bot, however there is some big differences between the real ChIRP robot and the Boids in the simulator.
+
+\section{Differences between the physical experiment and simulator}
+The physical robots are trying to mimic the behavior of the Boids created in the simulator. However a physical robot is different than the Boids created in the simulator by nature. As discussed in section \ref{sec:robot}, the robots are a type of differential wheeled robots, which means that it can only move forward or backwards, turn on the spot or move and turn at the same time. 
+
+The Boids in simulator software did not have any direction, they were able to move freely in all 360\textdegree direction. Which means that if a Boid in simulator were to move in one direction, it could change its momentum and move the other direct without having to stop and turn to that direction. The robot on the other hand would need to turn 180\textdegree before moving forward. The robot is able to reverse its motor to drive backwards, but these Boids robot are not allowed to move backward, and thus have to turn around to move in another direction.
 
 In the simulator, each Boid will know exactly where everything is placed. That is, each Boid knows where all the other Boids are, including itself. It also knows where all the obstacles are. The Boids will have real time access to everything that can be seen on screen. Every Boids will update its perception every frame, that is approximately 60 times every second.
 

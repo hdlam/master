@@ -13,18 +13,19 @@
 		<item value="false" key="isRegEx"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="ChirpBo" key="selection"/>
+		<item value="50" key="selection"/>
 		<list key="findhistory">
-			<item value="chirpBo"/>
+			<item value="50"/>
 			<item value="create"/>
+			<item value="stats"/>
+			<item value="sta"/>
+			<item value="chirpBo"/>
 			<item value="cr"/>
 			<item value="crea"/>
 			<item value="update"/>
-			<item value="time"/>
-			<item value="upda"/>
-			<item value="timeout"/>
 		</list>
 		<list key="replacehistory">
+			<item value="size"/>
 			<item value="ts.size"/>
 			<item value="*4"/>
 		</list>

@@ -1,6 +1,7 @@
 \section{Background}
 \label{sec:background}
 This section will explain swarming and swarm robots. How to implement bird flocking behavior on particles in simulation, and the Boids behavior. It will explain how fish schooling and ant swarm works as well to compliment the bird flocking. Swarms can be used to optimize a problem or they can be used to solve complex problems that would cost a lot more using an advanced robot.
+A brief overview of different common robotics architecture will be presented in subsection \ref{sec:robotArch}
 
 \subsection{Swarming}
 \textbf{Swarm}, swarming, swarm intelligence, swarm optimization or swarm robotics are terms used for simple (preferably cheap) agents/robots which can only do simple tasks. However the power of these robots lies in the numbers \citep{Zhu2010,Bonabeau1999}. The robots might not be able to do an advanced task alone, but together they might be able complete advanced tasks. For instance, one robot might not be able to push a heavy box by itself, but with the help of other robots they might be able to push the box.
@@ -17,18 +18,46 @@ In \citep{Reynolds1999}, Craig W. Reynolds created something he called \textbf{B
     \item[Cohesion]
         Steer towards the average position of the other individuals in your neighborhood. This makes the Boids stay in the flock.
 \end{description}
-\begin{figure}[H]
+
+\begin{figure}[h]
     \centering
-    \subfloat[Separation ]{\includegraphics[width=0.3\textwidth]{images/boid_separation.jpg}\label{fig:boid_sep}}
+    \begin{subfigure}[b]{0.3\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/boid_cohesion}
+        \caption{Cohesion}
+        \label{fig:boid_coh}
+    \end{subfigure}
     \hfill
-    \unskip\ \vrule\ 
-    \subfloat[Alignment ]{\includegraphics[width=0.3\textwidth]{images/boid_alignment1.jpg}\label{fig:boid_ali}}
+    \begin{subfigure}[b]{0.23\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/boid_alignment}
+        \caption{Alignment}
+        \label{fig:boid_ali}
+    \end{subfigure}
     \hfill
-    \unskip\ \vrule\ 
-    \subfloat[Cohesion ]{\includegraphics[width=0.3\textwidth]{images/boid_cohesion.jpg}\label{fig:boid_coh}}
-            \caption[Boids behavior]{The three behaviors of the Boids}
-            \label{fig:boidbehavior}
+    \begin{subfigure}[b]{0.3\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/boid_separation}
+        \caption{Separation}
+        \label{fig:boid_sep}
+    \end{subfigure}
+    \caption[Boids behavior]{The three behaviors of the Boids}
+    \label{fig:boidbehavior}
 \end{figure}
+
+
+%\begin{figure}[H]
+%    \centering
+%    \subfloat[Separation ]{\includegraphics[width=0.3\textwidth]{images/boid_separation.jpg}\label{fig:boid_sep}}
+%    \hfill
+%    \unskip\ \vrule\ 
+%    \subfloat[Alignment ]{\includegraphics[width=0.3\textwidth]{images/boid_alignment1.jpg}\label{fig:boid_ali}}
+%    \hfill
+%    \unskip\ \vrule\ 
+%    \subfloat[Cohesion ]{\includegraphics[width=0.3\textwidth]{images/boid_cohesion.jpg}\label{fig:boid_coh}}
+%
+%            \label{fig:boidbehavior}
+%\end{figure}
 
 The three behavior is per individual Boid, which means that each particle/Boid has to calculate where they are going to fly by checking all the other Boids position and rotation and then act accordingly. Which makes the complexity of the algorithm $ O(n^2)$ for every frame. 
 Reynolds have tried to make the algorithm less computational expensive by putting the Boids into grids with Spatial Hashing. An example of this could be to put all the Boids that has an $x$-value between 0 and 1 and a $y$-value between 0 and 1 on the lower left grid, and the ones that has an $x$-value between 1 and 2 in the next position etc. Using this grid, each Boids in a cell only needed to take the adjacent grids into consideration when checking their neighborhood. That way they do not need to check the position and rotation of all the other Boids.
@@ -81,6 +110,7 @@ It is possible for the Boids to have more behaviors, called steering behaviors a
 %
 %\textbf{Leader following} behavior makes one character follow another character. The follower wants to stay near the leader, but also stay out of the way. If there is more than one leader, they also want to avoid bumping into each other. The implementation of leader following behavior relies on the arrival behavior where the goal is a point behind the leader. The follower will slow down when drawing near the point behind the leader and eventually stop before it bumps into the leader. If the entity is in front of the leader, it will fly away and around the leader so it is not in the way.
 \begin{description}
+\label{boids:behaviors}
 \item[The seek]behavior tells the Boid to seek a goal, it will try to reach the goal/object as fast as possible, but due to its high speed it might have when arriving at the goal, it will fly past the goal. It will then turn around to seek its goal again.
 
 A seek behavior should have an \textbf{arrival} behavior to counteract the fly-by, that means that when nearing the goal, the Boid will slow down so it stops at the goal in the end, instead of flying past it.
@@ -143,6 +173,7 @@ Swarms has a lot of potential, not necessary only on robotics but swarms can be 
 If all of the particles were to be attracted to only the global best found solution so far, they might risk to be stuck in a local maxima without being able to find the other local maximas. To avoid being stuck in a local maxima, each particle is also attracted to the best solution it has found, and maybe to the neighborhood's best found solution as well. This ensure that the particles "jiggles" (introduces enough noise) so that the particle might jump to another local maxima. 
 
 \subsection{Other swarming animals}
+This section will look at other flocking animals or insects and how they have been modeled in simulation.
 \subsubsection{fishes}
 In the paper named "Artificial Fishes: Autonomous Locomotion, Perception, Behavior, and Learning in a Simulated Physical World" \citep{Demetri1994} we are given the explanation on how fishes form schools and how different intentions make the fish behave the way they do. He starts out with explaining how a fish and how the simulator is constructed, the math behind it and how the motor controllers work. For the simulation there is different types of fishes, some of them are predators and some of them are preys. Where predators are larger fishes which tries to eat other smaller preys. Each fish has a 300 degrees, where it can see in front of it and has a blind spot directly behind it. These fish uses the containment behavior mentioned earlier, where they swim freely around in the aquarium, but are not allowed to/not able to leave it.
 
@@ -163,3 +194,35 @@ The ant will probably choose $e_1$ if $\tau_1 > \tau_2$ and vice versa.
 The ants will return using the same path as the one it took, and reinforce the path with new pheromones using the formula $\tau_i \leftarrow \tau_i + \frac{Q}{l_i}$ where $Q$ is a positive constant. The pheromones that have already been laid out in the path will slowly evaporate, the evaporation formula used is $\tau_i \leftarrow (1-\rho)\cdot\tau_i, i = 1,2$, where $\rho \in (0,1]$. These math formulas will over time make sure that the ants are converging to the short path.
 
 The biggest difference between these artificial ants and real ones are that these move synchronously, while real ants are asynchronous. Real ants leaves pheromones on the ground whenever they move, these artificial ones only leave behind the pheromones on the way back to the anthill. The normal ants' pheromone strength are due to evaporation, while the artificial ones regulates the strength of the pheromones using an evaluation of some quality measure. The ant system can be used for approximate algorithms for combinatorial optimization problem, especially for combinatorial problems which are NP-hard.
+
+\subsection{Robot architectures}
+\label{sec:robotArch}
+Software architecture is the methodology for structuring the code or algorithm. One software architecture model might work better for one purpose while another architecture works better for a different purpose. 
+
+This subsection will briefly explain common architectures found in robotics. In robotics, the architectures needs to decide how to combine reactive control and model-based deliberative planning. Reactive robots relies mostly on their sensor inputs and reacts accordingly. For example a robot equipped with distance sensors that usually drive forward might turn if the front distance sensor detects an obstacle.
+
+Deliberative planning on the other hand also uses the available sensors on the robot, but they do not react immediately like the reactive robots would do. Deliberative planning robots uses the information gathered from the sensor(s) to make a plan of where it should head or what it should do, before executing its action(s).
+
+A mix of both planning and reactive robot architecture which uses reactive techniques at lower level and deliberative planning at the higher levels are called hybrid architectures.
+
+An example of each of these architectures is explained in the following sections. 
+
+
+\subsubsection{Brooks subsumption}
+\label{sec:brooks}
+Brooks subsumption architecture is the most common reactive robot architecture. As explained earlier, a reactive architecture is based on a direct sensor to actuator mapping. That is, whenever a sensor measures anything over a predefined threshold or if the sensor senses anything, the actuator will react immediately. The idea behind the subsumption architecture is to split the behavior of the robot into sub-behaviors into a vertical hierarchy as illustrated in figure \ref{fig:subsumption}. 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{figs/subsumption}
+    \caption[Subsumption architecture]{Subsumption architecture}\label{fig:subsumption}
+\end{figure}
+
+As seen in the figure, the sensors input the information it have sensed, and each behavior reacts accordingly. A higher level of behavior will have higher priority than the lower ones. For example, behavior 4 in figure \ref{fig:subsumption} would have priority over behavior 3, and behavior 3 would have priority over behavior 2 etc.
+%TODO
+
+The advantage of the Brooks subsumption architecture is that the robot using it can have different goal depending on the specific situation. For example, if you have a robot that needs to find a specific item in an area. This robot would first wander around aimlessly, and its sensors would be used to avoid crashing into obstacles or other robots. When the robot has located the item it wants, it would use its sensors to move towards that item instead of using it to avoid it.
+
+
+
+\subsubsection{Hybrid}
+\label{sec:hybrid}
