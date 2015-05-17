@@ -38,14 +38,14 @@ public class ChirpBoid {
 	private float maxF = 50f;
 	
 	int size = 50;
+	boolean move;
 
 
-
-	public ChirpBoid(float x, float y, Color color, float velX, float velY) {
+	public ChirpBoid(float x, float y, Color color, float velX, float velY, boolean move) {
 		pos = new Vector2f(x, y);
 		vel = new Vector2f(velX, velY);
 		acc = new Vector2f(0,0);
-		
+		this.move = move;
 		this.color = color;
 		
 	}
@@ -94,9 +94,11 @@ public class ChirpBoid {
 	
 
 	public void update(GameContainer gc, int delta, ArrayList<ChirpBoid> boids, ArrayList<Shape> obs) {
-		moveCalc(boids, delta, obs, gc);
-//		if(debug)
-			updatePos(gc, delta);
+		if(move){
+			moveCalc(boids, delta, obs, gc);
+//			if(debug)
+				updatePos(gc, delta);
+		}
 	}
 	
 	private void moveCalc(ArrayList<ChirpBoid> boi, int delta, ArrayList<Shape> obs, GameContainer gc){

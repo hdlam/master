@@ -205,7 +205,7 @@ Deliberative planning on the other hand also uses the available sensors on the r
 
 A mix of both planning and reactive robot architecture which uses reactive techniques at lower level and deliberative planning at the higher levels are called hybrid architectures.
 
-An example of each of these architectures is explained in the following sections. 
+%TODO intro to archs.
 
 
 \subsubsection{Brooks subsumption}
@@ -222,7 +222,17 @@ As seen in the figure, the sensors input the information it have sensed, and eac
 
 The advantage of the Brooks subsumption architecture is that the robot using it can have different goal depending on the specific situation. For example, if you have a robot that needs to find a specific item in an area. This robot would first wander around aimlessly, and its sensors would be used to avoid crashing into obstacles or other robots. When the robot has located the item it wants, it would use its sensors to move towards that item instead of using it to avoid it.
 
-
+\subsection{Deliberative control architecture}
+Deliberative control architecture are based on Sense-Plan-Act principle, the robots uses its sensors to get a full overview of the environment. After it have gained full knowledge of the environment, it will plan solutions then consider them before choosing an action. Deliberative planning robots are usually very dependent on precise sensors to be able to map the environment. It is also assumed that the model of the world the robot will be in is provided. 
 
 \subsubsection{Hybrid}
 \label{sec:hybrid}
+Hybrid architecture is a mix of deliberative control architecture and reactive architecture. The idea behind the hybrid control architecture is to work around the limitation and drawbacks of both the reactive and the deliberative control architecture.
+
+The hybrid control architecture usually have a deliberative layer to plan and model the environment, but the deliberative controls might be slow and not able to act fast enough in certain situations. Each decision might take minutes. The environment that the deliberative layer creates or maps out can be learned from data or gathered through the sensors from the reactive layer.
+
+That is why the reactive layer is added to the control architecture as well. The reactive layer usually have faster reaction time than the deliberate layer, and can help the robot navigate when they need to do an action fast. The reactive layer's decision cycle is often on the order of milliseconds.
+
+To glue together the reactive layer and the deliberative layer, a layer is put in between the lower reactive layer and higher deliberative layer. Namely the executive layer or sequencing layer. The executive layer accepts directive from the deliberative layer and puts them in order for the reactive layer. The executive layer is slower than the reactive layer, it takes seconds to make a decision.
+
+The hybrid architecture explained here is the most common architecture for the hybrid control architecture, which is called the three-layer architecture due to the three layers deliberative, executive and the reactive layer as seen in figure \ref{fig:hybrid}.

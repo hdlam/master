@@ -1,7 +1,8 @@
 \chapter{Experiments and Results}
 \label{cha:ResearchAndResults}
 
-{\it In this chapter, the results from the experiments will be presented and discussed. Section \ref{sec:results} contains the actual results created by running each scenario. Section \ref{sec:discussion} will discuss the results seen in section \ref{sec:results}, and a discussion on the differences between the results from the simulator and the physical robots.}
+{\it In this chapter, the results from the experiments will be presented and discussed. Section \ref{sec:results} contains the actual results created by running each scenario. The setup of the experiment is explained in section \ref{sec:experimentalSetup} explains the setup and which parameters have been used to run the experiments.
+Section \ref{sec:discussion} will discuss the results seen in section \ref{sec:results}, and a discussion on the differences between the results from the simulator and the physical robots.}
 
 \section{Experimental Plan}
 \label{sec:experimentalPlan}
@@ -78,8 +79,64 @@ To find the standard deviation of the velocity, the formula in equation \ref{eq:
 
 \section{Experimental Setup}
 \label{sec:experimentalSetup}
+In this section, the setup for the experiment will be explained, and which parameters have been used to run the experiments.
 
-The experimental setup should include all data - parameters etc, that would allow a person to repeat your experiments. 
+In this experiment, four robots and one obstacle is used inside a sandbox. Each robots needs to have an extra layer on top of them so the red and green post it note does not fall off.
+In the simulator, the following parameters have been used:
+\begin{description}
+\item[cohesion distance] = 250 px
+\item[alignment distance] = 175 px
+\item[separation distance] = 120 px
+\item[away from wall distance] = same as alignment
+\item[obstacle distance] = same as separation
+\end{description}
+This distances tells the Boid how near it has to be before it should calculate the vector. For example if the Boid is in the middle of the screen, that means that it is not near a wall, then the "away from wall" function will return the null vector because it does not need the Boid to steer away from the wall.
+The numbers given over is the furthest distance that the Boid will consider, for instance a Boid that have three neighbors, where one of them is 100 px away, the second one is  while the third one is 300 px away. The first Boid will be taken into consideration in all of the three behaviors; cohesion, alignment and separation because it is very close. The second Boids will not be influence the separation behavior, but it will influence the alignment and cohesion vector. The third one is too far away, and will not be considered at all.
+
+The Boids in the simulator had a velocity cap of 30 px in both x and y direction. 
+The size of the robot is set to be 50 px in diameter.
+
+Each vector from each behavior is multiplied with a factor that determines how much impact that vector will have on the final acceleration vector.
+The list provided below is the weight multiplied by the behavior vector. Or $W_x$ found in equation \ref{eq:vecsum}.
+\begin{description}
+\item[cohesion] vector is multiplied by 2
+\item[alignment] vector is multiplied by 2
+\item[away from wall] vector is multiplied by 2
+\item[avoid obstacles] vector is multiplied by 3
+\item[separation] vector is multiplied by 3
+\end{description}
+
+As seen in the list above, the two vectors that have the highest influence on the robot is the separation and the obstacle avoidance behavior. These two behaviors needs to influence the robot a lot more than the other behaviors because they are only activated when the robot is very close to another robot or an obstacle.
+
+The robots on the other hand had different parameters for their behaviors:
+\begin{description}
+\item[cohesion distance] = 800 px
+\item[alignment distance] = 200 px
+\item[separation distance] = 150 px
+\item[away from wall distance] = same as alignment
+\item[obstacle distance] = same as separation
+\end{description}
+
+The reason the cohesion distance for the physical robot are so different than the one in the simulator is because the robots are slow to flock together and they might get stuck at a corner when the sensors, so a big cohesion distance makes the robots flock together faster. The Boids in the simulator do not need the big cohesion distance because they wander a lot around even if there is no neighboring Boids around them. When they have wandered around for a while, they will eventually find another Boid that is near enough and they will start to flock together.
+
+The simulator was intended to handle a lot more than the four Boids used in this project. If the Boids have a longer cohesion distance, more Boids would flock together and the sub flock emergency would not occur as much as seen in figure \ref{fig:subflock}.
+
+The weights on the behavior vectors for the robots are a little bit different than the one found in the simulator.
+\begin{description}
+\item[cohesion] vector is multiplied by 2
+\item[alignment] vector is multiplied by 2
+\item[away from wall] vector is multiplied by 1
+\item[avoid obstacles] does not exist
+\item[separation] vector is multiplied by 4
+\end{description}
+
+The reason the avoid obstacle vector does not exist, is because the watcher software can not find nor distinguish obstacle from the floor. This feature is not implemented in the camera tracking software. The robot needs to know the size of the sandbox beforehand, because the camera or the watcher software do not provide this information to the robot. To compensate for the lack of obstacle information, the robot uses their distance sensors to find out where the obstacle are located and avoids them.
+
+The separation vector is multiplied with a weight of 4 for the robot, but only multiplied with a weight of 3 for the Boids. There is no specific reason for this, after testing it seems to perform better with a weight of 4 on separation instead of 3.
+With a weight of 3 on separation the Robots bumped into each other quite often, that is why the weight for the separation have been increased to 4.
+
+
+%The experimental setup should include all data - parameters etc, that would allow a person to repeat your experiments. 
 
 
 \section{Results}
@@ -101,5 +158,17 @@ The graph below shows
 All the graphs that was generated during the experiment can be found in the appendix.
 \section{Discussion}
 \label{sec:discussion}
+This section will mainly focus on explaining the data from the results, why there is a difference between the physical experiment and the experiments done in a simulator. 
+
 From the results we can see that the robots quickly flock together, they start out on each corner of the sandbox then drive into the center of the sandbox, this is shown in the graph by the first drop. 
-The angles measured seems to vary a lot, even if the alignment-behavior tries to make all the robots face the same way. The reason this happens is because the allowed space to travel is not infinite and the robots encounters different types of obstacles like the surrounding wall, each other and the two water bottle placed inside the sandbox. The same behavior is found on the Boids that were ran exclusively on a simulator.
+
+The angles measured seems to vary a lot, even if the alignment-behavior tries to make all the robots face the same way. The reason this happens is because the allowed space to travel is not infinite and the robots encounters different types of obstacles like the surrounding wall, each other and the water bottle obstacles placed inside the sandbox. The same behavior is found on the Boids that were ran exclusively on a simulator. Whenever the robots detects an obstacle or move towards the walls, the distance sensors will make the robot turn around so the robot will not crash. Sometimes the robots will think that the other robots around itself are obstacles as well, because it has no way to tell the difference between the robots from an actual obstacle. This is because the distance sensors can not distinguish anything, it only measures a distance and the robots will try to avoid anything that is too near it, thinking that it sees an obstacle.
+
+%TODO check if true
+The velocity also varies a lot, going from 0 to %TODO.
+The Boids in the simulator never stops or the velocity never drops down to 0, they keep moving in different direction all the time. Being able to move freely in all 360 \textdegree almost instantly. 
+The physical ChIRP robot needs to turn around before moving in a new direction. As long as the new direction is off by an angle larger than 1 \textdegree from the angle the robot is currently facing, then it will stop and turn. All turning takes approximately one second, before the robot is moving again. 
+The one second delay is introduced to keep the 
+
+Whenever the robot turns, the watcher will not see any change in position for that current robot. The watcher will therefore log that the speed of the robot is 0 for the five time AWRGSDFTRFE %TODO
+
