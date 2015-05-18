@@ -91,7 +91,7 @@ In the simulator, the following parameters have been used:
 \item[obstacle distance] = same as separation
 \end{description}
 This distances tells the Boid how near it has to be before it should calculate the vector. For example if the Boid is in the middle of the screen, that means that it is not near a wall, then the "away from wall" function will return the null vector because it does not need the Boid to steer away from the wall.
-The numbers given over is the furthest distance that the Boid will consider, for instance a Boid that have three neighbors, where one of them is 100 px away, the second one is  while the third one is 300 px away. The first Boid will be taken into consideration in all of the three behaviors; cohesion, alignment and separation because it is very close. The second Boids will not be influence the separation behavior, but it will influence the alignment and cohesion vector. The third one is too far away, and will not be considered at all.
+The numbers given over is the furthest distance that the Boid will consider, for instance a Boid that have three neighbors, where one of them is 100 px away, the second one is  while the third one is 300 px away. The first Boid will be taken into consideration in all of the three behaviors; cohesion, alignment and separation because it is very close. The second Boids will not be influence the separation behavior, but it will influence the alignment and cohesion vector. The third one is too far away, and will not be considered at all. These distances are illustrated in figure \ref{fig:simulatordistances}.
 
 The Boids in the simulator had a velocity cap of 30 px in both x and y direction. 
 The size of the robot is set to be 50 px in diameter.
@@ -119,7 +119,7 @@ The robots on the other hand had different parameters for their behaviors:
 
 The reason the cohesion distance for the physical robot are so different than the one in the simulator is because the robots are slow to flock together and they might get stuck at a corner when the sensors, so a big cohesion distance makes the robots flock together faster. The Boids in the simulator do not need the big cohesion distance because they wander a lot around even if there is no neighboring Boids around them. When they have wandered around for a while, they will eventually find another Boid that is near enough and they will start to flock together.
 
-The simulator was intended to handle a lot more than the four Boids used in this project. If the Boids have a longer cohesion distance, more Boids would flock together and the sub flock emergency would not occur as much as seen in figure \ref{fig:subflock}.
+The simulator was intended to handle a lot more than the four Boids used in this project. If the Boids have a longer cohesion distance, more Boids would flock together and the sub flock emergence would not occur as much as seen in figure \ref{fig:subflock}.
 
 The weights on the behavior vectors for the robots are a little bit different than the one found in the simulator.
 \begin{description}
@@ -162,13 +162,16 @@ This section will mainly focus on explaining the data from the results, why ther
 
 From the results we can see that the robots quickly flock together, they start out on each corner of the sandbox then drive into the center of the sandbox, this is shown in the graph by the first drop. 
 
-The angles measured seems to vary a lot, even if the alignment-behavior tries to make all the robots face the same way. The reason this happens is because the allowed space to travel is not infinite and the robots encounters different types of obstacles like the surrounding wall, each other and the water bottle obstacles placed inside the sandbox. The same behavior is found on the Boids that were ran exclusively on a simulator. Whenever the robots detects an obstacle or move towards the walls, the distance sensors will make the robot turn around so the robot will not crash. Sometimes the robots will think that the other robots around itself are obstacles as well, because it has no way to tell the difference between the robots from an actual obstacle. This is because the distance sensors can not distinguish anything, it only measures a distance and the robots will try to avoid anything that is too near it, thinking that it sees an obstacle.
+The angles measured seems to vary a lot, even if the alignment-behavior tries to make all the robots face the same way. The reason this happens is because the allowed space to travel is not infinite and the robots encounters different types of obstacles like the surrounding wall, each other and the water bottle obstacles placed inside the sandbox. The same behavior is found on the Boids that were ran exclusively on a simulator. 
+
+Whenever the robots detects an obstacle or move towards the walls, the distance sensors will make the robot turn around so the robot will not crash. Sometimes the robots will think that the other robots around itself are obstacles as well, because it has no way to tell the difference between the robots from an actual obstacle. This is because the distance sensors can not distinguish anything, it only measures a distance and the robots will try to avoid anything that is too near it, thinking that it sees an obstacle.
 
 %TODO check if true
 The velocity also varies a lot, going from 0 to %TODO.
-The Boids in the simulator never stops or the velocity never drops down to 0, they keep moving in different direction all the time. Being able to move freely in all 360 \textdegree almost instantly. 
-The physical ChIRP robot needs to turn around before moving in a new direction. As long as the new direction is off by an angle larger than 1 \textdegree from the angle the robot is currently facing, then it will stop and turn. All turning takes approximately one second, before the robot is moving again. 
-The one second delay is introduced to keep the 
+The Boids in the simulator never stops, that is the velocity never drops down to 0, they keep moving in different direction all the time. Being able to move freely in all 360\textdegree almost instantly. They do not need to stop to change direction.
+The physical ChIRP robot needs to turn around before moving in a new direction. As long as the new direction is off by an angle larger than 1\textdegree from the angle the robot is currently facing, then it will stop and turn. All turning takes approximately one second, before the robot is moving again. If the robot will turn a lot, it will only have one second to do so, before it has to move. If it only needs to turn 2\textdegree, it will turn first and wait until it has been one second before moving on.
+The one second delay is introduced to keep the timing somewhat synchronous between the robots, one second delay is long enough for the robot to be able to almost turn all the way around (180\textdegree). 
 
-Whenever the robot turns, the watcher will not see any change in position for that current robot. The watcher will therefore log that the speed of the robot is 0 for the five time AWRGSDFTRFE %TODO
+Whenever the robot turns, the watcher will not see any change in position, which is the method it uses to log the velocity of the robots. The watcher will therefore log that the velocity of the robot is 0 when the robots turn around on the same spot. 
+
 

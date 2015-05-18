@@ -13,10 +13,13 @@ The main idea behind swarm robots is that it should be able to run continuously 
 The current implementation of this project relies on the robot needing to know how many other robots there will be in the sandbox at the same time, because it will need to know how much data it is going to store before processing it. This has to be changed manually in the code and then uploaded to the robot again.
 A working flocking flock should have more than four robots running simultaneously, and we should be able to add a new robot without re-uploading the code to the robots.
 
+In simulation, it is easy to add new Boids of different type or family as seen in figure \ref{fig:simulatordistances} by the different colors on the Boids. With only four robots running at the same time, there is no point in trying to implement different types of Boids families so sub groups of Boids flocks would emerge. There reason is that it will be hard to see if there is any family groups with only four robots. With more robots, it would be easier and more obvious to see groups of families emerge. 
+
 \textbf{More fluid movement} %TODO rewrite
 The current implementation does not punish the robot for standing still nor for only rotating on the same spot. The only escape from continuously spinning on the same spot is a spin counter, which forces the robot to move forward if the robot has been stuck on a spot for five iterations and if there is nothing in front of it. 
 
 Each robot also stops when it turns around and whenever they need to change direction. When birds fly together as a flock they do not stop when they need to turn. The robots should be able to move and rotate without stopping.
+
 
 %In scenario 2, the robots do move around the obstacle, but this does not happen at the same time. 
 

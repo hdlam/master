@@ -38,8 +38,8 @@ import org.newdawn.slick.util.FastTrig;
 public class ChirpBoidWatcher extends BasicGame implements MulticastListener{
 	ArrayList<ChirpBot> prototype;
 	final int size = 50;
-	static int w = 800;//800
-	static int h = 652; //652
+	static int w = 1920;//800
+	static int h = 1024; //652
 	Input input;
 	//800 * 652
 	//Threshold values
@@ -56,12 +56,12 @@ public class ChirpBoidWatcher extends BasicGame implements MulticastListener{
 	public boolean averaging;
 	public String udpString;
 	FileWriter fw;
-	String filename = "data.csv";
+	String filename = "scenario2_run01.csv";
 	boolean start = false;
 	int iteration;
 	long time;
 	
-	public boolean debug = false;
+	public boolean debug = true;
 	public boolean debugRender = true;
 	
 	public ChirpBoidWatcher(String title, Multicast mc) {
@@ -126,10 +126,12 @@ public class ChirpBoidWatcher extends BasicGame implements MulticastListener{
 		Vector2f snitt = new Vector2f(0,0);
 		int num = 0;
 		for (ChirpBot cb : prototype) {
-			graphics.setColor(Color.gray);
+			graphics.setColor(Color.blue);
 			graphics.drawOval(cb.getX()-sep/2, cb.getY()-sep/2, sep, sep);
-//				graphics.drawOval(cb.getX()-ali/2f, cb.getY()-ali/2f, ali, ali);
-//				graphics.drawOval(cb.getX()-coh/2, cb.getY()-coh/2, coh, coh);
+			graphics.setColor(Color.gray);
+			graphics.drawOval(cb.getX()-ali/2f, cb.getY()-ali/2f, ali, ali);
+			graphics.setColor(Color.red);
+			graphics.drawOval(cb.getX()-coh/2, cb.getY()-coh/2, coh, coh);
 			snitt.add(new Vector2f(cb.getX(), cb.getY()));
 			num++;
 		}
@@ -164,7 +166,7 @@ public class ChirpBoidWatcher extends BasicGame implements MulticastListener{
 		}
 		//
 //		graphics.drawString(prototype.size()+"", 300f, 300f);
-		
+		graphics.drawString(iteration+"", w-50,h-20);
 	}
 	
 	int factorial(int num){
@@ -326,14 +328,12 @@ public class ChirpBoidWatcher extends BasicGame implements MulticastListener{
 		if(input.isKeyPressed(Input.KEY_W)){
 			start = true;
 			nearest(0, 0).setRxtx(rxtxrobots.get(0));
-			nearest(w, 0).setRxtx(rxtxrobots.get(1));
+			nearest(w-700, 0).setRxtx(rxtxrobots.get(1));
 			nearest(0, h).setRxtx(rxtxrobots.get(2));
-			nearest(w, h).setRxtx(rxtxrobots.get(3));
 			rxtxrobots.get(0).getData();
 			rxtxrobots.get(1).getData();
 			rxtxrobots.get(2).getData();
-			rxtxrobots.get(3).getData();
-			for (int i = 0; i < prototype.size(); i++) {
+			for (int i = 0; i < prototype.size()-1; i++) {
 				prototype.get(i).test(i);;
 			}
 		}
@@ -440,6 +440,12 @@ public class ChirpBoidWatcher extends BasicGame implements MulticastListener{
 //		}
 		if(input.isKeyPressed(Input.KEY_P)){
 			prototype = new ArrayList<ChirpBot>();
+			if(debug){
+				for (int i = 0; i < numOfBots; i++) {
+					ChirpBot temp =  new ChirpBot((float) Math.random()*w, (float) Math.random()*h, (float) Math.PI, i+"", this);
+					prototype.add(temp);
+				}
+			}
 			
 		}
 		if(input.isKeyPressed(Input.KEY_M)){

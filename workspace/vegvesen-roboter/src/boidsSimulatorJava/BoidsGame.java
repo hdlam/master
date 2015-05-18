@@ -17,6 +17,8 @@ import java.util.Random;
  */
 public class BoidsGame extends BasicGame {
 
+//	private static final int WIDTH = 800;
+//	private static final int HEIGHT = 652;
 	private static final int WIDTH = 1024;
 	private static final int HEIGHT = 1024;
 
@@ -203,7 +205,8 @@ public class BoidsGame extends BasicGame {
 //			numOfBots = 8;
 
 		if (input.isMousePressed(input.MOUSE_LEFT_BUTTON)) {
-			ChirpBoid boid = new ChirpBoid((int) (Math.random() * WIDTH), (int) (Math.random() * HEIGHT), intToCol((int) (Math.random() * 10)),(int) (Math.random() * 120) - 60,(int) (Math.random() * 120) - 60, true);
+//			ChirpBoid boid = new ChirpBoid((int) (Math.random() * WIDTH), (int) (Math.random() * HEIGHT), intToCol((int) (2)),(int) (Math.random() * 120) - 60,(int) (Math.random() * 120) - 60, true);
+			ChirpBoid boid = new ChirpBoid((int) (input.getMouseX()), (int) (input.getMouseY()), intToCol((int) (2)),(int) (Math.random() * 120) - 60,(int) (Math.random() * 120) - 60, true);
 			boids.add(boid);
 		}
 
@@ -227,14 +230,29 @@ public class BoidsGame extends BasicGame {
 		boids.clear();
 //		for (int i = 0; i < numOfBots; i++) {
 ////			ChirpBoid boid = new ChirpBoid((int)(Math.random()*WIDTH), (int)(Math.random()*HEIGHT), intToCol(i), rnd.nextInt(200) - 100, rnd.nextInt(200) - 100);
-//			ChirpBoid boid = new ChirpBoid((int)(Math.random()*WIDTH), (int)(Math.random()*HEIGHT), intToCol((int)(Math.random()*10)), (int)(Math.random()*120)-60, (int)(Math.random()*120)-60);
+//			ChirpBoid boid = new ChirpBoid((int)(Math.random()*WIDTH), (int)(Math.random()*HEIGHT), intToCol((int)(Math.random()*10)), (int)(Math.random()*120)-60, (int)(Math.random()*120)-60, true);
 ////			ChirpBoid boid = new ChirpBoid((WIDTH)/2, (HEIGHT)/2, intToCol(i), (int)(Math.random()*120)-60, (int)(Math.random()*120)-60);
 //			boids.add(boid);
-//			
-//		}{-414.481, -279.654}
-		scenario2();
+//		}
+//		}
+//		scenario2();
+//		randomScenario();
+//		scenario1();
 	}
 	
+	void randomScenario(){
+//		for (int i = 0; i < numOfBots; i++) {
+////	ChirpBoid boid = new ChirpBoid((int)(Math.random()*WIDTH), (int)(Math.random()*HEIGHT), intToCol(i), rnd.nextInt(200) - 100, rnd.nextInt(200) - 100);
+//			ChirpBoid boid = new ChirpBoid((int)(Math.random()*WIDTH), (int)(Math.random()*HEIGHT), intToCol((int)(0)), (int)(Math.random()*120)-60, (int)(Math.random()*120)-60, true);
+////	ChirpBoid boid = new ChirpBoid((WIDTH)/2, (HEIGHT)/2, intToCol(i), (int)(Math.random()*120)-60, (int)(Math.random()*120)-60);
+//			boids.add(boid);
+//	
+//}
+		boids.add(new ChirpBoid(666f, 125f, intToCol(0), 0, 0,true));
+		boids.add(new ChirpBoid(753f, 445f, intToCol(0), 0, 0,true));
+		boids.add(new ChirpBoid(340f, 18f, intToCol(0), 0, 0,true));
+		boids.add(new ChirpBoid(157f, 553f, intToCol(0), 0, 0,true));
+	}
 	
 	void scenario1(){
 		//scenario1
@@ -272,7 +290,10 @@ public class BoidsGame extends BasicGame {
 	}
 
 	private void createObstacles(){
-		Shape s = new Circle(WIDTH/2, HEIGHT/2, (float) (Math.random()*40));
+		
+		//Shape s = new Circle(WIDTH/2, HEIGHT/2, (float) (Math.random()*40)); 		//scnario
+		Shape s = new Circle(667f, 479f, (float) 30); 		//random
+		
 		obstacles.add(s);
 	}
 	

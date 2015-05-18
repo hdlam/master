@@ -86,10 +86,14 @@ public class ChirpBoid {
 		g.setLineWidth(5);
 		a = a+-90;
 		g.drawLine((float)(pos.x),(float)(pos.y),	(float)(pos.x + vel.length() * Math.cos(a) + 1 * Math.sin(a)), (float)(pos.y + vel.length() * Math.sin(a) - 1 * Math.cos(a)));
-		g.setLineWidth(1);
-		g.resetTransform();
 		g.setColor(color);
 		g.drawOval(pos.x - (size / 2), pos.y - (size / 2), size, size);
+		g.setColor(Color.white);
+		g.setLineWidth(1);
+		g.drawOval(pos.x - (sepDist), pos.y - (sepDist ), sepDist*2, sepDist*2);
+		g.drawOval(pos.x - (aliDist), pos.y - (aliDist ), aliDist*2, aliDist*2);
+		g.drawOval(pos.x - (cohDist), pos.y - (cohDist ), cohDist*2, cohDist*2);
+		g.resetTransform();
 	}
 	
 

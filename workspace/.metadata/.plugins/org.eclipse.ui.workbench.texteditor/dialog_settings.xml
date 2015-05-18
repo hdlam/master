@@ -2,29 +2,32 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="297" key="DIALOG_WIDTH"/>
-		<item value="139" key="DIALOG_Y_ORIGIN"/>
-		<item value="663" key="DIALOG_X_ORIGIN"/>
+		<item value="418" key="DIALOG_Y_ORIGIN"/>
+		<item value="805" key="DIALOG_X_ORIGIN"/>
 		<item value="399" key="DIALOG_HEIGHT"/>
 		<item value="1|Droid Sans|12.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="true" key="wrap"/>
-		<item value="false" key="casesensitive"/>
+		<item value="true" key="casesensitive"/>
 		<item value="false" key="isRegEx"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="50" key="selection"/>
+		<item value="W" key="selection"/>
 		<list key="findhistory">
-			<item value="50"/>
-			<item value="create"/>
-			<item value="stats"/>
-			<item value="sta"/>
-			<item value="chirpBo"/>
-			<item value="cr"/>
-			<item value="crea"/>
-			<item value="update"/>
+			<item value="W"/>
+			<item value="re"/>
+			<item value="file"/>
+			<item value="filme"/>
+			<item value="mouse"/>
+			<item value="mo"/>
+			<item value="sepDist"/>
+			<item value="size"/>
 		</list>
 		<list key="replacehistory">
+			<item value="cohDist"/>
+			<item value="aliDist"/>
+			<item value="sepDist"/>
 			<item value="size"/>
 			<item value="ts.size"/>
 			<item value="*4"/>

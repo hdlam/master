@@ -69,9 +69,7 @@ Each robot is equipped with eight infrared LED lights and receivers used for mea
 The distance sensors are spaced evenly around the robot, where one of the sensors are directly in front of the robot. This sensor can be used to detect whether there is an obstacle directly in front of the robot or not. For this experiment, only the three sensors in front are used. Because the robots only moves forward, so it only needs to determine whether there is an obstacle directly in front of it or not. It does not matter if there is anything behind or next to the robot because it does not move in that direction.
 
 Each of the ChIRP robot is equipped with a bluetooth module, which it uses to communicate with the watcher/GPS computer wirelessly. 
-The robots are very hollow on top as seen in figure \ref{fig:robot}, and the distance sensors have difficulties sensing other robots due to the hollowness. To counteract the hollowness, a white paper strip was taped around the robots. This makes it easier for the robot to detect the other robots nearby because the paper will reflect the infrared light that the robot uses to determine the distance. To be sure that the robot would be able to detect the obstacles placed in the sandbox, the obstacles would be wrapped with a white paper around it as well.
-%TODO
-The obstacle is a water bottle filled with water. The water inside the bottle is used to make the bottle heavier, so it does not fall over. And the paper around the bottle is there to reflect the infrared light that the robot uses for measuring distances.
+The robots are very hollow on top as seen in figure \ref{fig:robot}, and the distance sensors have difficulties sensing other robots due to the hollowness. To counteract the hollowness, a white paper strip was taped around the robots. This makes it easier for the robot to detect the other robots nearby because the paper will reflect the infrared light that the robot uses to determine the distance. To be sure that the robot would be able to detect the obstacles placed in the sandbox, the obstacle would have a white paper wrapped around it to reflect infrared light. The obstacle used for this experiment consist of bottle filled with water. The water inside the bottle is used to make the bottle heavier, so it does not fall over. And the paper around the bottle is there to reflect the infrared light that the robot uses for measuring distances.
 
 The camera tracking software uses image recognition to track the robots. That is why each robot need to have a red and a green post it note on top of it. The red one determines where in the sandbox the robot is located, and the green one is used to determine which way it is pointing and to determine the angle of the robots.
 
@@ -101,9 +99,9 @@ The second scenario puts three of entities in one corner, and the last entity is
 The obstacle in the middle will hinder the robots from moving in a straight line to their goal, which forces them to choose a way around it. The robots move around the obstacle when they approach it. As explained in section \ref{sec:robotArch}, the robots will turn either right or left randomly when moving directly towards an obstacle. The robots will probably move around the obstacle on each side of the obstacle, and flock together again on the other side when they have move past the obstacle.
 
 The third scenario is a scenario where the robots are placed randomly around in the sandbox. The two first scenarios were designed for a specific purpose. The purpose of the third scenario is to demonstrate that the Boids behaviors are still intact, even when the robots are placed randomly in the sandbox. The position of the robots, where it should be placed and which way it is pointing was generated randomly by a random number generator. The starting point for this scenario is illustrated in figure \ref{fig:scenario2}.
-\begin{figure}[h]
+\begin{figure}[h!]
 \begin{center}
-\includegraphics[width=0.8\linewidth]{figs/scenario1}
+\includegraphics[width=0.8\linewidth]{figs/scenario2}
 \end{center}
 \caption[scenario 3]{Scenario 3, robots and obstacle randomly placed in the sandbox}
 \label{fig:scenario2}
@@ -113,6 +111,10 @@ All the scenarios explained in this thesis uses the same sandbox, which is a san
 In between each run, the robots had to be placed manually back into their starting position before a new run could take place. To keep the data as consistent as possible, everything else would stay as exactly the same.
 
 \section{Robot controller}
+This section will go through the controller of the robot, how they work and what steps the robot takes to execute its action.
+
+The robots is implemented using the idea of a hybrid robot control architecture as explained in section \ref{sec:hybrid}. The distances sensors are the reactive layers which will be used to guide the robots away from crashing into other robots, obstacle or walls. The deliberative layer will be the code that processes the data sent from the watcher software on the computer, it calculates where the robot should be heading. The executive layer would be the code running on the robot that decides what the robot is doing, whether that is reading the sensors and avoiding obstacles or towards the planned destination for flocking.
+
 When the robot first is turned on and a bluetooth device is paired with its bluetooth module the robot will stand still and wait. The robot is waiting for a command or data from the watcher software. A human can send commands to manually control the robot if needed, this can be used for leader following as explained in section \ref{boids:behaviors}. 
 
 If the watcher sends data to the robot, it will start to calculate where it should go based on the data it received. 
@@ -167,5 +169,46 @@ In the simulator, each Boid will know exactly where everything is placed. That i
 
 The robots on the other hand, will receive data from the watcher about all the other robots. But due to inaccuracies from the camera and the image processed, the robots only knows vaguely where in the sandbox it is located, and where the others are. The time it takes for a robot to receive new information from the watcher takes roughly one second from the last time it received data from the watcher. If the robots are moving between the time it receives data, it will not know where it is before it receives new data from the watcher software. The camera tracking software are able to see all the robots due to the two post it notes on top, but obstacles found in the sandbox do not contain any color or anything that the camera can track. Obstacles are therefore ignored by the camera tracker software because it does not support tracking of anything other than the robots. That is why the robots needs to use their distance sensors in front to detect the obstacles.
 
-The biggest difference between the physical experiment in the sandbox and the simulated Boids is the size and speed of the entities. The size of the simulator is 1024 px times 1024 px. While the sandbox is 151.6 cm wide and 123.9 cm long, which is 800x652 px in the watcher software.
+The biggest most visual difference between the physical experiment in the sandbox and the simulated Boids is the size and speed of the entities. The size of the simulator is 1024 px times 1024 px. While the sandbox is 151.6 cm wide and 123.9 cm long, which corresponds to 800x652 px in the watcher software. The Boids on the simulator moves quite fast and can use the extra space to move around, while the robots are confined inside the sandbox. The biggest reason to use 800x652 px for the watcher software is because the behavior neighborhood distances works well for this size.
 
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.8\linewidth]{figs/simulator}
+\end{center}
+\caption[Simulator distances]{Boids with neighborhood distances visualized}
+\label{fig:simulatordistances}
+\end{figure}
+
+As it will be explained later in section \ref{sec:experimentalSetup}, the parameters for the simulated Boids and the physical robots are a bit different.
+The figure \ref{fig:simulatordistances} shows the approximate distances for each behavior, the inner thick colored ring is the outline of the Boids. The inner thin white ring, illustrates the separation distance, the robot do not try to separate itself from the other robots when they are outside this ring.
+
+The red lines in the figure, is the vectors from each behavior before it is multiplied with the weight. The thickest green line indicates which way the Boids are facing.
+
+The second most outer ring indicates the alignment neighborhood, all there is another robot inside this ring, the robot will try to point in the same direction so they move together in the same direction.
+
+The outer circle is the cohesion distance, the Boids outside of this box will not attract each other.
+
+
+In the figure \ref{fig:simulatordistances}, three types of Boids exist, each one have their own color. Boids will flock together and align themselves only if they have the same color, that is the light gray Boids will flock together with the other light gray Boids. The magenta Boids will only flock together with the other magenta Boids.
+When running the simulation for the experiment, all four of the Boids were the same color, therefore just one flock of Boids would emerge instead of forming multiple sub flocks. The current implementation of the Boids algorithm on the robots do not support multiple groups of Boids. There is no point in implementing this functionality when there is only four robots running at the same time because it will be very hard to distinguish the difference between a family group flock or if there is just a robot being astray from the flock.
+
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=1.1\linewidth]{figs/wathcer}
+\end{center}
+\caption[Watcher software]{Watcher software with neighborhood distances visualized}
+\label{fig:watcher}
+\end{figure}
+
+Figure \ref{fig:watcher} illustrates the distances that the robots uses. The exact numbers can be found in section \ref{sec:experimentalSetup}. The distances have been colored for convenience, because it is hard to see which rings represents which behavior. As in the simulator, the most inner ring, which is green in the figure represents the robot. The figure is not up to scale with the watcher software that is used on the experiments, the resolution of this watcher software have a resolution of 1024x1920 px which is a lot bigger than the resolution on the watcher software used in the experiment. This is to make it easier to see and distinguish the distances.
+
+The next two ring, which is illustrated with a blue and a light gray color, represents the separation and the 
+The next ring, which is illustrated with a blue color, represents the separation distance. And the gray ring shows the alignment neighborhood distance. These two distances are the same in the simulator and on the robot.
+
+The biggest red ring is the one that is the most different from the simulator's. The ring is quite big. The robots might get stuck in a corner, or drive around in circles.
+The reason the cohesion distance is so large is mainly to force the robots to flock together even when their are far apart. The distance almost covers the whole sandbox, that way the robots will try to flock from almost anywhere in the sandbox.
+
+Information about each robot is also provided by the numbers next to each robot.
+The first row show us the ID of the robot, and the serial port that belongs to that robot if there is a bluetooth connection which is assigned.
+Second row shows us the position of the robot, while the third one shows velocity and the angle of the robot.

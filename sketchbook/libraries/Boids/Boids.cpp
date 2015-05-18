@@ -86,14 +86,14 @@ Vector2D& Boids::cohesion(const Boids other[]){
     Vector2D coh(0,0);
     byte count = 0;
     for(byte i = 0; i < numOfRobs-1; i++){
-        //if(pos.dist(other[i].pos) < cohDist){
-            coh.add(other[i].pos);
-            count++;
-        //}
-        if(pos.dist(other[i].pos) > aliDist){
+        if(pos.dist(other[i].pos) < cohDist){
             coh.add(other[i].pos);
             count++;
         }
+        /*if(pos.dist(other[i].pos) > aliDist){
+            coh.add(other[i].pos);
+            count++;
+        }*/
     }
     if(count > 0){
         coh.div(count);
