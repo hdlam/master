@@ -14,6 +14,7 @@ We want to find out whether the position
 The way the watcher software calculates the velocity of each robot is to save the old position of the robot, then compare the new position and see how far off it is.
 The formula used to find the mean value of all the robots at a time step is defined as:
 \begin{equation}
+\label{eq:muvel}
 \mu_{velocity} = \frac{1}{N} \Sigma_{i=1}^N (\vec{p_i}_{new} - \vec{p_i}_{old})
 \end{equation}
 
@@ -144,12 +145,33 @@ With a weight of 3 on separation the Robots bumped into each other quite often, 
 
 %TODO much repeat here
 The Boids algorithm are supposed to keep the robots flocked together and preferably they should face the same direction as well. The watcher knows where each robot is, and it knows which direction each robot is facing. The watcher measures the distance between each robot and the angle difference between the robots every five frame or twelve times each second, it then calculates the mean and standard deviation of the distances and angles and saves it to a file. The mean and standard deviation of the velocity is recorded as well, in the simulator the velocity is measured directly by getting the velocity vector on each object, for the physical robot, the change in position is measured instead.
+
 To keep the data as consistent between each run the watcher stops all the robots and saves the data file exactly three minutes or 180000 milliseconds after the robots have started to move.
 The distance measured are in pixels. The measurement of the sandbox is 151.6 cm wide and 123.9 cm long. The watcher software creates a window that has a resolution 800x652 pixels, which means that 1 cm is approximately 5.3 pixels on the screen. The measured angles are shown in radians.
 
+In the upcoming figures, the results from the various runs will be shown. On the x-axis the time will be shown, and the y-axis displays various different data depending on the figure. The time shown on the x-axis displays the iteration, and not seconds. One iteration takes about five frames, the software runs with a 60 frames per second. Which means that twelve iterations on the x-axis corresponds to one second.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=1.1\linewidth]{figs/resdistancescene1.png}
+\end{center}
+\caption[Results 1]{Results from 10 runs on scenario 1}
+\label{fig:scene1res}
+\end{figure}
+
 The first scenario where all the robots/Boids are placed in each corner with only one obstacle in the middle of the sandbox as seen in figure \ref{fig:scenario0}. 
+These results takes the velocity by calculating $\mu_{velocity}$ by using the equation \ref{eq:muvel}, then each one is added together and averaged to create the result seen above. 
 
 The second scenario in figure \ref{fig:scenario1}
+
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=1.1\linewidth]{figs/resdistancescene3.png}
+\end{center}
+\caption[Results 3]{Results from 10 runs on scenario 3}
+\label{fig:scene3res}
+\end{figure}
 The third scenario in figure \ref{fig:scenario2}
 
 %TODO graphs and interpretation of results
