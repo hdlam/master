@@ -43,14 +43,6 @@ void loop()
     motor.moveAtSpeeds(500,-500);
     motor.moveAtSpeeds(500,-500);
   }
-  if(dists[1] > tresh){
-    motor.moveAtSpeeds(-500,500);
-    motor.moveAtSpeeds(-500,500);
-  }
-  if(dists[7] > tresh){
-    motor.moveAtSpeeds(500,-500);
-    motor.moveAtSpeeds(500,-500);
-  }
   else{
     motor.moveAtSpeeds(500,500);  
     motor.moveAtSpeeds(500,500);

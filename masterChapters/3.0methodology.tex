@@ -62,7 +62,7 @@ Detection of green or red color that do not belong to the robot is usually not a
 
 
 The robot swarm consist of four ChIRP robots. The ChIRP robot is a circular shaped robot with differential wheel. A differential wheeled robot is a robot with two separate driven wheels on each side, which it can use move itself. If it wants to change its direction it can vary the relative speed of each wheel/motor. For instance if the right wheel moves faster than the left one, the robot will turn to its left.
-The advantage of differential wheel is that an additional steering motor is not required for the robot to move around. Usually a caster or additional wheels are added to balance a differential wheeled robot, but the ChIRP robot does not have anything of the sort. Whenever it is moving, the back or the front of the robot is scraping against the floor depending on which way it is moving. Scraping against the floor does not affect the movement of the ChIRP robot.
+The advantage of differential wheel is that an additional steering motor is not required for the robot to move around. Usually a caster or additional wheels are added to balance a differential wheeled robot, but the ChIRP robot does not have anything of the sort. Whenever it is moving, the back or the front of the robot is scraping against the floor depending on which way it is moving. Scraping against the floor does not affect the movement of the ChIRP robot. The robots has a max speed of 13 cm/s, in this experiment the velocity of the robot will not exceed 7.8 cm/s. 
 
 Each robot is equipped with eight infrared LED lights and receivers used for measuring distance. Infrared light are emitted the LED lights, reflected of a surface and received in the infrared receiver. For the robot to know how far from an obstacle it is, it measures the amount of infrared it receives. The higher the amount, the closer to the object it is. This method of measuring distances works very well for bright or colored surfaces, dark surfaces on the other hand do cause problems because the infrared light is not reflected so well.
 
@@ -146,9 +146,10 @@ When the robot has calculated which direction it wants to go, it will find out w
 \caption[Robot flowchart]{Flowchart of the robot}
 \label{fig:robotschema}
 \end{figure}
+\clearpage
 
 \section{Simulator}
-A simulator was created where the Boids was implemented solely in software, and rendered on screen, that is no physical robots were used in the simulator. The reason to use a simulator was to see how the Boids were supposed to behave and have a working example to compare with. A screenshot of the simulator is shown in figure \ref{fig:simulator}.
+A simulator was created where the Boids was implemented solely in software, and rendered on screen, that is no physical robots were used in the simulator. The reason to use a simulator was to see how the Boids were supposed to behave and have a working example to compare with. A screenshot of the simulator is shown in figure \ref{fig:simulatordistances}.
 
 A typical Boids simulator usually have a wraparound space. If one of the Boids goes outside the window, it will "teleport" to the other side of the window. For example if one of the Boids flies too far to the right and hits the right border, it will loop around and end up on the left side of the screen. That is how the Boids algorithm usually works on a simulator. But physical robots can not loop around the stage like the Boids on the simulator. That is why the simulator used in this project stops the Boids from moving beyond the walls of the window.
 
@@ -192,8 +193,7 @@ The outer circle is the cohesion distance, the Boids outside of this box will no
 
 
 In the figure \ref{fig:simulatordistances}, three types of Boids exist, each one have their own color. Boids will flock together and align themselves only if they have the same color, that is the light gray Boids will flock together with the other light gray Boids. The magenta Boids will only flock together with the other magenta Boids.
-When running the simulation for the experiment, all four of the Boids were the same color, therefore just one flock of Boids would emerge instead of forming multiple sub flocks. The current implementation of the Boids algorithm on the robots do not support multiple groups of Boids. There is no point in implementing this functionality when there is only four robots running at the same time because it will be very hard to distinguish the difference between a family group flock or if there is just a robot being astray from the flock.
-
+When running the simulation for the experiment, all four of the Boids were the same color, therefore just one flock of Boids would emerge instead of forming multiple flocks. The current implementation of the Boids algorithm on the robots do not support multiple groups of Boids. There is no point in implementing this functionality when there are only four robots running at the same time, because it will be very hard to distinguish the difference between a family group flock or if there is just a robot astray from the flock.
 
 \begin{figure}[h]
 \begin{center}
@@ -203,14 +203,15 @@ When running the simulation for the experiment, all four of the Boids were the s
 \label{fig:watcher}
 \end{figure}
 
-Figure \ref{fig:watcher} illustrates the distances that the robots uses. The exact numbers can be found in section \ref{sec:experimentalSetup}. The distances have been colored for convenience, because it is hard to see which rings represents which behavior. As in the simulator, the most inner ring, which is green in the figure represents the robot. The figure is not up to scale with the watcher software that is used on the experiments, the resolution of this watcher software have a resolution of 1024x1920 px which is a lot bigger than the resolution on the watcher software used in the experiment. This is to make it easier to see and distinguish the distances.
+Figure \ref{fig:watcher} illustrates the distances that the robots uses. The exact numbers can be found in section \ref{sec:experimentalSetup}. The distances have been colored for convenience, because it is hard to see which ring represents which behavior. As in the simulator, the most inner ring, which is green in this figure represents the outline of the robot. The figure shown is not the same size as the watcher software that is used to run the experiments, the resolution of the watcher software on the figure has a resolution of 1024x1920 px which is a lot bigger than the resolution on the watcher software used in the experiment. This is to make it easier to see and distinguish the distances.
 
-The next two ring, which is illustrated with a blue and a light gray color, represents the separation and the 
 The next ring, which is illustrated with a blue color, represents the separation distance. And the gray ring shows the alignment neighborhood distance. These two distances are the same in the simulator and on the robot.
 
 The biggest red ring is the one that is the most different from the simulator's. The ring is quite big. The robots might get stuck in a corner, or drive around in circles.
 The reason the cohesion distance is so large is mainly to force the robots to flock together even when their are far apart. The distance almost covers the whole sandbox, that way the robots will try to flock from almost anywhere in the sandbox.
 
 Information about each robot is also provided by the numbers next to each robot.
-The first row show us the ID of the robot, and the serial port that belongs to that robot if there is a bluetooth connection which is assigned.
+The first row show us the ID of the robot, and the serial port that belongs to that robot if there is a bluetooth connection and it is assigned.
 Second row shows us the position of the robot, while the third one shows velocity and the angle of the robot.
+
+The uppermost red squares indicates whether the bluetooth connection is still functional or if the bluetooth have timed out. The squares in the figure are all red, because this is just a debug run where there is no bluetooth connection.

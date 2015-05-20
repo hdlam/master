@@ -59,12 +59,11 @@ public class BoidsGame extends BasicGame {
 		boids = new ArrayList<ChirpBoid>();
 		// add the boids
 		input = gc.getInput();
-		createBoids();
 		obstacles = new ArrayList<Shape>();
-		createObstacles();
+		createBoids();
 		gc.setPaused(false);
 		try {
-			fw = new FileWriter("simulTest.csv");
+			fw = new FileWriter("simulScenario2.csv");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -235,7 +234,7 @@ public class BoidsGame extends BasicGame {
 //			boids.add(boid);
 //		}
 //		}
-//		scenario2();
+		scenario2();
 //		randomScenario();
 //		scenario1();
 	}
@@ -252,6 +251,9 @@ public class BoidsGame extends BasicGame {
 		boids.add(new ChirpBoid(753f, 445f, intToCol(0), 0, 0,true));
 		boids.add(new ChirpBoid(340f, 18f, intToCol(0), 0, 0,true));
 		boids.add(new ChirpBoid(157f, 553f, intToCol(0), 0, 0,true));
+		Shape s = new Circle(667f, 479f, (float) 30); 		//random
+		
+		obstacles.add(s);
 	}
 	
 	void scenario1(){
@@ -260,6 +262,8 @@ public class BoidsGame extends BasicGame {
 		boids.add(new ChirpBoid(30f, HEIGHT-30, intToCol(0), 0, 0,true));
 		boids.add(new ChirpBoid(WIDTH-30, 30f, intToCol(0), 0, 0,true));
 		boids.add(new ChirpBoid(WIDTH-30, HEIGHT-30, intToCol(0), 0, 0,true));
+		Shape s = new Circle(WIDTH/2f+20f, HEIGHT/2f-10f, (float) 30); 		//scenario1		
+		obstacles.add(s);
 	
 	}
 	void scenario2(){
@@ -268,6 +272,8 @@ public class BoidsGame extends BasicGame {
 		boids.add(new ChirpBoid(30f, 60f, intToCol(0), 0, 0,true));
 		boids.add(new ChirpBoid(60f, 30f, intToCol(0), 0, 0,true));
 		boids.add(new ChirpBoid(WIDTH-30, HEIGHT-30, intToCol(0), 0, 0,false));
+		Shape s = new Circle(WIDTH/2, HEIGHT/2f, (float) 30); 		//scenario2		
+		obstacles.add(s);
 		
 	}
 
@@ -289,13 +295,13 @@ public class BoidsGame extends BasicGame {
 		}
 	}
 
-	private void createObstacles(){
-		
-		//Shape s = new Circle(WIDTH/2, HEIGHT/2, (float) (Math.random()*40)); 		//scnario
-		Shape s = new Circle(667f, 479f, (float) 30); 		//random
-		
-		obstacles.add(s);
-	}
+//	private void createObstacles(){
+//		
+//		//Shape s = new Circle(WIDTH/2, HEIGHT/2, (float) (Math.random()*40)); 		//scnario
+//		Shape s = new Circle(667f, 479f, (float) 30); 		//random
+//		
+//		obstacles.add(s);
+//	}
 	
 	
 	private Color intToCol(int i){

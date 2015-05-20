@@ -1,24 +1,52 @@
+\chapter{Evaluation and Conclusion}
+\label{cha:evaluationAndConclusion}
+
+
+
+%{\it Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam consequat pulvinar hendrerit. Praesent sit amet elementum ipsum. Praesent id suscipit est. Maecenas gravida pretium magna non interdum. Donec augue felis, rhoncus quis laoreet sed, gravida nec nisi. Fusce iaculis fermentum elit in suscipit. }
+
+\section{Evaluation}
+\label{sec:Evaluation}
+%When seeing the robots move live, 
+
+%When evaluating your results, avoid drawing grand conclusions, beyond that which your results can in fact support. Further, although you may have designed your experiments to answer certain questions, the results may raise other questions in the eyes of the reader. It is important that you study the graphs/tables to look for unusual features/entries and discuss these aswell as discussing the main findings in the results. 
+
+
+
+
+\section{Contributions}~\label{cont}
+\label{sec:Contributions}
+
+%What are the main contributions made to the field and how significant are these contribution.  
+
+
 \section{Future Work}
 \label{sec:futureWork}
 
 %TODO write intro to this chapter here
-This section will look further upon what research question is still unanswered and what can be improved.
-
+This section will look further upon what research question is still unanswered and what can be improved.\\\\
 \textbf{More robots}
-The current implementation of the system only supports four simultaneous robots at the same time. A new robot can not be added to the system without uploading the code to each robot in use, nor can a robot disappear from the system. The camera tracking software loads a configuration file at startup that specifies how many robots will be tracked, this value has to be manually changed by the user and reloaded.
-The watcher software needs to know which robot on its screen belongs to which bluetooth serial port. If one of the robots' bluetooth connection disconnects or times out, everything has to stop and reconnected again for it to work.
+
+The current implementation of the system only supports four simultaneous robots at the same time. A new robot can not be added to the system without uploading new code to each robot, nor can a robot disappear from the system. The camera tracking software loads a configuration file at startup that specifies how many robots will be tracked, this value has to be manually changed by the user and reloaded.
+The watcher software needs to know which robot ID belongs to which bluetooth serial port. If one of the robots' bluetooth connection disconnects or times out, everything has to stop and reconnected again for the system to work.
 
 The main idea behind swarm robots is that it should be able to run continuously without having to reboot or stop the swarm to add a new robot or remove one. If one of the entity in a swarm is defected, injured or not working, the other ones should still be operable.
 
 The current implementation of this project relies on the robot needing to know how many other robots there will be in the sandbox at the same time, because it will need to know how much data it is going to store before processing it. This has to be changed manually in the code and then uploaded to the robot again.
 A working flocking flock should have more than four robots running simultaneously, and we should be able to add a new robot without re-uploading the code to the robots.
 
-In simulation, it is easy to add new Boids of different type or family as seen in figure \ref{fig:simulatordistances} by the different colors on the Boids. With only four robots running at the same time, there is no point in trying to implement different types of Boids families so sub groups of Boids flocks would emerge. There reason is that it will be hard to see if there is any family groups with only four robots. With more robots, it would be easier and more obvious to see groups of families emerge. 
+In simulation, it is easy to add new Boids of different type or family as seen in figure \ref{fig:simulatordistances} by the different colors on the Boids. With only four robots running at the same time, there is no point in trying to implement different types of Boids families so sub groups of Boids flocks would emerge. There reason is that it will be hard to see if there is any family groups with only four robots. With more robots, it would be easier and more obvious to see groups of families emerge. \\\\
+\textbf{More fluid movement}
 
-\textbf{More fluid movement} %TODO rewrite
 The current implementation does not punish the robot for standing still nor for only rotating on the same spot. The only escape from continuously spinning on the same spot is a spin counter, which forces the robot to move forward if the robot has been stuck on a spot for five iterations and if there is nothing in front of it. 
 
 Each robot also stops when it turns around and whenever they need to change direction. When birds fly together as a flock they do not stop when they need to turn. The robots should be able to move and rotate without stopping.
+
+In the simulator, the Boids held its formation whenever they flocked until they had to change their direction because they were too near an obstacle. The robots do stay near each other to a certain degree. Whenever the robots flock, the distances between each robot varies, they do not have a consistent spacing which the Boids on the simulator do have. The reason this happen might be because the robots are not fully synchronous like the simulator Boids are, that is each Boids calculates their new vector direction every frame at the same time, while the robots do not calculate their new direction at the same time as the other robots. 
+
+The robots still bumps into the obstacle and they still bump into each other. A rewrite of the executive layer should be able to fix this problem. Instead of checking the distances to objects in front of it before it is about to move in a direction, the robots should check and measure the distances every iteration.
+
+
 
 
 %In scenario 2, the robots do move around the obstacle, but this does not happen at the same time. 

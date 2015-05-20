@@ -38,12 +38,12 @@ import org.newdawn.slick.util.FastTrig;
 public class ChirpBoidWatcher extends BasicGame implements MulticastListener{
 	ArrayList<ChirpBot> prototype;
 	final int size = 50;
-	static int w = 1920;//800
-	static int h = 1024; //652
+	static int w = 800;//800
+	static int h = 652; //652
 	Input input;
 	//800 * 652
 	//Threshold values
-	private int numOfBots = 4;
+	private int numOfBots = 1;
 	private Multicast mc;
 	
 	//ranges of certain behaviours:
@@ -56,12 +56,12 @@ public class ChirpBoidWatcher extends BasicGame implements MulticastListener{
 	public boolean averaging;
 	public String udpString;
 	FileWriter fw;
-	String filename = "scenario2_run01.csv";
+	String filename = "gibberish.csv";
 	boolean start = false;
 	int iteration;
 	long time;
 	
-	public boolean debug = true;
+	public boolean debug = false;
 	public boolean debugRender = true;
 	
 	public ChirpBoidWatcher(String title, Multicast mc) {
@@ -126,12 +126,12 @@ public class ChirpBoidWatcher extends BasicGame implements MulticastListener{
 		Vector2f snitt = new Vector2f(0,0);
 		int num = 0;
 		for (ChirpBot cb : prototype) {
-			graphics.setColor(Color.blue);
-			graphics.drawOval(cb.getX()-sep/2, cb.getY()-sep/2, sep, sep);
-			graphics.setColor(Color.gray);
-			graphics.drawOval(cb.getX()-ali/2f, cb.getY()-ali/2f, ali, ali);
-			graphics.setColor(Color.red);
-			graphics.drawOval(cb.getX()-coh/2, cb.getY()-coh/2, coh, coh);
+//			graphics.setColor(Color.blue);
+//			graphics.drawOval(cb.getX()-sep/2, cb.getY()-sep/2, sep, sep);
+//			graphics.setColor(Color.gray);
+//			graphics.drawOval(cb.getX()-ali/2f, cb.getY()-ali/2f, ali, ali);
+//			graphics.setColor(Color.red);
+//			graphics.drawOval(cb.getX()-coh/2, cb.getY()-coh/2, coh, coh);
 			snitt.add(new Vector2f(cb.getX(), cb.getY()));
 			num++;
 		}
@@ -246,7 +246,8 @@ public class ChirpBoidWatcher extends BasicGame implements MulticastListener{
 		
 		
 		try {
-			fw.write(iteration + "," + distAvg +","+ distsdSum + "," + anglAvg + "," + anglsdSum + "," + speedAvg + "," +speedsdSum+ "\n");
+//			fw.write(iteration + "," + distAvg +","+ distsdSum + "," + anglAvg + "," + anglsdSum + "," + speedAvg + "," +speedsdSum+ "\n");
+			fw.write((System.currentTimeMillis()-time) + "," + speedAvg + "\n");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -292,6 +293,7 @@ public class ChirpBoidWatcher extends BasicGame implements MulticastListener{
 			}
 		}
 		else{
+			start = true;
 			time = System.currentTimeMillis();
 		}
 		//mouse assignment;

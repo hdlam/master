@@ -12,7 +12,6 @@
 <fullyQualifiedTypeName name="java.awt.Polygon"/>
 <fullyQualifiedTypeName name="org.newdawn.slick.AngelCodeFont"/>
 <fullyQualifiedTypeName name="trafficsim.TrafficSim2"/>
-<fullyQualifiedTypeName name="java.lang.Double"/>
 <fullyQualifiedTypeName name="javax.swing.JComboBox"/>
 <fullyQualifiedTypeName name="box.Main"/>
 <fullyQualifiedTypeName name="javax.swing.JFrame"/>
@@ -55,9 +54,10 @@
 <fullyQualifiedTypeName name="chirpBoidsSim.ChirpBoidWatcher"/>
 <fullyQualifiedTypeName name="java.io.IOException"/>
 <fullyQualifiedTypeName name="java.lang.Math"/>
-<fullyQualifiedTypeName name="java.io.FileWriter"/>
 <fullyQualifiedTypeName name="boidsSimulatorJava.ChirpBoid"/>
 <fullyQualifiedTypeName name="org.newdawn.slick.geom.Vector2f"/>
 <fullyQualifiedTypeName name="org.newdawn.slick.util.FastTrig"/>
 <fullyQualifiedTypeName name="org.newdawn.slick.Graphics"/>
+<fullyQualifiedTypeName name="java.io.FileWriter"/>
+<fullyQualifiedTypeName name="java.lang.Double"/>
 </qualifiedTypeNameHistroy>
