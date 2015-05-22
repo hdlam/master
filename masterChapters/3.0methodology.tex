@@ -82,23 +82,23 @@ For this project experiment, three scenarios have been used to create the result
 \includegraphics[width=0.8\linewidth]{figs/scenario0}
 \end{center}
 \caption[scenario 1]{Scenario 1, all the robots are placed in each corner with one obstacle}
-\label{fig:scenario0}
+\label{fig:scenario1}
 \end{figure}
 
-The first scenario is shown in figure \ref{fig:scenario0}, consists of four robots placed on each corner of the sandbox. The reason behind placing each of the robots on each corner of the sandbox is that each robot will be as far from each other as possible. This scenario should demonstrate that the entities are able to flock together, and then stay together as a flock. There is one obstacle placed nearby the middle of the sandbox, the obstacle is placed near the middle to ensure that the robots would encounter it at least once. This scenario would be able to see if the robots actually flocked together like they are supposed to do, and at the same time would be able to avoid the obstacle without bumping or crashing into it. The robots should also move together after they have flocked together.
+The first scenario is shown in figure \ref{fig:scenario1}, consists of four robots placed on each corner of the sandbox. The reason behind placing each of the robots on each corner of the sandbox is that each robot will be as far from each other as possible. This scenario should demonstrate that the entities are able to flock together, and then stay together as a flock. There is one obstacle placed nearby the middle of the sandbox, the obstacle is placed near the middle to ensure that the robots would encounter it at least once. This scenario would be able to see if the robots actually flocked together like they are supposed to do, and at the same time would be able to avoid the obstacle without bumping or crashing into it. The robots should also move together after they have flocked together.
 
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=0.8\linewidth]{figs/scenario1}
 \end{center}
 \caption[scenario 2]{Scenario 2, three robots in one corner, and the last one on the opposite corner}
-\label{fig:scenario1}
+\label{fig:scenario2}
 \end{figure}
 
-The second scenario puts three of entities in one corner, and the last entity is placed on the opposing corner as seen in figure \ref{fig:scenario1}. However the last entity that is placed on the lower right corner by itself will not move, in the case of the physical robot, it will not be turned on. The reason that this entity is a sitting duck placed on the opposite corner of all the other entities is that this robot will act as a goal for the other entities. The obstacle is placed between the lonely robot and the three robots that are clumped up together. The idea behind this setup is that the three robots that start together would try to move to the one that are stationary because they need to flock together. The robot that start by itself does not move because it is not turned on.
+The second scenario puts three of entities in one corner, and the last entity is placed on the opposing corner as seen in figure \ref{fig:scenario2}. However the last entity that is placed on the lower right corner by itself will not move, in the case of the physical robot, it will not be turned on. The reason that this entity is a sitting duck placed on the opposite corner of all the other entities is that this robot will act as a goal for the other entities. The obstacle is placed between the lonely robot and the three robots that are clumped up together. The idea behind this setup is that the three robots that start together would try to move to the one that are stationary because they need to flock together. The robot that start by itself does not move because it is not turned on.
 The obstacle in the middle will hinder the robots from moving in a straight line to their goal, which forces them to choose a way around it. The robots move around the obstacle when they approach it. As explained in section \ref{sec:robotArch}, the robots will turn either right or left randomly when moving directly towards an obstacle. The robots will probably move around the obstacle on each side of the obstacle, and flock together again on the other side when they have move past the obstacle.
 
-The third scenario is a scenario where the robots are placed randomly around in the sandbox. The two first scenarios were designed for a specific purpose. The purpose of the third scenario is to demonstrate that the Boids behaviors are still intact, even when the robots are placed randomly in the sandbox. The position of the robots, where it should be placed and which way it is pointing was generated randomly by a random number generator. The starting point for this scenario is illustrated in figure \ref{fig:scenario2}. 
+The third scenario is a scenario where the robots are placed randomly around in the sandbox. The two first scenarios were designed for a specific purpose. The purpose of the third scenario is to demonstrate that the Boids behaviors are still intact, even when the robots are placed randomly in the sandbox. The position of the robots, where it should be placed and which way it is pointing was generated randomly by a random number generator. The starting point for this scenario is illustrated in figure \ref{fig:scenario3}. 
 
 This scenario looks a little bit like the first scenario, the robots are laid out in the shape of a square. They are closer to each other than the robots in the first scenario. One of the robots are separated from the other by the obstacle, the robot can not move directly to the other three robots without moving around the obstacle.
 \begin{figure}[h!]
@@ -106,7 +106,7 @@ This scenario looks a little bit like the first scenario, the robots are laid ou
 \includegraphics[width=0.8\linewidth]{figs/scenario2}
 \end{center}
 \caption[scenario 3]{Scenario 3, robots and obstacle randomly placed in the sandbox}
-\label{fig:scenario2}
+\label{fig:scenario3}
 \end{figure}
 
 All the scenarios explained in this thesis uses the same sandbox, which is a sandbox with the size of 151.6 cm wide and 123.9 cm long. The only difference between the scenarios are the placement and rotation of the robots and the placement of the obstacle. Each scenario were run ten times to generate the data seen in section \ref{sec:results}.
@@ -117,28 +117,60 @@ This section will go through the controller of the robot, how they work and what
 
 The robots is implemented using the idea of a hybrid robot control architecture as explained in section \ref{sec:hybrid}. The distances sensors are the reactive layers which will be used to guide the robots away from crashing into other robots, obstacle or walls. The deliberative layer will be the code that processes the data sent from the watcher software on the computer, it calculates where the robot should be heading. The executive layer would be the code running on the robot that decides what the robot is doing, whether that is reading the sensors and avoiding obstacles or towards the planned destination for flocking.
 
-When the robot first is turned on and a bluetooth device is paired with its bluetooth module the robot will stand still and wait. The robot is waiting for a command or data from the watcher software. A human can send commands to manually control the robot if needed, this can be used for leader following as explained in section \ref{boids:behaviors}. 
+When the robot is turned on and a bluetooth device is paired with its bluetooth module, the robot will stand still and wait. The robot is waiting for a command or data from the watcher software. A human can send commands to manually control the robot if needed, this can be used for leader following as explained in section \ref{boids:behaviors}. 
 
-If the watcher sends data to the robot, it will start to calculate where it should go based on the data it received. 
-When the robot have received all the data it needs to be able to calculate its new direction that it should move to. The robot takes into consideration the position of all the other robots, and their velocity. The position of the other robots are used to determine the sum of the cohesion vector and the separation vector. The velocity of the other robots are used to determine which way they are pointing, and this is used to find the alignment vector. A fourth behavior was added for this experiment, which is called the "away from wall" behavior. As the name implies, this is a vector that will lead the robot away from the wall of the sandbox if the robot is too near the wall. After calculating each of these vectors, they are multiplied with a weight depending on how much that specific behavior should impact the movement of the robot. For example the separation vector should have higher impact on the movement of the robot because it needs to avoid the other robots when it is too close to one. Cohesion vector on the other hand does not need to affect the robot as much, it is mostly there to guide the robot into the flock. Therefore the separation vector is multiplied with a higher number than the other ones.
+If the watcher sends data to the robot, it will start to calculate where it should move based on the data it received. 
+When the robot have received all the data it needs to be able to calculate its new direction that it should move to. The robot takes into consideration the position of all the other robots, and their velocity. The position of the other robots are used to determine the sum of the cohesion vector and the separation vector. The velocity of the other robots are used to determine which way they are pointing, and this is used to find the alignment vector. 
+
+A fourth behavior was added for this experiment, which is called the "away from wall" behavior. As the name implies, this is a vector that will lead the robot away from the wall of the sandbox if the robot is too near the wall. After calculating each of these vectors, they are multiplied with a weight depending on how much that specific behavior should impact the movement of the robot. For example the separation vector should have higher impact on the movement of the robot because it needs to avoid the other robots when it is too close to one. 
+
+Cohesion vector on the other hand does not need to affect the robot as much, it is mostly there to guide the robot into the flock. Therefore the separation vector is multiplied with a higher number than the other ones.
 
 The equation for how the final vector which decides the direction the robot is going to move is expressed as:
 \begin{equation}
 \label{eq:vecsum}
-\vec{F} = \Sigma W_x\vec{B_x}
+\vec{A} = \Sigma W_x\vec{B_x}
 \end{equation}
 
 where:
 \\
-$\vec{F}$ = the final vector that determines which direction the robot will move
+$\vec{A}$ = the final acceleration vector
 \\
-$B_x$ = the behavior $x$, for example $B_0$ could be cohesion $B_1$ alignment etc.
+$B_x$ = the behavior $x$, for example $B_0$ could be cohesion behavior, $B_1$ alignment behavior etc.
 \\
 $W_x$ = the weight for the behavior $B_x$\\
 
+After calculating the acceleration vector, it will add it to its velocity vector, then use the arctangent function to calculate which direction the robot will turn to. The robot calculates the new direction it needs to face by using the following equations:
+\begin{equation}
+\label{eq:veladdacc}
+\vec{V}_{new} = \vec{V}_{old} + \vec{A}
+\end{equation}
+\begin{equation}
+\label{eq:atan2}
+R_{goal} = atan2(\vec{V}_y, \vec{V}_x)
+\end{equation}
+\begin{equation}
+\label{eq:angletoturn}
+D_{turn} = (R_{goal} - R{current})* \frac{180}{\pi}
+\end{equation}
 
+where:
+\\
+$\vec{V}_{old}$ = previous velocity of the robot
+\\
+$\vec{V}_{new}$ = new velocity of the robot, the length of $\vec{V}_{new}$ is capped between -30 and 30 or using mathematic notation: $ |\vec{V}_{new}| \epsilon [-30,30]$.
+\\
+$R_{goal}$ = the angle the robot will be facing after it has turned around, measured in radians
+\\
+$R_{current}$ = the angle the robot is currently facing, measured in radians
+\\
+$D_{turn}$ = the angle the robot needs to turn to face the correct direction, measured in degrees
+\\
 
-When the robot has calculated which direction it wants to go, it will find out which direction it needs to face and turn itself approximately in that direction. The robot will then measure the distances once again, in case it has turned towards an obstacle. If there is no obstacle in front of it, it will move forward and wait for new data from the watcher software. If the robot did find an obstacle in front of it, it will turn 90\textdegree to either the right or the left randomly. The robot will stop after turning and wait for new data from the watcher software. 
+The robot needs to know how much it is going to move in the x-direction and how much it will move in the y-direction as shown in equation \ref{eq:veladdacc}.
+Then by using the arctangent of $V_x$ and $V_y$, it finds out which angle it needs to face to be able to face. When the robot has calculated which direction it wants to go, it calculates $D_{turn}$ by using the formula found in equation \ref{eq:angletoturn}. $D_{turn}$ is the amount of degrees the robot needs to turn to face the right direction. 
+
+The robot will then measure the distances once again, in case it has turned towards an obstacle. If there is no obstacle in front of it, it will move forward and wait for new data from the watcher software. If the robot did find an obstacle in front of it, it will turn 90\textdegree to either the right or the left randomly. The robot will stop after turning and wait for new data from the watcher software. 
 \begin{figure}[h!]
 \begin{center}
 \includegraphics[width=0.8\linewidth]{figs/robotschema}
@@ -185,7 +217,7 @@ The biggest most visual difference between the physical experiment in the sandbo
 As it will be explained later in section \ref{sec:experimentalSetup}, the parameters for the simulated Boids and the physical robots are a bit different.
 The figure \ref{fig:simulatordistances} shows the approximate distances for each behavior, the inner thick colored ring is the outline of the Boids. The inner thin white ring, illustrates the separation distance, the robot do not try to separate itself from the other robots when they are outside this ring.
 
-The red lines in the figure, is the vectors from each behavior before it is multiplied with the weight. The thickest green line indicates which way the Boids are facing.
+The red lines in the figure, is the vectors from each behavior before it is multiplied with the weight. The thickest green line indicates which way the Boids are facing, the longer the line, the faster the Boids are moving.
 
 The second most outer ring indicates the alignment neighborhood, all there is another robot inside this ring, the robot will try to point in the same direction so they move together in the same direction.
 
@@ -214,4 +246,4 @@ Information about each robot is also provided by the numbers next to each robot.
 The first row show us the ID of the robot, and the serial port that belongs to that robot if there is a bluetooth connection and it is assigned.
 Second row shows us the position of the robot, while the third one shows velocity and the angle of the robot.
 
-The uppermost red squares indicates whether the bluetooth connection is still functional or if the bluetooth have timed out. The squares in the figure are all red, because this is just a debug run where there is no bluetooth connection.
+The upper right red squares indicates whether the bluetooth connection is still functional or if the bluetooth have timed out. The squares in the figure are all red, because this is just a debug run where there is no bluetooth connection.
