@@ -62,7 +62,7 @@ $A_y$ = the angle of robot y, and $x \neq y$
 $\mu_{angles}$ = the mean of the compared angles in that time step.
 \\
 
-To find the standard deviation of the velocity, the formula in equation \ref{eq:sd} was used, but a modification was done for the standard deviation of the distances and angles as seen in equation \ref{eq:sd2} because we had $ {N \choose R}$ number of distances and angles. The reason for $ {N \choose R}$ number of distances is because this is the number of comparisons between each robot. For these experiments, $N$ would be 4, and $R$ would always be 2.
+To find the standard deviation of the velocity, the formula in equation \ref{eq:sd} was used, but a modification was done for the standard deviation of the distances and angles as seen in equation \ref{eq:sd2} because we had $ {N \choose R}$ number of distances and angles. The reason for $ {N \choose R}$ number of distances is because this is the number of comparisons between each robot. For these experiments, $N = 4$, and $R = 2$ because there is a comparison between two robot at the same time.
 
 
 \begin{equation}
@@ -91,7 +91,7 @@ In the simulator, the following parameters have been used:
 \item[obstacle distance] = same as separation
 \end{description}
 This distances tells the Boid how near it has to be before it should calculate the vector. For example if the Boid is in the middle of the screen, that means that it is not near a wall, then the "away from wall" function will return the null vector because it does not need the Boid to steer away from the wall.
-The numbers given over is the furthest distance that the Boid will consider, for instance a Boid that have three neighbors, where one of them is 100 px away, the second one is  while the third one is 300 px away. The first Boid will be taken into consideration in all of the three behaviors; cohesion, alignment and separation because it is very close. The second Boids will not be influence the separation behavior, but it will influence the alignment and cohesion vector. The third one is too far away, and will not be considered at all. These distances are illustrated in figure \ref{fig:simulatordistances}.
+The numbers given over is the furthest distance that the Boid will consider, for instance a Boid that have three neighbors, where one of them is 100 px away, the second one is  while the third one is 300 px away. The first Boid will be taken into consideration when calculating all of the three behaviors; cohesion, alignment and separation because it is very close. The second Boids will not have any influence on the separation behavior, but it will influence the alignment and cohesion vector. The third one is too far away, and will be ignored when calculating the three behaviors. These distances are illustrated in figure \ref{fig:simulatordistances}.
 
 The Boids in the simulator had a velocity cap of 30 px in both x and y direction. 
 The size of the robot is set to be 50 px in diameter.
@@ -135,6 +135,10 @@ The reason the avoid obstacle vector does not exist, is because the watcher soft
 The separation vector is multiplied with a weight of 4 for the robot, but only multiplied with a weight of 3 for the Boids. There is no specific reason for this, after testing it seems to perform better with a weight of 4 on separation instead of 3.
 With a weight of 3 on separation the Robots bumped into each other quite often, that is why the weight for the separation have been increased to 4.
 
+The camera used in this experiment is a web camera. To be able to get a clear stable video feed images from the web camera, the settings for the camera had to be manually set up.
+The most important setting is to disable auto focus. Auto focus makes the images blurry, and the camera tracking software will not be able to detect red and green colors which defines the robots. 50 Hz power line frequency was used instead of 60 Hz to eliminate flickering on the camera feed. The other settings are not that important, as long as the web camera is able to provide a decent looking image that the camera tracker software is able to recognize.
+
+
 
 %The experimental setup should include all data - parameters etc, that would allow a person to repeat your experiments. 
 
@@ -147,7 +151,7 @@ The Boids algorithm are supposed to keep the robots flocked together and prefera
 To keep the data as consistent between each run the watcher stops all the robots and saves the data file exactly three minutes or 180,000 milliseconds after the robots have started to move.
 The distance measured are in pixels. The measurement of the sandbox is 151.6 cm wide and 123.9 cm long. The watcher software creates a window that has a resolution 800x652 pixels, which means that 1 cm is approximately 5.3 pixels on the screen. The measured angles are shown in radians.
 
-In the upcoming figures, the results from the various runs will be shown. On the x-axis the time will be shown, and the y-axis displays various types of data is presented depending on the figure. The time shown on the x-axis displays the iteration, and not seconds. One iteration takes about five frames, the software runs with a 60 frames per second. Which means that twelve iterations on the x-axis corresponds to one second. The velocity is measured every iteration, the velocity graphs is mostly used as an indication to whether the robots are moving or not. The velocity graph are able to show that the flock is moving faster or slower on certain iterations, bur it can not be used to measure how fast the flock is actually moving.
+In the upcoming figures, the results from the various runs will be shown. On the x-axis the time will be shown, and the y-axis displays various types of data is presented depending on the figure. The time shown on the x-axis displays the iteration, and not seconds. One iteration takes about five frames, the software runs with a 60 frames per second. Which means that twelve iterations on the x-axis corresponds to one second. The velocity is measured every iteration, the velocity graphs is mostly used as an indication to whether the robots are moving or not. The velocity graph are able to show that the flock is moving faster or slower on certain iterations, but it can not be used to measure how fast the flock is actually moving.
 
 \subsection{Results from scenario 1}
 \label{sec:res1}
@@ -230,10 +234,9 @@ The third scenario in figure \ref{fig:scenario3}
 \label{sec:discussion}
 This section will mainly focus on explaining the data from the results, why there is a difference between the physical experiment and the experiments done in a simulator. 
 
-From the results we can see that the robots quickly flock together, they start out on each corner of the sandbox then drive into the center of the sandbox, this is shown in the graph by the first drop from 700 px to around 200 px. %For the first scenario, it takes around 300 iterations for the drop to happen, which corresponds to 25 seconds.
-%700 px corresponds to 132 cm, 200 px is around to 37 cm.
+From the results we can see that the robots quickly flock together, they start out on each corner of the sandbox then drive into the center of the sandbox, this is shown in the graph by the first drop from 700 px to around 200 px. This corresponds to roughly 132 cm to 37 cm. The time it takes for the graph to drop from 700 px to 200 px is around 300 iterations, which equals 25 seconds.
 
-The angles measured seems to vary a lot, even if the alignment-behavior tries to make all the robots face the same way. The reason this happens is because the allowed space to travel is not infinite and the robots encounters different types of obstacles like the surrounding wall, the other robots and the water bottle obstacle placed inside the sandbox. The same behavior is found on the Boids that were ran exclusively on a simulator. 
+The angles measured seems to vary a lot, even if the alignment behavior tries to make all the robots face the same way. The reason this happens is because the allowed space to travel is not infinite and the robots encounters different types of obstacles like the surrounding wall, the other robots and the water bottle obstacle placed inside the sandbox. The same behavior is found on the Boids that were ran exclusively on a simulator. 
 
 Whenever the robots detects an obstacle or move towards the walls, the distance sensors will make the robot turn around so the robot will not crash. Sometimes the robots will think that the other robots around itself are obstacles as well, because it has no way to tell the difference between the robots from an actual obstacle. This is because the distance sensors can not distinguish anything, it only measures a distance and the robots will try to avoid anything that is too near it, thinking that it sees an obstacle.
 
