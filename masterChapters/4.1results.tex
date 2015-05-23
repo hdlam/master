@@ -232,9 +232,16 @@ The third scenario in figure \ref{fig:scenario3}
 %All the graphs that was generated during the experiment can be found in the appendix.
 \section{Discussion}
 \label{sec:discussion}
-This section will mainly focus on explaining the data from the results, why there is a difference between the physical experiment and the experiments done in a simulator. 
+This section will mainly focus on explaining the data from the results, why there is a difference between the physical experiment and the experiments done in a simulator.
 
 From the results we can see that the robots quickly flock together, they start out on each corner of the sandbox then drive into the center of the sandbox, this is shown in the graph by the first drop from 700 px to around 200 px. This corresponds to roughly 132 cm to 37 cm. The time it takes for the graph to drop from 700 px to 200 px is around 300 iterations, which equals 25 seconds.
+
+The distances converges to 200 px in about 300-400 time steps for the first scenario and the third scenario. It takes a bit longer for the distance to drop to 200 px in the second scenario, around 1310 time steps, which is approximately 110 seconds.
+
+In the first and third scenario, each robot starts alone. Due to this, only the sensors used for obstacle avoidance, the "away from wall" and the cohesion behavior will be active. This makes each of the robot move towards the other ones, this makes the robots converge to a flock faster. 
+
+In the second scenario, three of the robots are already in a flock while the fourth one is astray from the flock on the other side of the sandbox. The three robots that have already flocked together will try to stay together, they do not want to move all the way to the other side to flock with one single robot. If all of the robots were moving, the single robot would move towards the three robots and they all would together faster.
+When running scenario 2 on the simulator, the Boids move towards the obstacle and around it. When they are near enough to the non-moving Boids, the cohesion behavior will activate and the Boids will try to flock, but due to all the other behaviors, the three moving Boid will be pushed away. After being pushed away, they will keep moving in the same direction and move all the way around the screen.
 
 The angles measured seems to vary a lot, even if the alignment behavior tries to make all the robots face the same way. The reason this happens is because the allowed space to travel is not infinite and the robots encounters different types of obstacles like the surrounding wall, the other robots and the water bottle obstacle placed inside the sandbox. The same behavior is found on the Boids that were ran exclusively on a simulator. 
 
