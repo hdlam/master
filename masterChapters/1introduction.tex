@@ -10,6 +10,17 @@
 \section{Background and Motivation}
 \label{sec:BackgroundAndMotivation}
 
+Swarm robotics is an emergent field in artificial intelligence. Swarms are inspired by nature, especially animals that works together. There are many reasons for animals to flock together. Fishes flocks together to increase their survivability from being eaten by preys. Ants flock together to find food, and birds flock together to increase survivability and to minimize air resistance.
+
+Usually flocks do not have a leader, they are able to operate on their own. Each individual in the flock have simple behaviors, but the collective behavior can be quite complex. Swarm robots are decentralized units, meaning that they are not controlled by one centralized unit. Each of them interacts with each other through local interactions, and exchanging information to achieve their goal.
+
+Robots are becoming more and more relevant in our lives, already nowadays there are robots helping people mow the lawn, robots that are vacuuming houses etc. Traditional robots are being used for these types of tasks, that is bigger expensive robot. Having smaller cheaper robots might be advantageous in some situations, they are smaller and cheaper. Due to their size, they might be able to reach places that the bigger traditional robots might not be able to reach. Because the swarming robots are pretty cheap, they can easily be replaced when they are malfunctioning. 
+
+%The CRAB lab at the AI department at NTNU have created a robot called the ChIRP robot. These robots are open source and can easily be mass produced. These robots can easily be expanded with other types of sensors, but only distance sensors and light sensors are available right now.
+%
+%To make the robots flock together the Boids algorithm will be used. Due to the lack of sensors, a centralized unit 
+
+
 %Having a template to work from provides a starting point. However, for a given project, a slight variation in the template may be required due to the nature of the given project. Further, the order in which the various chapters and sections will be written will also vary from project to project but will seldom start at the abstract and sequentially follow the chapters of the report. One critical reason for this, is that you need to start writing as early as possible and you will begin to write up where you are currently focusing. However, do not leave the abstract until the end. The abstract is the first thing anyone reads of an article or thesis --- after the title; and thus it is important that it is very well written. Abstracts are hard to write so create revisions throughout the course of your project as your project progresses.  
 
 %This introduction to background and motivation should state where this project is situated in the field and what the key driving forces motivating this research are. However, keep this section brief as it is still part of the introduction. The motivation will be further extended in chapter~\ref{T-B}, presenting your complete state-of-the-art. 
@@ -51,7 +62,10 @@ The robots used in this thesis only have distance sensors, but can add more sens
 \label{sec:researchMethod}
 %What methodology will you apply to address the goals: theoretic/analytic, model/abstraction or design/experiment? This section will describe the research methodology applied and the reason for this choice of research methodology.  
 To be able to address the research questions, a simulator was created to run the Boids algorithm in software. The purpose of the simulator was to be able to see how each Boids are supposed to behave, parts of the code from the simulator can be ported to the real robots afterwards. The simulator also serves as a starting point for the real robots, for debugging purpose.
-To evaluate the 
+The Boids algorithm will be used to make the robots flock and move together. Distance sensors will be used to avoid obstacles.
+Three scenarios will be used to 
+
+To evaluate the behaviors of the robots, the robot's angle, velocity and distance between the robot will be graphed. 
 
 %TODO write something about how the robots were used.
 %graphing of mean and sd
@@ -72,5 +86,10 @@ To evaluate the
 
 \section{Thesis Structure}
 \label{sec:thesisStructure}
+This thesis is divided into five chapters. Chapter \ref{cha:TheoryAndBackground} contains research and background information from the field of swarm robotics and the bird flocking algorithm, namely the Boids algorithm. A brief overview of the most common robot control architecture is explained in the same chapter.
 
+In chapter \ref{cha:architectureAndModel} the architecture and the model of the system is explained. The chapter goes in detail on how the system is set up and how the computers are connected.
+Chapter \ref{cha:ResearchAndResults} contains the results, graphs and data gathered from running the experiments and a discussion about them. The last chapter \ref{cha:evaluationAndConclusion} contains the evaluation of the results and a further work section where the details on how to improve the system is explained.
+
+%An appendix on the end of this thesis contains information which might come 
 %This section provides the reader with an overview of what is coming in the next chapters. You want to say more than what is explicit in the chapter name, if possible, but still keep the description short and to the point. 
