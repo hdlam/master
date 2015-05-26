@@ -236,7 +236,7 @@ Each Boids in the simulator are rendered as a circle, so they are as similar as 
 %Visually, the Boids are circles on the screen, but all the Boids in the simulator are in fact just a mathematical point with a position. 
 
 \section{Differences between the physical experiment and simulator}
-This section will explain the biggest differences between the physical experiment and the simulator. 
+Although the robot's behavior are trying to mimic the behaviors found on the simulated Boids, some major differences will still be imminent. This section will explain the biggest differences between the physical experiment and the simulator. 
 
 The physical robots are trying to mimic the behavior of the Boids created in the simulator. However a physical robot is different than the Boids created in the simulator by nature. As discussed in section \ref{sec:robot}, the robots are a type of differential wheeled robots, which means that it can only move forward or backwards, turn on the spot or move and turn at the same time. It can not move sideways.
 
@@ -289,3 +289,5 @@ The first row show us the ID of the robot, and the serial port that belongs to t
 Second row shows us the position of the robot, while the third one shows velocity and the angle of the robot.
 
 The upper right red squares indicates whether the bluetooth connection is still functional or if the bluetooth have timed out. The squares in the figure are all red, because this is just a debug run where there is no bluetooth connection.
+
+Robots will be pushed if a different robot is moving against it. Two robots can not occupy the same space at the same time. Simulated Boids can overlap without affecting each other.
