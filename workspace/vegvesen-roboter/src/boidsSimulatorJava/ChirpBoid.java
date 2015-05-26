@@ -34,7 +34,7 @@ public class ChirpBoid {
 //	private final float sepDist = 200f;
 //	private final float aliDist = 500f;
 	
-	private float maxSpeed = 30f;
+	private float maxSpeed = 60f;
 	private float maxF = 50f;
 	
 	int size = 50;
@@ -141,17 +141,18 @@ public class ChirpBoid {
 	}
 
 	private void updatePos(GameContainer gc, int delta) {
-		vel.x += acc.x/delta;
-		if(vel.x > maxSpeed)
-			vel.x = maxSpeed;
-		if(vel.x < -maxSpeed)
-			vel.x = -maxSpeed;
-		if(vel.y > maxSpeed)
-			vel.y = maxSpeed;
-		if(vel.y < -maxSpeed)
-			vel.y = -maxSpeed;
 		
+		vel.x += acc.x/delta;
 		vel.y += acc.y/delta;
+		if(vel.length() > maxSpeed){
+			vel.normalise();
+			vel.scale(maxSpeed);
+		}
+		else if(vel.length() > maxSpeed){
+			vel.normalise();
+			vel.scale(maxSpeed);
+		}
+		
 //		if(debug){
 //			System.out.println("velo:");
 //			System.out.println(vel);

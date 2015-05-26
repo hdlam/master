@@ -15,7 +15,13 @@ Each robot were equipped with eight distance sensors and a bluetooth module for 
 Using only the distance sensors are only able to detect other objects around the robots, but the robot can not use the distance sensors to distinguish what kind of object it is sensing. The structure of the robots makes it hard for the other robots to detect it due to the hollowness of the robot. 
 By using a camera and a centralized computer which the robots can communicate with, the robots gains information about its whereabouts along with its angle and all the other robot's positions. 
 
+\textbf{Research question 2:} {\it Will the Boids algorithm make the robots flock together?}
 
+The robots gets the information about its location from the centralized computer, and the whereabouts of the other robots. Using this information the robot will calculate the Boids behaviors vector and move in the direction of the final vector.
+
+Looking at the graphs from section \ref{sec:results}, we can see that the robots are moving closer to each other, and they stay together with approximately 35 cm between each robot. In scenario 2, the robots do move on each side of the obstacle due to their placement at the start. If a robot faces an obstacle directly in front of it, they will "flip a coin" whether they turn left or right, thus a randomly direction will be chosen around the obstacle if the robot is moving directly toward an obstacle.
+However, the robots do not move together towards the obstacle, like the Boids in the simulator do. The most upper left robot seen in \ref{fig:scenario2} is trapped between the corner and the two robots around it. Having no way to move out at the start and thinking that the other robots around it are obstacles, makes it turn around back to the wall. This delays it from moving towards the real obstacle, because it has to turn all the way back again.
+The robots avoids crashing into other objects at almost all cost, it is its highest priority. So when the robots are clumped together, they might spin a lot on the same spot.
 
 %TODO
 
@@ -24,7 +30,7 @@ By using a camera and a centralized computer which the robots can communicate wi
 
 
 
-\section{Contributions}~\label{cont}
+\section{Contributions}
 \label{sec:Contributions}
 %contribution to AI, swarm, chirp
 
@@ -57,12 +63,10 @@ Each robot also stops when it turns around and whenever they need to change dire
 
 In the simulator, the Boids held its formation whenever they flocked until they had to change their direction because they were too near an obstacle. The robots do stay near each other to a certain degree. Whenever the robots flock, the distances between each robot varies, they do not have a consistent spacing which the Boids on the simulator do have. The reason this happen might be because the robots are not fully synchronous like the simulator Boids are, that is each Boids calculates their new vector direction every frame at the same time, while the robots do not calculate their new direction at the same time as the other robots. 
 
-The robots still bumps into the obstacle and they still bump into each other. A rewrite of the executive layer should be able to fix this problem. Instead of checking the distances to objects in front of it before it is about to move in a direction, the robots should check and measure the distances every iteration.
+The robots still bumps into the obstacle and they still bump into each other. A rewrite of the executive layer should be able to fix this problem. Instead of checking the distances to objects in front of it before it is about to move in a direction, the robots should check and measure the distances continuously. Checking the distance all the time might affect movement of the robot. But if the sensors could be more precise, then the disturbances and noises would not be a problem for the movement of the robot.
 
+In scenario 2, the robots do move around the obstacle, but this does not happen at the same time. The three robots stays a while in the upper left corner before moving, and they do not move as a unit to the other side of the sandbox. Some of the runs, they were moving one robot at a time. 
 
-
-
-%In scenario 2, the robots do move around the obstacle, but this does not happen at the same time. 
 
 %[From template] %TODO remove
 %Consider where you would like to extend this work. These extensions might either be continuing the ongoing direction or taking a side direction that became obvious during the work. Further, possible solutions to limitations in the work conducted, highlighted in ~\ref{sec:Discussion} may be presented. 

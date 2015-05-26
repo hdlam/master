@@ -44,19 +44,19 @@ Robots are becoming more and more relevant in our lives, already nowadays there 
 %Note that the goal is seldom to build a system. A system is built to to enable experiments to be conducted. The research question/goal would be the goal that the system is implemented to meet.  
 
 
-\begin{description}
-\item[Research question 1:] {\it Can a centralized computer aid a swarm of robots that do not have enough sensors to do the task it was assigned for?}
-\end{description}
+
+\textbf{Research question 1:} {\it Can a centralized computer aid a swarm of robots that do not have enough sensors to do the task it was assigned for?}
+
 Swarm robotics are mostly focused on many small cheap robots working together in a swarm to achieve their goal. The swarm robots usually can be changed while the system is up and running without affecting the flock.
 Due to the cheapness of the robots, they might have cheaper equipments and sensors or they might lack the necessary equipment for robots to be able to its task. 
 The robots used in this thesis only have distance sensors, but can add more sensors and modules if needed. However there are not other types of sensors available, therefore the robots will communicate with a centralized computer which might be able to aid the robot gain information that it currently lack of its surrounding.
+Communication between the robots are limited, because the communication between them has to go trough the centralized computer.
 
 
-\begin{description}
-\item[Research question 2:] {\it Lorem ipsum dolor sit amet, consectetur adipiscing elit.}
-\end{description}
+\textbf{Research question 2:} {\it Will the Boids algorithm make the robots flock together?}
 
-{\it Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam consequat pulvinar hendrerit. Praesent sit amet elementum ipsum. Praesent id suscipit est. Maecenas gravida pretium magna non }
+The Boids algorithm uses vectors for each behavior to steer the entities around. The minimal number of behaviors for a typical Boid is three behaviors. One of them ensures that the entities flock together, the other one makes sure that they move together when they have flocked. The last behavior ensures that they do not collide with each other. The robots will gain information about their whereabouts from the centralized computer, and the location of the other other robots. Using this information the robots will process the information using the Boids algorithm to flock together.
+
 
 \section{Research Method}
 \label{sec:researchMethod}
