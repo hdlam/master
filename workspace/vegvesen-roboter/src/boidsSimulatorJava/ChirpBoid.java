@@ -34,7 +34,7 @@ public class ChirpBoid {
 //	private final float sepDist = 200f;
 //	private final float aliDist = 500f;
 	
-	private float maxSpeed = 60f;
+	private float maxSpeed = 40f;
 	private float maxF = 50f;
 	
 	int size = 50;

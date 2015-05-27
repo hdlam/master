@@ -61,7 +61,7 @@ public class ChirpBoidWatcher extends BasicGame implements MulticastListener{
 	int iteration;
 	long time;
 	
-	public boolean debug = false;
+	public boolean debug = true;
 	public boolean debugRender = true;
 	
 	public ChirpBoidWatcher(String title, Multicast mc) {
@@ -244,7 +244,7 @@ public class ChirpBoidWatcher extends BasicGame implements MulticastListener{
 		speedsdSum = (float) Math.sqrt(speedsdSum / (count));
 		//sdSum = (float) Math.sqrt(sdSum / (count-1));
 		
-		
+		System.out.println(System.currentTimeMillis());
 		try {
 //			fw.write(iteration + "," + distAvg +","+ distsdSum + "," + anglAvg + "," + anglsdSum + "," + speedAvg + "," +speedsdSum+ "\n");
 			fw.write((System.currentTimeMillis()-time) + "," + speedAvg + "\n");

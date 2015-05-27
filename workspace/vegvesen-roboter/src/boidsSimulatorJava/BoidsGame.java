@@ -30,7 +30,9 @@ public class BoidsGame extends BasicGame {
 	private static int numOfBots = 4;
 	
 	private ArrayList<Shape> obstacles;
-	
+	int scenario = 3;
+	int run = 5;
+	boolean write = true;
 	Input input;
 
 	public static void main(String args[]) {
@@ -39,7 +41,9 @@ public class BoidsGame extends BasicGame {
 		try {
 			appgc = new AppGameContainer(game, WIDTH, HEIGHT, false);
 			appgc.setShowFPS(true);
+			appgc.setTargetFrameRate(60);
 			appgc.setPaused(false);
+			appgc.setVSync(true);
 			appgc.setAlwaysRender(true);
 			appgc.start();
 		} catch (SlickException e) {
@@ -62,10 +66,12 @@ public class BoidsGame extends BasicGame {
 		obstacles = new ArrayList<Shape>();
 		createBoids();
 		gc.setPaused(false);
-		try {
-			fw = new FileWriter("simulScenario2.csv");
-		} catch (IOException e) {
-			e.printStackTrace();
+		if(write){
+			try {
+				fw = new FileWriter("simulScenario"+ scenario +"_"+run+".csv");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		time = System.currentTimeMillis();
 	}
@@ -145,28 +151,31 @@ public class BoidsGame extends BasicGame {
 		anglsdSum = (float) Math.sqrt(anglsdSum / (count));
 		speedsdSum = (float) Math.sqrt(speedsdSum / (count));
 		//sdSum = (float) Math.sqrt(sdSum / (count-1));
-		
-		
-		try {
-			fw.write(iteration + "," + distAvg +","+ distsdSum + "," + anglAvg + "," + anglsdSum + "," + speedAvg + "," +speedsdSum+ "\n");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+//		System.out.println(System.currentTimeMillis());
+		if(write){
+			try {
+				fw.write(iteration + "," + distAvg +","+ distsdSum + "," + anglAvg + "," + anglsdSum + "," + speedAvg + "," +speedsdSum+ "\n");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		iteration++;
 		
 	}
 	
-	int count = 4;
+	int countIteration = 4;
 	@Override
 	public void update(GameContainer gc, int delta) throws SlickException {
 		if(System.currentTimeMillis()-time > 180000){
 			System.out.println("timeout");
-			try {
-				fw.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			if(write){
+				try {
+					fw.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 //			paused=true;
 			gc.exit();
@@ -174,11 +183,13 @@ public class BoidsGame extends BasicGame {
 		}
  
 		if(input.isKeyPressed(Input.KEY_Q) || input.isKeyPressed(Input.KEY_ESCAPE)){
-			try {
-				fw.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			if(write){
+				try {
+					fw.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 //			paused=true;
 			System.exit(0);
@@ -217,13 +228,14 @@ public class BoidsGame extends BasicGame {
 		}
 		for (ChirpBoid b : boids) {
 		b.update(gc, delta, boids, obstacles);
-		count++;
-		if(count == 5){
-			createStats();
-			count = 0;
 		}
+		countIteration++;
+		if(countIteration >= 5){
+			createStats();
+			countIteration = 0;
+		}
+	
 	}
-}
 	
 	private void createBoids(){
 		boids.clear();
@@ -234,7 +246,22 @@ public class BoidsGame extends BasicGame {
 //			boids.add(boid);
 //		}
 //		}
-		scenario2();
+		
+		switch (scenario) {
+		case 1:
+			scenario1();
+			break;
+		case 2:
+			scenario2();
+			break;
+		case 3:
+			randomScenario();
+			break;
+
+		default:
+			break;
+		}
+//		scenario2();
 //		randomScenario();
 //		scenario1();
 	}
@@ -247,10 +274,10 @@ public class BoidsGame extends BasicGame {
 //			boids.add(boid);
 //	
 //}
-		boids.add(new ChirpBoid(666f, 125f, intToCol(0), 0, 0,true));
-		boids.add(new ChirpBoid(753f, 445f, intToCol(0), 0, 0,true));
-		boids.add(new ChirpBoid(340f, 18f, intToCol(0), 0, 0,true));
-		boids.add(new ChirpBoid(157f, 553f, intToCol(0), 0, 0,true));
+		boids.add(new ChirpBoid(340f, 18f, intToCol(0), 15, 20,true));
+		boids.add(new ChirpBoid(666f, 50f, intToCol(0), -15, -20,true));
+		boids.add(new ChirpBoid(157f, 553f, intToCol(0), -15, 15,true));
+		boids.add(new ChirpBoid(740f, 565f, intToCol(0), -15, -20,true));
 		Shape s = new Circle(667f, 479f, (float) 30); 		//random
 		
 		obstacles.add(s);
@@ -258,19 +285,19 @@ public class BoidsGame extends BasicGame {
 	
 	void scenario1(){
 		//scenario1
-		boids.add(new ChirpBoid(30f, 30f, intToCol(0), 0, 0,true));
-		boids.add(new ChirpBoid(30f, HEIGHT-30, intToCol(0), 0, 0,true));
-		boids.add(new ChirpBoid(WIDTH-30, 30f, intToCol(0), 0, 0,true));
-		boids.add(new ChirpBoid(WIDTH-30, HEIGHT-30, intToCol(0), 0, 0,true));
-		Shape s = new Circle(WIDTH/2f+20f, HEIGHT/2f-10f, (float) 30); 		//scenario1		
+		boids.add(new ChirpBoid(30f, 30f, intToCol(0), 20, 20,true));
+		boids.add(new ChirpBoid(30f, HEIGHT-30, intToCol(0), 20, -20,true));
+		boids.add(new ChirpBoid(WIDTH-30, 30f, intToCol(0), -20, 20,true));
+		boids.add(new ChirpBoid(WIDTH-30, HEIGHT-30, intToCol(0), -20, -20,true));
+		Shape s = new Circle(WIDTH/2f+40f, HEIGHT/2f+40f, (float) 30); 		//scenario1		
 		obstacles.add(s);
 	
 	}
 	void scenario2(){
 		//scenario1
-		boids.add(new ChirpBoid(30f, 30f, intToCol(0), 0, 0,true));
-		boids.add(new ChirpBoid(30f, 60f, intToCol(0), 0, 0,true));
-		boids.add(new ChirpBoid(60f, 30f, intToCol(0), 0, 0,true));
+		boids.add(new ChirpBoid(30f, 30f, intToCol(0), 10, 10,true));
+		boids.add(new ChirpBoid(30f, 60f, intToCol(0), 10, 10,true));
+		boids.add(new ChirpBoid(60f, 30f, intToCol(0), 10, 10,true));
 		boids.add(new ChirpBoid(WIDTH-30, HEIGHT-30, intToCol(0), 0, 0,false));
 		Shape s = new Circle(WIDTH/2, HEIGHT/2f, (float) 30); 		//scenario2		
 		obstacles.add(s);
