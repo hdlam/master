@@ -6,7 +6,8 @@ import java.io.IOException;
 public class BufferedReaderExample {
  
 	public static void main(String[] args) {
-		String file = "simulScenario3_";
+		String file = "simulScenario1_";
+		
 		try 
 		{
 			BufferedReader br1 = new BufferedReader(new FileReader(file+"1.csv"));
@@ -19,7 +20,7 @@ public class BufferedReaderExample {
 //			BufferedReader br8 = new BufferedReader(new FileReader(file+"08.csv"));
 //			BufferedReader br9 = new BufferedReader(new FileReader(file+"09.csv"));
 //			BufferedReader br10 = new BufferedReader(new FileReader(file+"10.csv"));
-			FileWriter fw = new FileWriter(file.substring(0, file.length()-2) + "avgTotal.csv");
+			FileWriter fw = new FileWriter(file + "avgTotal.csv");
 			String sCurrentLine;
 			String[] s1 = new String[7];
 			String[] s2 = new String[7];
