@@ -57,23 +57,23 @@ If the software detects green or red color that do not belong to the robot, it i
     \centering
     \begin{subfigure}[b]{0.3\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{figs/robotschema.png}
-        \caption{$y=x$}
+        \includegraphics[width=\textwidth]{figs/robot1}
+        \caption{The robot used in the experiment}
         \label{fig:robot0}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.3\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{figs/scenario0.png}
-        \caption{$y=3sinx$}
+        \includegraphics[width=\textwidth]{figs/robot2}
+        \caption{Standard ChIRP robot}
         \label{fig:robot1}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.3\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{figs/scenario1.png}
-        \caption{$y=5/x$}
-        \label{fig:robot2}
+        \includegraphics[width=\textwidth]{figs/robot3}
+        \caption{Robot seen from behind}
+        \label{fig:robot3}
     \end{subfigure}
     \caption[ChIRP robot]{ChIRP robot seen from various angles}
     \label{fig:robot}
@@ -88,7 +88,7 @@ Each robot is equipped with eight infrared LED lights and receivers used for mea
 The distance sensors are spaced evenly around the robot, where one of the sensors are pointing directly in front of the robot. This sensor can be used to detect whether there is an obstacle directly in front of the robot or not. For this experiment, only the three sensors in front are used. Because the robots only moves forward, so it only needs to determine whether there is an obstacle directly in front of it or not. It does not matter if there is anything behind or next to the robot because it does not move in that direction.
 
 Each of the ChIRP robot is equipped with a bluetooth module, which it uses to communicate with the watcher computer wirelessly. 
-The robots are very hollow on top as seen in figure \ref{fig:robot}, and the distance sensors have difficulties sensing other robots due to the hollowness. To counteract the hollowness, a white paper strip was taped around the robots. This makes it easier for the robot to detect the other robots nearby because the paper will reflect the infrared light that the robot uses to determine the distance. To be sure that the robot would be able to detect the obstacles placed in the sandbox, the obstacle would have a white paper wrapped around it to reflect infrared light. The obstacle used for this experiment consist of bottle filled with water. The water inside the bottle is used to make the bottle heavier, so it does not fall over. And the paper around the bottle is there to reflect the infrared light that the robot uses for measuring distances.
+The robots are very hollow on top as seen in figure \ref{fig:robot1}, and the distance sensors have difficulties sensing other robots due to the hollowness. To counteract the hollowness, a white paper strip was taped around the robots. This makes it easier for the robot to detect the other robots nearby because the paper will reflect the infrared light that the robot uses to determine the distance. To be sure that the robot would be able to detect the obstacles placed in the sandbox, the obstacle would have a white paper wrapped around it to reflect infrared light. The obstacle used for this experiment consist of bottle filled with water. The water inside the bottle is used to make the bottle heavier, so it does not fall over. And the paper around the bottle is there to reflect the infrared light that the robot uses for measuring distances.
 
 The camera tracking software uses image recognition to track the robots. That is why each robot need to have a red and a green post it note on top of it. The red one determines where in the sandbox the robot is located, and the green one is used to determine which way it is pointing and to determine the angle of the robots.
 
@@ -182,7 +182,7 @@ where:
 \\
 $\vec{V}_{old}$ = previous velocity of the robot
 \\
-$\vec{V}_{new}$ = new velocity of the robot, the length of $\vec{V}_{new}$ is capped between -30 and 30 or using mathematic notation: $ |\vec{V}_{new}| \epsilon [-30,30]$.
+$\vec{V}_{new}$ = new velocity of the robot, the length of $\vec{V}_{new}$ is capped between -40 and 40 or using mathematic notation: $ |\vec{V}_{new}| \epsilon [-40,40]$.
 \\
 $R_{goal}$ = the angle the robot will be facing after it has turned around, measured in radians
 \\
@@ -193,7 +193,11 @@ $D_{turn}$ = the angle the robot needs to turn to face the correct direction, me
 
 
 The robot needs to know how much it is going to move in the x-direction and how much it will move in the y-direction as shown in equation \ref{eq:veladdacc}.
-Then by calculating the arctangent of $V_x$ and $V_y$, it finds out which angle it needs to face to be able to move in the direction of $\vec{V_{new}}$. When the robot has calculated which direction it wants to go, it calculates $D_{turn}$ by using the formula in equation \ref{eq:angletoturn}. $D_{turn}$ is the amount of degrees the robot needs to turn to face the right direction. 
+Then by calculating the arctangent of $V_x$ and $V_y$, it finds out which angle it needs to face to be able to move in the direction of $\vec{V}_{new}$. When the robot has calculated which direction it wants to go, it calculates $D_{turn}$ by using the formula in equation \ref{eq:angletoturn}. $D_{turn}$ is the amount of degrees the robot needs to turn to face the right direction. The velocity $\vec{V}_{new}$ is only used to determine which direction the robot should be facing, it is not used for determine the velocity of the robot. The velocity of a robot is calculated by calculating how much the robot has been moving since the last time step, or using mathematic notation: 
+\begin{equation}
+\label{eq:calcrobvel}
+\Delta P = P_{new} - P_{old}
+\end{equation}
 
 The robot will then measure the distances once again, in case it has turned towards an obstacle. If there is no obstacle in front of it, it will move forward and wait for new data from the watcher software. If the robot did find an obstacle in front of it, it will turn 90\textdegree to either the right or the left randomly. The robot will stop after turning and wait for new data from the watcher software. 
 \begin{figure}[h!]
@@ -252,7 +256,7 @@ The biggest most visual difference between the physical experiment in the sandbo
 \begin{center}
 \includegraphics[width=0.8\linewidth]{figs/simulator}
 \end{center}
-\caption[Simulator distances]{Boids with neighborhood distances visualized}
+\caption[Simulator distances]{Simulated Boids with neighborhood distances visualized}
 \label{fig:simulatordistances}
 \end{figure}
 
@@ -290,4 +294,4 @@ Second row shows us the position of the robot, while the third one shows velocit
 
 The upper right red squares indicates whether the bluetooth connection is still functional or if the bluetooth have timed out. The squares in the figure are all red, because this is just a debug run where there is no bluetooth connection.
 
-Robots will be pushed if a different robot is moving against it. Two robots can not occupy the same space at the same time. Simulated Boids can overlap without affecting each other.
+Robots will be pushed away if a different robot moves onto it. Two robots can not occupy the same space at the same time. Simulated Boids can overlap without affecting each other.
