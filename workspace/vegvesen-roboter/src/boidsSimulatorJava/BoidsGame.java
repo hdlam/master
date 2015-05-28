@@ -30,9 +30,9 @@ public class BoidsGame extends BasicGame {
 	private static int numOfBots = 4;
 	
 	private ArrayList<Shape> obstacles;
-	int scenario = 3;
+	int scenario = -1;
 	int run = 5;
-	boolean write = true;
+	boolean write = false;
 	Input input;
 
 	public static void main(String args[]) {
@@ -257,8 +257,13 @@ public class BoidsGame extends BasicGame {
 		case 3:
 			randomScenario();
 			break;
-
+		case 4:
+			break;
 		default:
+			for (int i = 0; i < numOfBots; i++) {
+				ChirpBoid boid = new ChirpBoid((int)(Math.random()*WIDTH), (int)(Math.random()*HEIGHT), intToCol((int)(Math.random()*10)), (int)(Math.random()*120)-60, (int)(Math.random()*120)-60, true);
+				boids.add(boid);
+			}
 			break;
 		}
 //		scenario2();
@@ -315,11 +320,6 @@ public class BoidsGame extends BasicGame {
 			g.draw(s);
 		}
 
-		if (debugOn) {
-			g.setColor(Color.green);
-			g.drawString("0,0", 10f, 0f);
-			g.drawString(WIDTH + "," + HEIGHT, WIDTH - 65, HEIGHT - 18);
-		}
 	}
 
 //	private void createObstacles(){

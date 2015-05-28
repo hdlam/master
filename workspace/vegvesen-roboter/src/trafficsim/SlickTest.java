@@ -67,26 +67,20 @@ public class SlickTest extends BasicGame{
 
 	public static void main(String[] args){
 		// TODO code application logic here
-//		SlickTest t = new SlickTest("test");
-//		
-//		try {
-//			AppGameContainer appgc;
-//			appgc = new AppGameContainer(t);
-//			appgc.setDisplayMode(800, 800, false);
-//			appgc.setTargetFrameRate(60);
-//			appgc.setAlwaysRender(true);
-//			appgc.start();
-//			
-//		} catch (SlickException ex) {
-//			System.err.println(ex);
-//		}
+		SlickTest t = new SlickTest("test");
+		
+		try {
+			AppGameContainer appgc;
+			appgc = new AppGameContainer(t);
+			appgc.setDisplayMode(800, 800, false);
+			appgc.setTargetFrameRate(60);
+			appgc.setAlwaysRender(true);
+			appgc.start();
+			
+		} catch (SlickException ex) {
+			System.err.println(ex);
+		}
 
-		Vector2f t = new Vector2f(460.64456f,134.17952f);
- 
-		Vector2f a = new Vector2f(36.955757f,-15.821247f);
-		Vector2f v = new Vector2f(-0.091929756f,0.039356343f);
-		t.add(v);
-		System.out.println(t);
 	}
 
 

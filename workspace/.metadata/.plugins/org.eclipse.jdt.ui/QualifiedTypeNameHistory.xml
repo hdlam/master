@@ -30,7 +30,6 @@
 <fullyQualifiedTypeName name="trafficsim.SlickTest"/>
 <fullyQualifiedTypeName name="org.newdawn.slick.geom.Polygon"/>
 <fullyQualifiedTypeName name="org.newdawn.slick.geom.Transform"/>
-<fullyQualifiedTypeName name="java.lang.System"/>
 <fullyQualifiedTypeName name="javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction"/>
 <fullyQualifiedTypeName name="boidSim.ChirpRobot"/>
 <fullyQualifiedTypeName name="com.lyndonarmitage.boids.ChirpBoid"/>
@@ -60,4 +59,5 @@
 <fullyQualifiedTypeName name="org.newdawn.slick.Graphics"/>
 <fullyQualifiedTypeName name="java.io.FileWriter"/>
 <fullyQualifiedTypeName name="java.lang.Double"/>
+<fullyQualifiedTypeName name="java.lang.System"/>
 </qualifiedTypeNameHistroy>

@@ -93,7 +93,7 @@ In the simulator, the following parameters have been used:
 This distances tells the Boid how near it has to be before it should calculate the vector. For example if the Boid is in the middle of the screen, that means that it is not near a wall, then the "away from wall" function will return the null vector because it does not need the Boid to steer away from the wall.
 The numbers given over is the furthest distance that the Boid will consider, for instance a Boid that have three neighbors, where one of them is 100 px away, the second one is  while the third one is 300 px away. The first Boid will be taken into consideration when calculating all of the three behaviors; cohesion, alignment and separation because it is very close. The second Boids will not have any influence on the separation behavior, but it will influence the alignment and cohesion vector. The third one is too far away, and will be ignored when calculating the three behaviors. These distances are illustrated in figure \ref{fig:simulatordistances}.
 
-The Boids in the simulator had a velocity cap of 30 px in both x and y direction. 
+The Boids in the simulator had a velocity cap of 40 px. 
 The size of the robot is set to be 50 px in diameter.
 
 Each vector from each behavior is multiplied with a factor that determines how much impact that vector will have on the final acceleration vector.
@@ -119,7 +119,7 @@ The robots on the other hand had different parameters for their behaviors:
 
 The reason the cohesion distance for the physical robot are so different than the one in the simulator is because the robots are slow to flock together and they might get stuck at a corner when the sensors, so a big cohesion distance makes the robots flock together faster. The Boids in the simulator do not need the big cohesion distance because they wander a lot around even if there is no neighboring Boids around them. When they have wandered around for a while, they will eventually find another Boid that is near enough and they will start to flock together.
 
-The simulator was intended to handle a lot more than the four Boids used in this project. If the Boids have a longer cohesion distance, more Boids would flock together and the sub flock emergence would not occur as much as seen in figure \ref{fig:subflock}.
+The simulator was intended to handle a lot more than the four Boids used in this project. If the Boids had a longer cohesion distance, more Boids would flock together and the sub flock emergence would not occur as much as seen in figure \ref{fig:subflock}.
 
 The weights on the behavior vectors for the robots are a little bit different than the one found in the simulator.
 \begin{description}
@@ -130,7 +130,7 @@ The weights on the behavior vectors for the robots are a little bit different th
 \item[separation] vector is multiplied by 4
 \end{description}
 
-The reason the avoid obstacle vector does not exist, is because the watcher software can not find nor distinguish obstacle from the floor. This feature is not implemented in the camera tracking software. The robot needs to know the size of the sandbox beforehand, because the camera or the watcher software do not provide this information to the robot. To compensate for the lack of obstacle information, the robot uses their distance sensors to find out where the obstacle are located and avoids them.
+The reason the avoid obstacle vector does not exist, is because the watcher software can not find nor distinguish obstacle from the surroundings. This feature is not implemented in the camera tracking software. The robot needs to know the size of the sandbox beforehand, because the camera or the watcher software do not provide this information to the robot. To compensate for the lack of obstacle information, the robot uses their distance sensors to find out where the obstacle are located and avoids them.
 
 The separation vector is multiplied with a weight of 4 for the robot, but only multiplied with a weight of 3 for the Boids. There is no specific reason for this, after testing it seems to perform better with a weight of 4 on separation instead of 3.
 With a weight of 3 on separation the Robots bumped into each other quite often, that is why the weight for the separation have been increased to 4.
@@ -151,85 +151,146 @@ The Boids algorithm are supposed to keep the robots flocked together and prefera
 To keep the data as consistent between each run the watcher stops all the robots and saves the data file exactly three minutes or 180,000 milliseconds after the robots have started to move.
 The distance measured are in pixels. The measurement of the sandbox is 151.6 cm wide and 123.9 cm long. The watcher software creates a window that has a resolution 800x652 pixels, which means that 1 cm is approximately 5.3 pixels on the screen. The measured angles are shown in radians.
 
-In the upcoming figures, the results from the various runs will be shown. On the x-axis the time will be shown, and the y-axis displays various types of data is presented depending on the figure. The time shown on the x-axis displays the iteration, and not seconds. One iteration takes about five frames, the software runs with a 60 frames per second. Which means that twelve iterations on the x-axis corresponds to one second. The velocity is measured every iteration, the velocity graphs is mostly used as an indication to whether the robots are moving or not. The velocity graph are able to show that the flock is moving faster or slower on certain iterations, but it can not be used to measure how fast the flock is actually moving.
+In the upcoming figures, the results from the various runs will be shown. On the x-axis the time will be shown, and the y-axis displays various types of data is presented depending on the figure. The time shown on the x-axis displays the iteration, and not seconds. One iteration is five frames, the software runs with a 60 frames per second. Which means that twelve iterations on the x-axis corresponds to one second. The velocity is measured every iteration, the velocity graph is mostly used as an indication to whether the robots are moving or not. The velocity graphs can be used as an indication whether the robots are moving fast or slower, but it can not be used to reliably tell the velocity of the robots. The velocity graph for the simulated Boids are precise, and the number shown on the y-axis shows the average length of the velocity vector for each Boid.
+
+The upcoming figures will show graphs of various types, two similar ones will be displayed for each scenario. One is the results from ten runs on the physical experiment with the robots, and the other one is the results from the experiments ran in simulation. In section \ref{sec:discussion} a discussion of the results will be presented, it will contain an explanation as to why some of the graphs might be different.
 
 \subsection{Results from scenario 1}
 \label{sec:res1}
-
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=1.1\linewidth]{figs/resdistancescene1.png}
+\includegraphics[width=0.8\linewidth]{figs/runs/1pdist}
 \end{center}
-\caption[Results 1]{Results from 10 runs on scenario 1}
-\label{fig:scene1res}
+\caption[1. Distances, robots]{Results from 10 runs averaged on scenario 1, robots}
+\label{fig:res1pdist}
 \end{figure}
-
-The first scenario where all the robots/Boids are placed in each corner with only one obstacle in the middle of the sandbox as seen in figure \ref{fig:scenario1}. 
-These results takes the velocity by calculating $\mu_{velocity}$ by using the equation \ref{eq:muvel}, then each one is added together and averaged to create the result seen above. 
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{figs/scenario1_run1/dist.png}
-    \caption[Distances]{Distance differences of scenario 1, run 1}
-    \label{fig:distance11}
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.8\linewidth]{figs/runs/1sdist}
+\end{center}
+\caption[1. Distances, simulation]{Results from 5 runs averaged on scenario 1, simulator}
+\label{fig:res1sdist}
 \end{figure}
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{figs/scenario1_run1/angle.png}
-    \caption[Angles]{Angle differences of scenario 1, run 1}
-    \label{fig:angle11}
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.8\linewidth]{figs/runs/1pangle}
+\end{center}
+\caption[1. Angle, robots]{Results from 10 runs averaged on scenario 1, robots}
+\label{fig:res1pang}
 \end{figure}
-\begin{figure}[H]
-    \centering
-    \begin{subfigure}[b]{0.4\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figs/scenario1_run1/velmean}
-        \caption{Mean of the velocities}
-        \label{fig:velmean1_1}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.4\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figs/scenario1_run1/velsd}
-        \caption{standard deviation of velocities in scenario 1, first run}
-        \label{fig:velsd1_1}
-    \end{subfigure}
-    \caption[Velocity]{Velocity of scenario 1, run 1}
-    \label{fig:vel11}
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.8\linewidth]{figs/runs/1sangle}
+\end{center}
+\caption[1. Distances, robots]{Results from 10 runs averaged on scenario 1, simulator}
+\label{fig:res1sang}
 \end{figure}
-These data shown in figure \ref{fig:distance11}, \ref{fig:angle11} and \ref{fig:vel11} taken from the first run. The data from the first run is chosen to be displayed here by a random number generator.
-
-
-
-
-
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.8\linewidth]{figs/runs/1pvel}
+\end{center}
+\caption[1. Velocity, robots]{Results from 10 runs averaged on scenario 1, robots}
+\label{fig:res1pvel}
+\end{figure}
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.8\linewidth]{figs/runs/1svel}
+\end{center}
+\caption[1. Velocity, robots]{Results from 10 runs averaged on scenario 1, simulator}
+\label{fig:res1svel}
+\end{figure}
+\clearpage
 \subsection{Results from scenario 2}
 \label{sec:res2}
-The second scenario in figure \ref{fig:scenario2}
-
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=1.1\linewidth]{figs/resdistancescene2.png}
+\includegraphics[width=0.8\linewidth]{figs/runs/2pdist}
 \end{center}
-\caption[Results 2]{Results from 10 runs on scenario 2}
-\label{fig:scene2res}
+\caption[2. Distances, robots]{Results from 10 runs averaged on scenario 2, robots}
+\label{fig:res2pdist}
 \end{figure}
-
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.8\linewidth]{figs/runs/2sdist}
+\end{center}
+\caption[2. Distances, simulation]{Results from 5 runs averaged on scenario 2, simulator}
+\label{fig:res2sdist}
+\end{figure}
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.8\linewidth]{figs/runs/2pangle}
+\end{center}
+\caption[2. Angle, robots]{Results from 10 runs averaged on scenario 2, robots}
+\label{fig:res2pang}
+\end{figure}
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.8\linewidth]{figs/runs/2sangle}
+\end{center}
+\caption[2. Distances, robots]{Results from 10 runs averaged on scenario 2, simulator}
+\label{fig:res2sang}
+\end{figure}
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.8\linewidth]{figs/runs/2pvel}
+\end{center}
+\caption[2. Velocity, robots]{Results from 10 runs averaged on scenario 2, robots}
+\label{fig:res2pvel}
+\end{figure}
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.8\linewidth]{figs/runs/2svel}
+\end{center}
+\caption[2. Velocity, robots]{Results from 10 runs averaged on scenario 2, simulator}
+\label{fig:res2svel}
+\end{figure}
+\clearpage
 \subsection{Results from scenario 3}
 \label{sec:res3}
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=1.1\linewidth]{figs/resdistancescene3.png}
+\includegraphics[width=0.8\linewidth]{figs/runs/3pdist}
 \end{center}
-\caption[Results 3]{Results from 10 runs on scenario 3}
-\label{fig:scene3res}
+\caption[3. Distances, robots]{Results from 10 runs averaged on scenario 3, robots}
+\label{fig:res3pdist}
 \end{figure}
-The third scenario in figure \ref{fig:scenario3}
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.8\linewidth]{figs/runs/3sdist}
+\end{center}
+\caption[3. Distances, simulation]{Results from 5 runs averaged on scenario 3, simulator}
+\label{fig:res3sdist}
+\end{figure}
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.8\linewidth]{figs/runs/3pangle}
+\end{center}
+\caption[3. Angle, robots]{Results from 10 runs averaged on scenario 3, robots}
+\label{fig:res3pang}
+\end{figure}
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.8\linewidth]{figs/runs/3sangle}
+\end{center}
+\caption[3. Distances, robots]{Results from 10 runs averaged on scenario 3, simulator}
+\label{fig:res3sang}
+\end{figure}
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.8\linewidth]{figs/runs/3pvel}
+\end{center}
+\caption[3. Velocity, robots]{Results from 10 runs averaged on scenario 3, robots}
+\label{fig:res3pvel}
+\end{figure}
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.8\linewidth]{figs/runs/3svel}
+\end{center}
+\caption[3. Velocity, robots]{Results from 10 runs averaged on scenario 3, simulator}
+\label{fig:res3svel}
+\end{figure}
 
-%TODO graphs and interpretation of results
-%The graph below shows
-
-%All the graphs that was generated during the experiment can be found in the appendix.
+\clearpage
 \section{Discussion}
 \label{sec:discussion}
 This section will mainly focus on explaining the data from the results, why there is a difference between the physical experiment and the experiments done in a simulator.
