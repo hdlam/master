@@ -196,7 +196,7 @@ The robot needs to know how much it is going to move in the x-direction and how 
 Then by calculating the arctangent of $V_x$ and $V_y$, it finds out which angle it needs to face to be able to move in the direction of $\vec{V}_{new}$. When the robot has calculated which direction it wants to go, it calculates $D_{turn}$ by using the formula in equation \ref{eq:angletoturn}. $D_{turn}$ is the amount of degrees the robot needs to turn to face the right direction. The velocity $\vec{V}_{new}$ is only used to determine which direction the robot should be facing, it is not used for determine the velocity of the robot. The velocity of a robot is calculated by calculating how much the robot has been moving since the last time step, or using mathematic notation: 
 \begin{equation}
 \label{eq:calcrobvel}
-\Delta P = P_{new} - P_{old}
+V_{robot} = \Delta P = P_{new} - P_{old}
 \end{equation}
 
 The robot will then measure the distances once again, in case it has turned towards an obstacle. If there is no obstacle in front of it, it will move forward and wait for new data from the watcher software. If the robot did find an obstacle in front of it, it will turn 90\textdegree to either the right or the left randomly. The robot will stop after turning and wait for new data from the watcher software. 
@@ -218,8 +218,8 @@ The same "away from wall" behavior is also implemented in the simulator, so the 
 For each frame, the Boids will update it velocity by calculating a vector for each behavior, and then these vectors are added to the acceleration vector by using the formula found in equation \ref{eq:vecsum}. The acceleration vector is then added to the velocity vector, and the velocity is capped off if the length of the vector exceeds maximum allowed speed. If there is no velocity cap, the Boids' velocity would increase towards infinity. The velocity then decides where the Boids are going to move.
 The procedure to calculate the velocity vector of the simulated Boids are the same as the one the robots are using in equation \ref{eq:veladdacc}. 
 
-After calculating the $\vec{V}_{new}$, it needs to cap the max velocity. If the velocity is not capped, the speed of Boids would increase and they would move outside the window. As for the robots, the Boids velocity vector is kept between -30 and 30:  $|\vec{V}_{new}| \epsilon [-30,30]$.
-The Boids do not need to calculate which way it needs to turn to move in the direction, because it is able to move in all 360\textdegree\ directions. ing the
+After calculating the $\vec{V}_{new}$, it needs to cap the max velocity. If the velocity is not capped, the speed of Boids would increase and they would move outside the window. As for the robots, the Boids velocity vector is kept between -40 and 40:  $|\vec{V}_{new}| \epsilon [-40,40]$.
+The Boids do not need to calculate which way it needs to turn to move in the direction, because it is able to move in all 360\textdegree\ directions.
 The Boids simply moves by adding the velocity vector to their position:
 \begin{equation}
 \label{eq:posadd}
@@ -232,7 +232,7 @@ $P_{new}$ = new position of the Boid\\
 
 Before the next time step, the acceleration has to be reset to a null vector for it to work as shown in equation \ref{eq:accelreset}.
 
-The Boids in the simulator does not have any form of rotation, the angle seen on screen are calculated by taking the arctangent of the velocity vector. That is why the Boids in the simulator do not need to rotate; they rotate instantly by changing their velocity.
+The Boids in the simulator does not have any form of rotation, the angle seen on screen are calculated by taking the arctangent of the velocity vector. That is why the Boids in the simulator do not need to rotate; they change their direction instantly by changing their velocity.
 
 In the simulator, there is no need for any type of sensors. Each Boid have access to the location of all the obstacles and all the other entities.
 
