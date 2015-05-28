@@ -90,9 +90,9 @@ public class ChirpBoid {
 		g.drawOval(pos.x - (size / 2), pos.y - (size / 2), size, size);
 		g.setColor(Color.white);
 		g.setLineWidth(1);
-		g.drawOval(pos.x - (sepDist), pos.y - (sepDist ), sepDist*2, sepDist*2);
-		g.drawOval(pos.x - (aliDist), pos.y - (aliDist ), aliDist*2, aliDist*2);
-		g.drawOval(pos.x - (cohDist), pos.y - (cohDist ), cohDist*2, cohDist*2);
+//		g.drawOval(pos.x - (sepDist), pos.y - (sepDist ), sepDist*2, sepDist*2);
+//		g.drawOval(pos.x - (aliDist), pos.y - (aliDist ), aliDist*2, aliDist*2);
+//		g.drawOval(pos.x - (cohDist), pos.y - (cohDist ), cohDist*2, cohDist*2);
 		g.resetTransform();
 	}
 	

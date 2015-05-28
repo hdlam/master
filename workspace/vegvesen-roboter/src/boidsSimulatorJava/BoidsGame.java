@@ -30,8 +30,8 @@ public class BoidsGame extends BasicGame {
 	private static int numOfBots = 4;
 	
 	private ArrayList<Shape> obstacles;
-	int scenario = -1;
-	int run = 5;
+	int scenario = 1;
+	int run = 6;
 	boolean write = false;
 	Input input;
 
@@ -196,6 +196,9 @@ public class BoidsGame extends BasicGame {
 		}
 		if (input.isKeyPressed(Input.KEY_P)) {
 			createBoids();
+		}
+		if (input.isKeyPressed(Input.KEY_T)) {
+			System.out.println(iteration);
 		}
 //		if (input.isKeyPressed(Input.KEY_1))
 //			numOfBots = 1;

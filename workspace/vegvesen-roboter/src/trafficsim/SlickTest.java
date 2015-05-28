@@ -68,7 +68,7 @@ public class SlickTest extends BasicGame{
 	public static void main(String[] args){
 		// TODO code application logic here
 		SlickTest t = new SlickTest("test");
-		
+		System.out.println(Math.atan2(0,0));
 		try {
 			AppGameContainer appgc;
 			appgc = new AppGameContainer(t);
