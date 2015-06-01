@@ -31,14 +31,14 @@ The average distance seen in section \ref{sec:results} are calculated the same w
 The formula to find 
 
 \begin{equation}
-\mu_{distances} = \frac{1}{ {N \choose R}} \Sigma_1^{N \choose R} | P_x - P_y |
+\mu_{distances} = \frac{1}{ {N \choose R}} \Sigma_1^{N \choose R} | P_i - P_j |
 \end{equation}
 
 where:
 \\
-$P_x$ = the position of robot x, and $x \neq y$
+$P_i$ = the position of robot i, and $i \neq j$
 \\
-$P_y$ = the position of robot y, and $x \neq y$
+$P_j$ = the position of robot j, and $i \neq j$
 \\
 $N$ = the number of robots or Boids used
 \\
@@ -51,13 +51,13 @@ $\mu_{distances}$ = the mean of the compared distances in that time step
 
 The same procedure was applied for the angle of each entity: 
 \begin{equation}
-\mu_{angles} = \frac{1}{ {N \choose R}} \Sigma_1^{N \choose R} | A_x - A_y |
+\mu_{angles} = \frac{1}{ {N \choose R}} \Sigma_1^{N \choose R} | A_i - A_j |
 \end{equation}
 where:
 \\
-$A_x$ = the angle of robot x, and $x \neq y$
+$A_i$ = the angle of robot x, and $i \neq j$
 \\
-$A_y$ = the angle of robot y, and $x \neq y$
+$A_j$ = the angle of robot y, and $i \neq j$
 \\
 $\mu_{angles}$ = the mean of the compared angles in that time step.
 \\
@@ -323,7 +323,6 @@ The simulated Boids are able to face in the same direction as the other Boids, s
 If the allowed space to travel were bigger, and there were no obstacles. The Boids would be able to move without turning, and the angle between them would stay consistently low. However the allowed space for the robots to travel is limited and there is an obstacle there as well.
 Whenever the robots detects an obstacle or move towards the walls, the distance sensors will make the robot turn around so the robot will not crash. Sometimes the robots will think that the other robots around itself are obstacles as well, because it has no way to tell the difference between the robots from an actual obstacle. This is because the distance sensors can not distinguish anything, it only measures a distance and the robots will try to avoid anything that is too near it, thinking that the object it detects is an obstacle.
 
-
 The velocity for the robot varies a lot, we can see from the graph that the velocity varies from 0 to 6.3. The watcher software logs the velocity data by finding the change in position between two time steps, that is it finds $\Delta P$ as shown in equation \ref{eq:calcrobvel} of each robot every iteration. When a robot is turning to change direction or to avoid an obstacle, it is not moving because it is just spinning in place. 
 The Boids in the simulator never stops, that is the velocity never drops down to 0, they keep moving in different direction all the time. Being able to move freely in all 360\textdegree\ almost instantly. They do not need to stop to change direction.
 The physical ChIRP robot needs to turn around before moving in a new direction. As long as the new direction is off by an angle larger than 1\textdegree\ from the angle the robot is currently facing, then it will stop and turn. All turning takes approximately one second, before the robot is moving again. If the robot will turn a lot, it will only have one second to do so, before it has to move. If it only needs to turn 2\textdegree, it will turn first and wait until it has been one second before moving on.
@@ -334,8 +333,8 @@ Whenever the robot turns, the watcher will not see any change in position, which
 The graphs only shows the average distance between the robots, the velocity of the robots and the difference between their angle. The graphs do not show where the robots are moving or whether they have crashed into anything.
 Sometimes the robots do bump into the obstacles, or the other robots. The reason is that the robots measures the distances before moving, and not continuously while moving. So if a robot measures the distance in front of it and there is no obstacle in front of it, it will start to move forward. When the robot moves forward it might hit an obstacle or robot if the object is too close to it when it measures the distance. Sometimes robots moves onto the path of another robot while the other robot is moving, the other robot will probably bump into the one blocking its path. The robots do not crash into each other, that is they do not push each other around when they are trying to occupy the same space as the other robots. When the robots bump into each other, they nudge each other and might scrape against the surface of each other. However none of the paper taped on the robot has been torn apart when the robots were scraping against each other while running the experiment.
 
-The distance measured by the robot's sensors might be imprecise, due to disturbances around that makes the distance imprecise. The disturbances can come from the infrared light the other robots sends out when they are measuring distances themselves, which might bounce around in the sandbox and disturb the other robots. 
+The robots only moves forward, and they only turn when they need to change direction or if there is an object in front of it that it needs to avoid. Sometimes the robots suddenly stops and rotates on the spot as if there is some sort of object in front of it, even if there is none.
 
-For the camera to see the two colored post it notes on the robots, the room needs to be well lit. Extra lights were placed around the sandbox to lit it up. The room where the experiment took place had two large windows, by daytime the sun would shine into the room. The sunlight contains infrared light, if the sun shines into the room and hits the area where the robots roam, the robot will sense the infrared lights from the sunshine and think that there is an object in front of it. The blinds in the room were closed, but some sun would always shine into the room.
+The distance measured by the robot's sensors might be imprecise, due to disturbances around in the room that makes the measured distances imprecise. The disturbances can come from the infrared light the other robots sends out when they are measuring distances themselves, which might bounce around in the sandbox and disturb the other robots. 
 
-The robots only move forward, and they only turn when they need to change direction or if there is an object in front of it that it needs to avoid. Sometimes the robots suddenly stops and rotates on the spot as if there is some sort of object in front of it, even if there is none.
+For the camera to see the two colored post it notes on the robots, the room needs to be well lit. Extra lights were placed around the sandbox to lit it up. The room where the experiment took place had two large windows, by daytime the sun would shine into the room. The sunlight contains infrared light, if the sun shines into the room and hits the area where the robots roam, the robot will sense the infrared lights from the sunshine and think that there is an object in front of it. The blinds in the room were closed, but some of the sun would always shine into the room.

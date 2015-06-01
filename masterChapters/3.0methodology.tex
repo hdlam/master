@@ -1,7 +1,7 @@
 \chapter{Architecture/Model}
 \label{cha:architectureAndModel}
 This chapter contains the architecture and model of the system, which tools and methods that has been used, how they all connect together to run the experiments and produce the result.
-An overview of the system is presented in chapter \ref{sec:overview}. A description of the robot is presented in section \ref{sec:robot}. Section \ref{sec:scenario} contains a description of the different scenarios used in the experiment.
+An overview of the system is presented in chapter \ref{sec:overview}. A description of the robot is presented in section \ref{sec:robot}. Section \ref{sec:scenario} contains a description of the different scenarios used in the experiment. Throughout this chapter the word "Boids" will solely refer to the Boids in simulation, while entity or entities refer to both the physical robots and the Boids.
 
 \begin{figure}[h]
 \begin{center}
@@ -191,7 +191,6 @@ $R_{current}$ = the angle the robot is currently facing, measured in radians
 \\
 $D_{turn}$ = the angle the robot needs to turn to face the correct direction, measured in degrees, $D_{turn} \epsilon [-\pi,\pi]$
 \\
-
 
 The robot needs to know how much it is going to move in the x-direction and how much it will move in the y-direction as shown in equation \ref{eq:veladdacc}.
 Then by calculating the arctangent of $V_x$ and $V_y$, it finds out which angle it needs to face to be able to move in the direction of $\vec{V}_{new}$. When the robot has calculated which direction it wants to go, it calculates $D_{turn}$ by using the formula in equation \ref{eq:angletoturn}. $D_{turn}$ is the amount of degrees the robot needs to turn to face the right direction. The velocity $\vec{V}_{new}$ is only used to determine which direction the robot should be facing, it is not used for determine the velocity of the robot. The velocity of a robot is calculated by calculating how much the robot has been moving since the last time step, or using mathematic notation: 

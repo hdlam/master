@@ -46,7 +46,7 @@ In \citep{Reynolds1999}, Craig W. Reynolds created something he called \textbf{B
         \caption{Separation}
         \label{fig:boid_sep}
     \end{subfigure}
-    \caption[Boids behavior]{The three behaviors of the Boids}
+    \caption[Boids behavior]{The three behaviors of the Boids \\  based on figures from \cite{1_red3d.com_2015}}
     \label{fig:boidbehavior}
 \end{figure}
 
@@ -84,13 +84,13 @@ After the Boids were placed in their corresponding cell, the work could be distr
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.3\linewidth]{images/moore}
-    \caption[Moore radius illustrated, 2D]{A Moore radius of 2 illustrated by the gray squares}\label{fig:moore}
+    \caption[Moore radius illustrated, 2D]{A Moore radius of 2 illustrated by the gray squares \\ based on the figure from the paper \citep{Joselli2009}}\label{fig:moore}
 \end{figure}
 In 3D space, extra layers would be added. A Moore radius of 1 would cover all the adjacent grids, which would make the 8 grids that we have in 2D space plus 9 grids above and 9 grids below. That would equal 26 grids, compared to the 8 squares in 2D space. A Moore radius of 2 would cover 74 grids in 3D space (24 + 25 above and 25 below). See figure \ref{fig:3dgrid} for an illustration of the space covered by a Moore radius of 1 in 3D space, this illustration is only an intersection and does not show all the covered grids.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\linewidth]{images/3dgrid}
-    \caption[Moore radius illustrated in 3D space]{An intersection of a Moore radius of 1 in 3D space}\label{fig:3dgrid}
+    \caption[Moore radius illustrated in 3D space]{An intersection of a Moore radius of 1 in 3D space \\ based on the figure from the paper \citep{Joselli2009}}\label{fig:3dgrid}
 \end{figure}
 
 The number of Boids was varied from 1,000 to 1,000,000 and the number of Boid types was varied from 1 to 4. Boids of the same type would try to flock with each other while different types of Boids would try to avoid each other.
@@ -134,7 +134,7 @@ That way, if the particle is move forward, it will still keep moving forward the
 \item [Leader following] behavior makes one character follow another character. The follower wants to stay near the leader, but also stay out of the way. If there is more than one leader, they also want to avoid bumping into each other. The implementation of leader following behavior relies on the arrival behavior where the goal is a point behind the leader. The follower will slow down when drawing near the point behind the leader and eventually stop before it bumps into the leader. If the entity is in front of the leader, it will fly away and around the leader so it is not in the way.
 \end{description}
 
-\subsection{Not bumping into things}
+\subsection{Collision Avoidance}
 In the paper \citep{CraigW.Reynolds}, W. Reynolds discusses how to perform obstacle avoidance. That is, obstacles that are placed in the environment which is not a Boid. These obstacles are usually static, non moving obstacles. He starts out with the idea of a force field around the obstacle which he calls the \textit{steer away from surface} approach. The idea is to have every obstacle emit a forcefield around itself which pushed the Boids away. For instance if a Boid is flying toward an obstacle, the obstacle would push the Boid to one side of itself. However this force field method would not work if the Boid flew straight into an obstacle, because the forcefield force would be straight opposite of the direction the Boid is flying thus making the Boid decelerate until it stopped.
 
 The next obstacle avoidance technique Reynold discussed is the curb feeler technique or steer along the wall technique. The idea is to have a feeler that would detect an obstacle before the Boid would crash into it, then turn the Boid away from the obstacle. This can be compared to walking down a dark alleyway where you reach your hand out to feel the walls around you, and navigate through the alleyway just by feeling the wall(s).
@@ -192,7 +192,7 @@ A third type of fish introduced here are the pacifists fish. This one differs fr
 The paper describes that there are male and female fishes, and the two behavior which can occur when the fishes start to mate. A behavior named \textit{nuzzling} where the male fish seeks the female and nudges her abdomen until she's ready to spawn, and \textit{spawning ascent} where the female swims repeatedly to the surface while releases gametes. The paper also describes in detail how the fishes select potential partners and how they try to impress each other for mating purposes.
 
 \subsubsection{Ant swarms/colonies}
-Ant swarms behaves differently than other types of swarms \citep{Blum2005}, ants do not try to form formations for survival in the same way that birds and fishes do. Ant swarming is mostly about their foraging behavior. That is how they find food for their colony. Each ant's goal is the survival of the colony rather than the survival of each individual. When ants try to find food, they scatter the area by walking in random manner. While exploring the ants leave behind a chemical on the ground. A so called pheromone that the other ants will be able to feel/smell. This pheromone will slowly but surely dissipate. Whenever the explorer ant find a food source, it will evaluate the quality of the food before returning to the anthill. During the return trip, pheromones are reapplied to the path, but the amount is adjusted based on the evaluation of the food. Better food will yield higher pheromone. This method will ensure that the rest of the ants will take the shortest path from the anthill to the food. For the artificial ants, the ant system uses a graph $G = (V,E)$ to model the paths, $V$ are the nodes and $E$ are the edges between the nodes. In the paper \citep{Blum2005}, they use two nodes: $v_s$ which is the starting node or anthill. The node $v_d$ is the food source. There is two ways to reach the food source from the anthill, $e_1$ and $e_2$, which have lengths $l_1$ and $l_2$ where $l_2 > l_1$. A value $\tau_i$ denoted the artificial pheromone, and it indicates the strength of the pheromone. 
+Ant swarms behaves differently than other types of swarms \citep{Blum2005}, ants do not try to form formations for survival in the same way that birds and fishes do. Ant swarming is mostly about their foraging behavior. That is how they find food for their colony. Each ant's goal is the survival of the colony rather than the survival of each individual. When ants try to find food, they scatter the area by walking in random manner. While exploring the ants leave behind a chemical on the ground. A so called pheromone that the other ants will be able to feel/smell. This pheromone will slowly but surely dissipate. Whenever the explorer ant find a food source, it will evaluate the quality of the food before returning to the anthill. During the return trip, pheromones are reapplied to the path, but the amount is adjusted based on the evaluation of the food. Better food will yield more pheromone on the path. This method will ensure that the rest of the ants will take the shortest path from the anthill to the food. For the artificial ants, the ant system uses a graph $G = (V,E)$ to model the paths, $V$ are the nodes and $E$ are the edges between the nodes. In the paper \citep{Blum2005}, they use two nodes: $v_s$ which is the starting node or anthill. The node $v_d$ is the food source. There is two ways to reach the food source from the anthill, $e_1$ and $e_2$, which have lengths $l_1$ and $l_2$ where $l_2 > l_1$. A value $\tau_i$ denoted the artificial pheromone, and it indicates the strength of the pheromone. 
 
 An ant will choose a path with the probability $p_i = \frac{\tau_i}{\sum_{ n = 1}^{k}\tau_n}$ where $k$ denotes the number of paths. In the paper, they only have two paths, so the probability of choosing a path is $p_i = \frac{\tau_i}{\tau_1 + \tau_2}, i = 1,2$.
 The ant will probably choose $e_1$ if $\tau_1 > \tau_2$ and vice versa.
