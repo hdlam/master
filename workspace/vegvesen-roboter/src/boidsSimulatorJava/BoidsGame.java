@@ -30,7 +30,7 @@ public class BoidsGame extends BasicGame {
 	private static int numOfBots = 4;
 	
 	private ArrayList<Shape> obstacles;
-	int scenario = 1;
+	int scenario = 3;
 	int run = 6;
 	boolean write = false;
 	Input input;

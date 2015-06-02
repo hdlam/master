@@ -153,7 +153,7 @@ They also tried out making square patterns, but had to introduce a concept of sp
 A particle would only change its spin if it had a very close neighbor ($r<1$), and the probability of changing spin was quite small.
 
 \subsection{V like bird formation}
-In the paper \citep{Nathan2008}, bird flocking is discussed, they wanted to simulate the V shape that can be observed when birds fly together. They ran a simulation that where each bird individual had 3 simple rules: 
+In the paper \citep{Nathan2008}, bird flocking is discussed, they wanted to simulate the V shape that can be observed when birds fly together. They ran a simulation that where each bird individual had three simple rules: 
 \begin{itemize}
     \item \textbf{Coalescing rule}: \\
         The birds should try to seek the proximity of the nearest bird.
@@ -273,8 +273,8 @@ To glue together the reactive layer and the deliberative layer, a layer is put i
 The hybrid architecture explained here is the most common architecture for the hybrid control architecture, which is called the three-layer architecture due to the three layers deliberative, executive and the reactive layer as seen in figure \ref{fig:threelayer}.
 
 
-\section{Structured Literature Review Protocol}
-TODO
+%\section{Structured Literature Review Protocol}
+%TODO
 %Key words used:
 %Swarm
 %robotics
@@ -289,7 +289,10 @@ TODO
 
 \section{Motivation}
 \label{sec:motivation}
-TODO
+Most systems makes the entities flock together by using some sort of attracting force, and when they are too close to each other, a repellent force acts upon the entities to keep them at a fixed distance from each other.
+In this thesis the Boids algorithm will be used to make the robots move together in a flock. 
+%TODO find out: Other who have attempted to implement the Boids algorithm on robots are 
+There are various applications for flocking robots, some of them are mentioned in \citep{Csaba}. Flocking robots can be used for surveillance if they are equipped with cameras, search and rescue operations. A swarm of flocking robots could fly over a farm to check the health of the soil or the vegetables that are grown there. 
 %Help CRAB lab further develop the ChIRP robot.
 
 

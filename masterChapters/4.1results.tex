@@ -172,6 +172,10 @@ The upcoming figures will show graphs of various types, two similar ones will be
 \caption[1. Distances, simulation]{Results from 5 runs averaged on scenario 1, simulator}
 \label{fig:res1sdist}
 \end{figure}
+The first scenario was designed to check if the robots were able to flock together, the robots were placed on each of its corner, as far from each other as possible.
+From the figure \ref{fig:res1pdist} we can see that the robots are flocking together quite fast, they start out on each corner of the sandbox then move towards the center of the sandbox, this is shown in the graph by the first drop from 700 px to around 200 px. This corresponds to roughly 132 cm to 37 cm. The time it takes for the graph to drop from 700 px to 200 px is around 300 iterations, which equals 25 seconds.
+The simulated Boids behave differently in the same scenario, as seen from figure \ref{fig:res1sdist}, between time step 40 and 305, the graph shows a local maxima. Because all of the Boids are moving towards the middle due to the velocity they have at the start, the distance between them will decrease. But one of the Boids is moving directly toward the obstacle and facing it directly, when it comes too close, it will be "pushed" directly in the opposite direction. The Boid that is being "pushed" in the opposite direction by the obstacle is too far away from the other Boids for the cohesion behavior to be active, and therefore moves away from the rest of the flock. This is the reason there is a peak in the graph.
+
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=0.8\linewidth]{figs/runs/1pangle}
@@ -186,6 +190,9 @@ The upcoming figures will show graphs of various types, two similar ones will be
 \caption[1. Angle, Simulation]{Results from 5 runs averaged on scenario 1, simulator}
 \label{fig:res1sang}
 \end{figure}
+
+
+
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=0.8\linewidth]{figs/runs/1pvel}
@@ -200,6 +207,12 @@ The upcoming figures will show graphs of various types, two similar ones will be
 \caption[1. Velocity, simulation]{Results from 5 runs averaged on scenario 1, simulator}
 \label{fig:res1svel}
 \end{figure}
+
+
+
+
+
+
 \clearpage
 \subsection{Results from scenario 2}
 \label{sec:res2}
@@ -217,6 +230,9 @@ The upcoming figures will show graphs of various types, two similar ones will be
 \caption[2. Distances, simulation]{Results from 5 runs averaged on scenario 2, simulator}
 \label{fig:res2sdist}
 \end{figure}
+In the second scenario, three of the robots are already in a flock while the fourth one is astray from the flock on the other side of the sandbox. The three robots that have already flocked together will try to stay together, they do not want to move all the way to the other side to flock with one single robot. If all of the robots were moving, the single robot would move towards the three robots and they all would together faster.
+When running scenario 2 on the simulator, the Boids move towards the obstacle and around it. When they are near enough to the non-moving Boids, the cohesion behavior will activate and the Boids will try to flock, but due to all the other behaviors, the three moving Boid will be pushed away. After being pushed away, they will keep moving in the same direction and move all the way around the screen.
+
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=0.8\linewidth]{figs/runs/2pangle}
@@ -245,6 +261,14 @@ The upcoming figures will show graphs of various types, two similar ones will be
 \caption[2. Velocity, robots]{Results from 5 runs averaged on scenario 2, simulator}
 \label{fig:res2svel}
 \end{figure}
+
+
+
+
+
+
+
+
 \clearpage
 \subsection{Results from scenario 3}
 \label{sec:res3}
@@ -262,6 +286,12 @@ The upcoming figures will show graphs of various types, two similar ones will be
 \caption[3. Distances, simulation]{Results from 5 runs averaged on scenario 3, simulator}
 \label{fig:res3sdist}
 \end{figure}
+
+The results for the distances between the robots in the third scenario is similar to the one in the first. They move closer to each other, and then stay as a flock for the rest of the time. In the simulator, the Boids starts by moving further away from each other, before converging together.
+The Boids that starts on the lower right are behind an obstacle, which pushes it away from the other ones. The lower left Boid has a start velocity away from the robots, and due to the short cohesion distance radius, it will move away from the other Boids. The other Boids are not in range for the cohesion behavior to activate.
+However it does not take too long before the Boids are able to flock together, as seen from figure \ref{fig:res3sdist} the robots are starting to move towards each other after 40 time steps, and are fully flocked together at time step 150. 
+The robots does not have the same behavior as the Boids in this scenario, and they have a much wider cohesion distance. Obstacles do not push the robots in the opposite direction either, when a robot tries to figure out which direction it is going to move in, it will ignore the wall and obstacles. If there is an obstacle in front of a robot, it will turn away from the obstacle. But the next time it calculates where it wants to go, it might calculate the direction it want to go is through the obstacle, thus the robot will turn toward the obstacle then realize that there is in fact an obstacle in front of it and it has to turn away. The robot might get stuck because of this turning behavior, but it will eventually force itself to move around the obstacle. In the mean time, the other robots will move towards the robot that has been stuck behind the obstacle.
+
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=0.8\linewidth]{figs/runs/3pangle}
@@ -296,9 +326,6 @@ The upcoming figures will show graphs of various types, two similar ones will be
 \label{sec:discussion}
 This section will mainly focus on explaining the data from the results, why there is a difference between the physical experiment and the experiments done in a simulator.
 
-The first scenario was designed to check if the robots were able to flock together, the robots were placed on each of its corner, as far from each other as possible.
-From the figure \ref{fig:res1pdist} we can see that the robots are flocking together quite fast, they start out on each corner of the sandbox then move into the center of the sandbox, this is shown in the graph by the first drop from 700 px to around 200 px. This corresponds to roughly 132 cm to 37 cm. The time it takes for the graph to drop from 700 px to 200 px is around 300 iterations, which equals 25 seconds.
-The simulated Boids behave differently, from figure \ref{fig:res1sdist}, between time step 40 and 305, the graph shows a local maxima. Because all of the Boids are moving towards the middle due to the velocity they have at the start, the distance between them will decrease. But one of the Boids is moving directly toward the obstacle and facing it directly, when it comes too close, it will be "pushed" directly in the opposite direction. The Boid that is being "pushed" in the opposite direction by the obstacle is too far away from the other Boids for the cohesion behavior to activate, and there moves away from the rest of the flock. This is the reason there is a peak in the graph.
 %See figure \ref{fig:scene1peakillustrated}. %TODO
 %\begin{figure}[h]
 %\begin{center}
@@ -307,9 +334,6 @@ The simulated Boids behave differently, from figure \ref{fig:res1sdist}, between
 %\caption[3. Velocity, robots]{Results from 10 runs averaged on scenario 3, simulator}
 %\label{fig:scene1peakillustrated}
 %\end{figure}
-
-In the second scenario, three of the robots are already in a flock while the fourth one is astray from the flock on the other side of the sandbox. The three robots that have already flocked together will try to stay together, they do not want to move all the way to the other side to flock with one single robot. If all of the robots were moving, the single robot would move towards the three robots and they all would together faster.
-When running scenario 2 on the simulator, the Boids move towards the obstacle and around it. When they are near enough to the non-moving Boids, the cohesion behavior will activate and the Boids will try to flock, but due to all the other behaviors, the three moving Boid will be pushed away. After being pushed away, they will keep moving in the same direction and move all the way around the screen.
 
 The distances converges to 200 px in about 300-400 time steps for the robots in the first scenario and the third scenario. It takes a bit longer for the distance to drop to 200 px in the second scenario, around 1310 time steps, which is approximately 110 seconds. In the first and third scenario, the robots' distance converges to 200 px, and the simulator converges to 150 px. These numbers comes from the behaviors explained in section \ref{sec:experimentalSetup}. The separation distance is 120 px, so the Boids will try to stay around 120 px away from the other Boids. The same goes for the robot, but due to the distance sensors used for avoiding obstacles, they tend to stay further away from the other robots. 
 
@@ -320,7 +344,7 @@ The angles measured seems to vary a lot, even if the alignment behavior tries to
 
 The simulated Boids are able to face in the same direction as the other Boids, starting with an angle difference of 2 radians and slowly dropping down to 0.5 radians. This holds true on the graphs shown for the first and third scenario. The angles in second scenario are varying a lot, ranging from 0.4 radians to 1.6. This happens because one of the Boid is not moving, its angle is always 0. While the other three is moving around and their will range from $-\pi$ to $\pi$ depending on the direction they are moving.
 
-If the allowed space to travel were bigger, and there were no obstacles. The Boids would be able to move without turning, and the angle between them would stay consistently low. However the allowed space for the robots to travel is limited and there is an obstacle there as well.
+If the allowed space to travel were bigger, and there were no obstacles. The Boids would be able to move without needing to turn, and the angle between them would stay consistently low. However the allowed space for the robots to travel is limited and there is an obstacle there as well.
 Whenever the robots detects an obstacle or move towards the walls, the distance sensors will make the robot turn around so the robot will not crash. Sometimes the robots will think that the other robots around itself are obstacles as well, because it has no way to tell the difference between the robots from an actual obstacle. This is because the distance sensors can not distinguish anything, it only measures a distance and the robots will try to avoid anything that is too near it, thinking that the object it detects is an obstacle.
 
 The velocity for the robot varies a lot, we can see from the graph that the velocity varies from 0 to 6.3. The watcher software logs the velocity data by finding the change in position between two time steps, that is it finds $\Delta P$ as shown in equation \ref{eq:calcrobvel} of each robot every iteration. When a robot is turning to change direction or to avoid an obstacle, it is not moving because it is just spinning in place. 
