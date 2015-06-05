@@ -116,8 +116,8 @@ public class ChirpBoid {
 		
 		
 		coh.scale(2.0f);
+		ali.scale(2.0f);
 	    sep.scale(3.0f);
-	    ali.scale(2.0f);
 	    afw.scale(2.0f);
 	    avo.scale(3.0f);
 	    //System.out.println(sep);

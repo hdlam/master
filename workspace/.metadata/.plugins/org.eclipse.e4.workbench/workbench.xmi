@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="ASCII"?>
 <application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:advanced="http://www.eclipse.org/ui/2010/UIModel/application/ui/advanced" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_vGgMgAV7EeWNx6l7vDDGGA" elementId="org.eclipse.e4.legacy.ide.application" contributorURI="platform:/plugin/org.eclipse.platform" selectedElement="_vGgMgQV7EeWNx6l7vDDGGA" bindingContexts="_vGhbbwV7EeWNx6l7vDDGGA">
-  <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;workbench>&#xA;&lt;mruList>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;BoidsGame.java&quot; tooltip=&quot;vegvesen-roboter/src/boidsSimulatorJava/BoidsGame.java&quot;>&#xA;&lt;persistable path=&quot;/vegvesen-roboter/src/boidsSimulatorJava/BoidsGame.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;SlickTest.java&quot; tooltip=&quot;vegvesen-roboter/src/trafficsim/SlickTest.java&quot;>&#xA;&lt;persistable path=&quot;/vegvesen-roboter/src/trafficsim/SlickTest.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;BufferedReaderExample.java&quot; tooltip=&quot;vegvesen-roboter/src/BufferedReaderExample.java&quot;>&#xA;&lt;persistable path=&quot;/vegvesen-roboter/src/BufferedReaderExample.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;ChirpBoid.java&quot; tooltip=&quot;vegvesen-roboter/src/boidsSimulatorJava/ChirpBoid.java&quot;>&#xA;&lt;persistable path=&quot;/vegvesen-roboter/src/boidsSimulatorJava/ChirpBoid.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;ChirpBoidWatcher.java&quot; tooltip=&quot;vegvesen-roboter/src/chirpBoidsSim/ChirpBoidWatcher.java&quot;>&#xA;&lt;persistable path=&quot;/vegvesen-roboter/src/chirpBoidsSim/ChirpBoidWatcher.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.jdt.ui.ClassFileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.ClassFileEditorNoSource&quot; name=&quot;Vector2f.class&quot; tooltip=&quot;org.newdawn.slick.geom.Vector2f&quot;>&#xA;&lt;persistable org.eclipse.jdt.ui.ClassFileIdentifier=&quot;=vegvesen-roboter/libs\/slick.jar&amp;lt;org.newdawn.slick.geom(Vector2f.class&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.jdt.ui.ClassFileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.ClassFileEditor&quot; name=&quot;AppGameContainer.class&quot; tooltip=&quot;org.newdawn.slick.AppGameContainer&quot;>&#xA;&lt;persistable org.eclipse.jdt.ui.ClassFileIdentifier=&quot;=vegvesen-roboter/libs\/slick.jar&amp;lt;org.newdawn.slick(AppGameContainer.class&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.jdt.ui.ClassFileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.ClassFileEditorNoSource&quot; name=&quot;BasicGame.class&quot; tooltip=&quot;org.newdawn.slick.BasicGame&quot;>&#xA;&lt;persistable org.eclipse.jdt.ui.ClassFileIdentifier=&quot;=vegvesen-roboter/libs\/slick.jar&amp;lt;org.newdawn.slick(BasicGame.class&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;ChirpBot.java&quot; tooltip=&quot;vegvesen-roboter/src/chirpBoidsSim/ChirpBot.java&quot;>&#xA;&lt;persistable path=&quot;/vegvesen-roboter/src/chirpBoidsSim/ChirpBot.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.jdt.ui.ClassFileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.ClassFileEditor&quot; name=&quot;ArrayList.class&quot; tooltip=&quot;java.util.ArrayList&quot;>&#xA;&lt;persistable org.eclipse.jdt.ui.ClassFileIdentifier=&quot;=vegvesen-roboter/\/usr\/lib\/jvm\/java-7-oracle\/jre\/lib\/rt.jar&amp;lt;java.util(ArrayList.class&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;Test.java&quot; tooltip=&quot;vegvesen-roboter/src/Test.java&quot;>&#xA;&lt;persistable path=&quot;/vegvesen-roboter/src/Test.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;RxtxClass.java&quot; tooltip=&quot;rxtxUDP/src/no/ntnu/idi/chirp/rxtx/RxtxClass.java&quot;>&#xA;&lt;persistable path=&quot;/rxtxUDP/src/no/ntnu/idi/chirp/rxtx/RxtxClass.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;Serial.java&quot; tooltip=&quot;rxtxUDP/src/no/ntnu/idi/chirp/rxtx/Serial.java&quot;>&#xA;&lt;persistable path=&quot;/rxtxUDP/src/no/ntnu/idi/chirp/rxtx/Serial.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;TrafficSim2.java&quot; tooltip=&quot;vegvesen-roboter/src/trafficsim/TrafficSim2.java&quot;>&#xA;&lt;persistable path=&quot;/vegvesen-roboter/src/trafficsim/TrafficSim2.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;Test.java&quot; tooltip=&quot;vegvesen-roboter/src/chirpBoidsSim/Test.java&quot;>&#xA;&lt;persistable path=&quot;/vegvesen-roboter/src/chirpBoidsSim/Test.java&quot;/>&#xA;&lt;/file>&#xA;&lt;/mruList>&#xA;&lt;/workbench>"/>
+  <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;workbench>&#xA;&lt;mruList>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;ChirpBoid.java&quot; tooltip=&quot;vegvesen-roboter/src/boidsSimulatorJava/ChirpBoid.java&quot;>&#xA;&lt;persistable path=&quot;/vegvesen-roboter/src/boidsSimulatorJava/ChirpBoid.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;BoidsGame.java&quot; tooltip=&quot;vegvesen-roboter/src/boidsSimulatorJava/BoidsGame.java&quot;>&#xA;&lt;persistable path=&quot;/vegvesen-roboter/src/boidsSimulatorJava/BoidsGame.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;SlickTest.java&quot; tooltip=&quot;vegvesen-roboter/src/trafficsim/SlickTest.java&quot;>&#xA;&lt;persistable path=&quot;/vegvesen-roboter/src/trafficsim/SlickTest.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;BufferedReaderExample.java&quot; tooltip=&quot;vegvesen-roboter/src/BufferedReaderExample.java&quot;>&#xA;&lt;persistable path=&quot;/vegvesen-roboter/src/BufferedReaderExample.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;ChirpBoidWatcher.java&quot; tooltip=&quot;vegvesen-roboter/src/chirpBoidsSim/ChirpBoidWatcher.java&quot;>&#xA;&lt;persistable path=&quot;/vegvesen-roboter/src/chirpBoidsSim/ChirpBoidWatcher.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.jdt.ui.ClassFileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.ClassFileEditorNoSource&quot; name=&quot;Vector2f.class&quot; tooltip=&quot;org.newdawn.slick.geom.Vector2f&quot;>&#xA;&lt;persistable org.eclipse.jdt.ui.ClassFileIdentifier=&quot;=vegvesen-roboter/libs\/slick.jar&amp;lt;org.newdawn.slick.geom(Vector2f.class&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.jdt.ui.ClassFileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.ClassFileEditor&quot; name=&quot;AppGameContainer.class&quot; tooltip=&quot;org.newdawn.slick.AppGameContainer&quot;>&#xA;&lt;persistable org.eclipse.jdt.ui.ClassFileIdentifier=&quot;=vegvesen-roboter/libs\/slick.jar&amp;lt;org.newdawn.slick(AppGameContainer.class&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.jdt.ui.ClassFileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.ClassFileEditorNoSource&quot; name=&quot;BasicGame.class&quot; tooltip=&quot;org.newdawn.slick.BasicGame&quot;>&#xA;&lt;persistable org.eclipse.jdt.ui.ClassFileIdentifier=&quot;=vegvesen-roboter/libs\/slick.jar&amp;lt;org.newdawn.slick(BasicGame.class&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;ChirpBot.java&quot; tooltip=&quot;vegvesen-roboter/src/chirpBoidsSim/ChirpBot.java&quot;>&#xA;&lt;persistable path=&quot;/vegvesen-roboter/src/chirpBoidsSim/ChirpBot.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.jdt.ui.ClassFileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.ClassFileEditor&quot; name=&quot;ArrayList.class&quot; tooltip=&quot;java.util.ArrayList&quot;>&#xA;&lt;persistable org.eclipse.jdt.ui.ClassFileIdentifier=&quot;=vegvesen-roboter/\/usr\/lib\/jvm\/java-7-oracle\/jre\/lib\/rt.jar&amp;lt;java.util(ArrayList.class&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;Test.java&quot; tooltip=&quot;vegvesen-roboter/src/Test.java&quot;>&#xA;&lt;persistable path=&quot;/vegvesen-roboter/src/Test.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;RxtxClass.java&quot; tooltip=&quot;rxtxUDP/src/no/ntnu/idi/chirp/rxtx/RxtxClass.java&quot;>&#xA;&lt;persistable path=&quot;/rxtxUDP/src/no/ntnu/idi/chirp/rxtx/RxtxClass.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;Serial.java&quot; tooltip=&quot;rxtxUDP/src/no/ntnu/idi/chirp/rxtx/Serial.java&quot;>&#xA;&lt;persistable path=&quot;/rxtxUDP/src/no/ntnu/idi/chirp/rxtx/Serial.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;TrafficSim2.java&quot; tooltip=&quot;vegvesen-roboter/src/trafficsim/TrafficSim2.java&quot;>&#xA;&lt;persistable path=&quot;/vegvesen-roboter/src/trafficsim/TrafficSim2.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;Test.java&quot; tooltip=&quot;vegvesen-roboter/src/chirpBoidsSim/Test.java&quot;>&#xA;&lt;persistable path=&quot;/vegvesen-roboter/src/chirpBoidsSim/Test.java&quot;/>&#xA;&lt;/file>&#xA;&lt;/mruList>&#xA;&lt;/workbench>"/>
   <tags>activeSchemeId:org.eclipse.ui.defaultAcceleratorConfiguration</tags>
   <tags>ModelMigrationProcessor.001</tags>
-  <children xsi:type="basic:TrimmedWindow" xmi:id="_vGgMgQV7EeWNx6l7vDDGGA" elementId="IDEWindow" contributorURI="platform:/plugin/org.eclipse.platform" selectedElement="_vGgMggV7EeWNx6l7vDDGGA" label="%trimmedwindow.label.eclipseSDK" x="0" y="1117" width="1920" height="1043">
+  <children xsi:type="basic:TrimmedWindow" xmi:id="_vGgMgQV7EeWNx6l7vDDGGA" elementId="IDEWindow" contributorURI="platform:/plugin/org.eclipse.platform" selectedElement="_vGgMggV7EeWNx6l7vDDGGA" label="%trimmedwindow.label.eclipseSDK" x="960" y="1117" width="960" height="1043">
     <persistedState key="coolBarVisible" value="true"/>
     <persistedState key="perspectiveBarVisible" value="true"/>
     <persistedState key="workingSets" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;workingSets/>"/>
@@ -84,7 +84,7 @@
                 <children xsi:type="advanced:Placeholder" xmi:id="_vGgMjgV7EeWNx6l7vDDGGA" elementId="org.eclipse.egit.ui.RepositoriesView" toBeRendered="false" ref="_vGg0rAV7EeWNx6l7vDDGGA"/>
               </children>
             </children>
-            <children xsi:type="basic:PartSashContainer" xmi:id="_vGgMjwV7EeWNx6l7vDDGGA" containerData="7769" selectedElement="_vGgMlgV7EeWNx6l7vDDGGA">
+            <children xsi:type="basic:PartSashContainer" xmi:id="_vGgMjwV7EeWNx6l7vDDGGA" containerData="7769" selectedElement="_vGgMkAV7EeWNx6l7vDDGGA">
               <children xsi:type="basic:PartSashContainer" xmi:id="_vGgMkAV7EeWNx6l7vDDGGA" containerData="5497" selectedElement="_vGgMkQV7EeWNx6l7vDDGGA" horizontal="true">
                 <children xsi:type="advanced:Placeholder" xmi:id="_vGgMkQV7EeWNx6l7vDDGGA" elementId="org.eclipse.ui.editorss" containerData="7500" ref="_vGgN7gV7EeWNx6l7vDDGGA"/>
                 <children xsi:type="basic:PartStack" xmi:id="_vGgMkgV7EeWNx6l7vDDGGA" elementId="right" visible="false" containerData="2500" selectedElement="_vGgMkwV7EeWNx6l7vDDGGA">
@@ -100,7 +100,6 @@
                 <tags>newtablook</tags>
                 <tags>org.eclipse.e4.secondaryDataStack</tags>
                 <tags>Minimized</tags>
-                <tags>active</tags>
                 <tags>noFocus</tags>
                 <children xsi:type="advanced:Placeholder" xmi:id="_vGgMlwV7EeWNx6l7vDDGGA" elementId="org.eclipse.ui.views.ProblemView" ref="_vGgz_QV7EeWNx6l7vDDGGA"/>
                 <children xsi:type="advanced:Placeholder" xmi:id="_vGgMmAV7EeWNx6l7vDDGGA" elementId="org.eclipse.jdt.ui.JavadocView" ref="_vGg0FgV7EeWNx6l7vDDGGA"/>
@@ -215,10 +214,11 @@
       <tags>categoryTag:Help</tags>
     </sharedElements>
     <sharedElements xsi:type="advanced:Area" xmi:id="_vGgN7gV7EeWNx6l7vDDGGA" elementId="org.eclipse.ui.editorss" selectedElement="_vGgN7wV7EeWNx6l7vDDGGA">
-      <children xsi:type="basic:PartStack" xmi:id="_vGgN7wV7EeWNx6l7vDDGGA" elementId="org.eclipse.e4.primaryDataStack" selectedElement="_vGgzpAV7EeWNx6l7vDDGGA">
+      <children xsi:type="basic:PartStack" xmi:id="_vGgN7wV7EeWNx6l7vDDGGA" elementId="org.eclipse.e4.primaryDataStack" selectedElement="_vGgzrgV7EeWNx6l7vDDGGA">
         <tags>newtablook</tags>
         <tags>org.eclipse.e4.primaryDataStack</tags>
         <tags>EditorStack</tags>
+        <tags>active</tags>
         <tags>noFocus</tags>
         <children xsi:type="basic:Part" xmi:id="_vGgN8AV7EeWNx6l7vDDGGA" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="ChirpBoidWatcher.java" iconURI="platform:/plugin/org.eclipse.jdt.ui/icons/full/obj16/jcu_obj.gif" closeable="true">
           <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;ChirpBoidWatcher.java&quot; partName=&quot;ChirpBoidWatcher.java&quot; title=&quot;ChirpBoidWatcher.java&quot; tooltip=&quot;vegvesen-roboter/src/chirpBoidsSim/ChirpBoidWatcher.java&quot;>&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/vegvesen-roboter/src/chirpBoidsSim/ChirpBoidWatcher.java&quot;/>&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;1234&quot; selectionTopPixel=&quot;0&quot;/>&#xA;&lt;/editor>"/>
@@ -356,65 +356,19 @@
           <tags>org.eclipse.jdt.ui.CompilationUnitEditor</tags>
           <tags>removeOnHide</tags>
         </children>
-        <children xsi:type="basic:Part" xmi:id="_vGgzpAV7EeWNx6l7vDDGGA" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="BoidsGame.java" iconURI="platform:/plugin/org.eclipse.jdt.ui/icons/full/obj16/jcu_obj.gif" closeable="true">
-          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;BoidsGame.java&quot; partName=&quot;BoidsGame.java&quot; title=&quot;BoidsGame.java&quot; tooltip=&quot;vegvesen-roboter/src/boidsSimulatorJava/BoidsGame.java&quot;>&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/vegvesen-roboter/src/boidsSimulatorJava/BoidsGame.java&quot;/>&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;821&quot; selectionTopPixel=&quot;273&quot;/>&#xA;&lt;/editor>"/>
+        <children xsi:type="basic:Part" xmi:id="_rKSiMAuoEeWOI4HOF3ingA" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="BoidsGame.java" iconURI="platform:/plugin/org.eclipse.jdt.ui/icons/full/obj16/jcu_obj.gif" closeable="true">
+          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;BoidsGame.java&quot; partName=&quot;BoidsGame.java&quot; title=&quot;BoidsGame.java&quot; tooltip=&quot;vegvesen-roboter/src/boidsSimulatorJava/BoidsGame.java&quot;>&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/vegvesen-roboter/src/boidsSimulatorJava/BoidsGame.java&quot;/>&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;0&quot; selectionTopPixel=&quot;0&quot;/>&#xA;&lt;/editor>"/>
           <tags>Editor</tags>
           <tags>org.eclipse.jdt.ui.CompilationUnitEditor</tags>
           <tags>removeOnHide</tags>
-          <menus xsi:type="menu:PopupMenu" xmi:id="_vGgzpQV7EeWNx6l7vDDGGA" elementId="#CompilationUnitEditorContext">
-            <tags>menuContribution:popup</tags>
-            <tags>popup:#CompilationUnitEditorContext</tags>
-            <tags>popup:org.eclipse.jdt.ui.CompilationUnitEditor.EditorContext</tags>
-            <tags>popup:#AbstractTextEditorContext</tags>
-          </menus>
-          <menus xsi:type="menu:PopupMenu" xmi:id="_vGgzpgV7EeWNx6l7vDDGGA" elementId="#CompilationUnitRulerContext">
-            <tags>menuContribution:popup</tags>
-            <tags>popup:#CompilationUnitRulerContext</tags>
-            <tags>popup:org.eclipse.jdt.ui.CompilationUnitEditor.RulerContext</tags>
-            <tags>popup:#AbstractTextEditorRulerContext</tags>
-          </menus>
-          <menus xsi:type="menu:PopupMenu" xmi:id="_vGgzpwV7EeWNx6l7vDDGGA" elementId="#OverviewRulerContext">
-            <tags>menuContribution:popup</tags>
-            <tags>popup:#OverviewRulerContext</tags>
-          </menus>
-          <menus xsi:type="menu:PopupMenu" xmi:id="_vGgzqAV7EeWNx6l7vDDGGA" elementId="#CompilationUnitEditorContext">
-            <tags>menuContribution:popup</tags>
-            <tags>popup:#CompilationUnitEditorContext</tags>
-            <tags>popup:org.eclipse.jdt.ui.CompilationUnitEditor.EditorContext</tags>
-            <tags>popup:#AbstractTextEditorContext</tags>
-          </menus>
-          <menus xsi:type="menu:PopupMenu" xmi:id="_vGgzqQV7EeWNx6l7vDDGGA" elementId="#CompilationUnitRulerContext">
-            <tags>menuContribution:popup</tags>
-            <tags>popup:#CompilationUnitRulerContext</tags>
-            <tags>popup:org.eclipse.jdt.ui.CompilationUnitEditor.RulerContext</tags>
-            <tags>popup:#AbstractTextEditorRulerContext</tags>
-          </menus>
-          <menus xsi:type="menu:PopupMenu" xmi:id="_vGgzqgV7EeWNx6l7vDDGGA" elementId="#OverviewRulerContext">
-            <tags>menuContribution:popup</tags>
-            <tags>popup:#OverviewRulerContext</tags>
-          </menus>
-          <menus xsi:type="menu:PopupMenu" xmi:id="_vGgzqwV7EeWNx6l7vDDGGA" elementId="#CompilationUnitEditorContext">
-            <tags>menuContribution:popup</tags>
-            <tags>popup:#CompilationUnitEditorContext</tags>
-            <tags>popup:org.eclipse.jdt.ui.CompilationUnitEditor.EditorContext</tags>
-            <tags>popup:#AbstractTextEditorContext</tags>
-          </menus>
-          <menus xsi:type="menu:PopupMenu" xmi:id="_vGgzrAV7EeWNx6l7vDDGGA" elementId="#CompilationUnitRulerContext">
-            <tags>menuContribution:popup</tags>
-            <tags>popup:#CompilationUnitRulerContext</tags>
-            <tags>popup:org.eclipse.jdt.ui.CompilationUnitEditor.RulerContext</tags>
-            <tags>popup:#AbstractTextEditorRulerContext</tags>
-          </menus>
-          <menus xsi:type="menu:PopupMenu" xmi:id="_vGgzrQV7EeWNx6l7vDDGGA" elementId="#OverviewRulerContext">
-            <tags>menuContribution:popup</tags>
-            <tags>popup:#OverviewRulerContext</tags>
-          </menus>
         </children>
         <children xsi:type="basic:Part" xmi:id="_vGgzrgV7EeWNx6l7vDDGGA" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="ChirpBoid.java" iconURI="platform:/plugin/org.eclipse.jdt.ui/icons/full/obj16/jcu_obj.gif" closeable="true">
-          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;ChirpBoid.java&quot; partName=&quot;ChirpBoid.java&quot; title=&quot;ChirpBoid.java&quot; tooltip=&quot;vegvesen-roboter/src/boidsSimulatorJava/ChirpBoid.java&quot;>&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/vegvesen-roboter/src/boidsSimulatorJava/ChirpBoid.java&quot;/>&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;1642&quot; selectionTopPixel=&quot;636&quot;/>&#xA;&lt;/editor>"/>
+          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;ChirpBoid.java&quot; partName=&quot;ChirpBoid.java&quot; title=&quot;ChirpBoid.java&quot; tooltip=&quot;vegvesen-roboter/src/boidsSimulatorJava/ChirpBoid.java&quot;>&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/vegvesen-roboter/src/boidsSimulatorJava/ChirpBoid.java&quot;/>&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;3297&quot; selectionTopPixel=&quot;1326&quot;/>&#xA;&lt;/editor>"/>
           <tags>Editor</tags>
           <tags>org.eclipse.jdt.ui.CompilationUnitEditor</tags>
           <tags>removeOnHide</tags>
+          <tags>active</tags>
+          <tags>activeOnClose</tags>
           <menus xsi:type="menu:PopupMenu" xmi:id="_vGgzrwV7EeWNx6l7vDDGGA" elementId="#CompilationUnitEditorContext">
             <tags>menuContribution:popup</tags>
             <tags>popup:#CompilationUnitEditorContext</tags>
@@ -804,8 +758,6 @@
       <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;view/>"/>
       <tags>View</tags>
       <tags>categoryTag:General</tags>
-      <tags>active</tags>
-      <tags>activeOnClose</tags>
       <menus xmi:id="_vGg0HwV7EeWNx6l7vDDGGA" elementId="org.eclipse.ui.console.ConsoleView">
         <tags>ViewMenu</tags>
         <tags>menuContribution:menu</tags>
@@ -1301,7 +1253,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_vGg0ywV7EeWNx6l7vDDGGA" elementId="org.eclipse.ui.workbench.file">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_5ANkoQlBEeWQnOHLgYH1_A" elementId="print" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" enabled="false" command="_vGipQAV7EeWNx6l7vDDGGA"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_Mi9MgAuoEeWOI4HOF3ingA" elementId="print" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" enabled="false" command="_vGipQAV7EeWNx6l7vDDGGA"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_vGg02QV7EeWNx6l7vDDGGA" elementId="additions" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -1334,7 +1286,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_vGg1JwV7EeWNx6l7vDDGGA" elementId="org.eclipse.ui.workbench.navigate">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_5AUSUwlBEeWQnOHLgYH1_A" elementId="org.eclipse.ui.window.pinEditor" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_vGiDzQV7EeWNx6l7vDDGGA"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_MjD6MAuoEeWOI4HOF3ingA" elementId="org.eclipse.ui.window.pinEditor" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_vGiDzQV7EeWNx6l7vDDGGA"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_vGg1MQV7EeWNx6l7vDDGGA" elementId="com.android.ide.eclipse.editors.CommonXmlEditor" visible="false">
         <tags>Draggable</tags>

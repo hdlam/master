@@ -82,27 +82,6 @@ To find the standard deviation of the velocity, the formula in equation \ref{eq:
 In this section, the setup for the experiment will be explained, and which parameters have been used to run the experiments. 
 
 In this experiment, four robots and one obstacle is used inside a sandbox. Each robots needs to have an extra layer on top of them so the red and green post it note does not fall off as seen in figure \ref{fig:robot0}. The robots moves inside a sandbox, which is watched by a web camera from above.
-In the simulator, the following parameters have been used:
-\begin{description}
-\item[cohesion distance] = 250 px
-\item[alignment distance] = 175 px
-\item[separation distance] = 120 px
-\item[away from wall distance] = same as alignment
-\item[obstacle distance] = same as separation
-\end{description}
-This distances tells the Boid how near it has to be before it should calculate the vector. For example if the Boid is in the middle of the screen, that means that it is not near a wall, then the "away from wall" function will return the null vector because it does not need the Boid to steer away from the wall.
-The numbers given over is the furthest distance that the Boid will consider, for instance a Boid that have three neighbors, where one of them is 100 px away, the second one is  while the third one is 300 px away. The first Boid will be taken into consideration when calculating all of the three behaviors; cohesion, alignment and separation because it is very close. The second Boids will not have any influence on the separation behavior, but it will influence the alignment and cohesion vector. The third one is too far away, and will be ignored when calculating the three behaviors. These distances are illustrated in figure \ref{fig:simulatordistances}.
-The Boids in the simulator has a velocity cap of 40 px per frame, moving faster than 40 px would make the Boids move too fast, and it would be hard to clearly see the details of the movements. 
-
-Each vector from each behavior is multiplied with a factor that determines how much impact that vector will have on the final acceleration vector.
-The list provided below is the weight multiplied by the behavior vector. Or $W_x$ found in equation \ref{eq:vecsum}.
-\begin{description}
-\item[cohesion] vector is multiplied by 2
-\item[alignment] vector is multiplied by 2
-\item[away from wall] vector is multiplied by 2
-\item[avoid obstacles] vector is multiplied by 3
-\item[separation] vector is multiplied by 3
-\end{description}
 
 As seen in the list above, the two vectors that have the highest influence on the robot is the separation and the obstacle avoidance behavior. These two behaviors needs to influence the robot a lot more than the other behaviors because they are only activated when the robot is very close to another robot or an obstacle.
 
@@ -220,8 +199,6 @@ The simulated Boids' angle also starts at approximately 2 radians, then slowly d
 Both the robots and the Boids have high velocity at the start when they are moving towards the center. When the Boids reaches the center of the simulated space, they will need to adjust their velocity to change direction, and when all four Boids move together as a flock unit, they need to adjust their flight direction all the time. 
 The velocity graph for the robot in this scenario has the same general outline as the simulated Boids; the graph shows a high velocity at the start, then drops down before stabilizing at a given range. The robots' velocity jiggles a lot, ranging 0.1 to 3.6, there might be various reasons for this result will be discussed more in depth in section \ref{sec:discussion}.
 
-
-\clearpage
 \subsection{Results from scenario 2}
 \label{sec:res2}
 \begin{figure}[h]
@@ -238,7 +215,11 @@ The velocity graph for the robot in this scenario has the same general outline a
 \caption[2. Distances, simulation]{Results from 5 runs averaged on scenario 2, simulator}
 \label{fig:res2sdist}
 \end{figure}
-In the second scenario, three of the robots are already in a flock while the fourth one is astray from the flock on the opposite side of the sandbox. The three robots that have already flocked together will try to stay together, they do not want to move all the way to the other side to flock with one single robot. If all of the robots were moving, the single robot would move towards the three robots and they all would flock together faster.
+Earlier demonstrations of Boids have shown us that when a flock of Boids are moving towards an obstacle, the Boids would split up to sub-groups, fly around the obstacle before merging together on the other side. This scenario is designed to check if this behavior is still intact.
+
+In the second scenario, it takes a bit longer for the distance to drop to 200 px, around 1310 time steps, which is approximately 110 seconds.
+Three of the robots are already in a flock while the fourth one is astray from the flock on the opposite side of the sandbox. The three robots that have already flocked together will try to stay together, they do not want to move all the way to the other side to flock with one single robot. If all of the robots were moving, the single robot would move towards the three robots and they all would flock together faster.
+
 When running scenario 2 on the simulator, the Boids move towards the obstacle and around it. When they are near enough to the non-moving Boids, the cohesion behavior will activate and the Boids will try to flock, but all the other behaviors are trying to push the three moving Boids away from the non-moving Boid. After being pushed away, they will keep moving in the same direction and move all the way around the screen. This movement around the screen creates the oscillated graph seen in figure \ref{fig:res2sdist}.
 
 \begin{figure}[h]
@@ -278,12 +259,6 @@ The three moving Boids starts off by moving towards the center of the screen, th
 Both of the velocity graphs in the second scenario are considerably lower than the ones found in the other two scenarios. This is expected because one of the four entity is stationary, i.e. non-moving. 
 
 
-
-
-
-
-
-\clearpage
 \subsection{Results from scenario 3}
 \label{sec:res3}
 \begin{figure}[h]
@@ -300,6 +275,7 @@ Both of the velocity graphs in the second scenario are considerably lower than t
 \caption[3. Distances, simulation]{Results from 5 runs averaged on scenario 3, simulator}
 \label{fig:res3sdist}
 \end{figure}
+The third scenario consists of entities that are placed randomly, the purpose behind this is to check that flocking and collision avoidance are still intact. Both the first and the second scenario were designed to check a specific behavior, this third scenario is not testing any specific behavior.
 
 The results for the distances between the robots in the third scenario is similar to the one in the first. They move closer to each other, and then stay as a flock for the rest of the time. In the simulator, the Boids starts by moving further away from each other, before converging together.
 The Boids that starts on the lower right are behind an obstacle, which pushes it away from the other ones. The lower left Boid has a start velocity away from the robots, and due to the short cohesion distance radius, it will move away from the other Boids. The other Boids are not in range for the cohesion behavior to activate.
@@ -339,11 +315,14 @@ The angle and velocity graph of the third scenario is relatively similar to the 
 \clearpage
 \section{Discussion}
 \label{sec:discussion}
-This section will mainly focus on explaining the data from the results, why there is a difference between the physical experiment and the experiments done in a simulator.
+This section will mainly focus on explaining the overall data from the results, why there is a difference between the physical experiment and the experiments done in a simulator.
 
-The distances converges to 200 px in about 300-400 time steps for the robots in the first scenario and the third scenario. It takes a bit longer for the distance to drop to 200 px in the second scenario, around 1310 time steps, which is approximately 110 seconds. In the first and third scenario, the robots' distance converges to 200 px, and the simulator converges to 150 px. These numbers comes from the behaviors explained in section \ref{sec:experimentalSetup}. The separation distance is 120 px, so the Boids will try to stay around 120 px away from the other Boids. The same goes for the robot, but due to the distance sensors used for avoiding obstacles, they tend to stay further away from the other robots. 
+The robots are able to flock faster in the first and third scenario than the robots in the second scenario. This might be because each of the robot start out by themselves and will therefore seek the other ones.
+The equilibrium distance which the Boids are flocking at, seems to be around 120 px to 150 px. As mentioned earlier, the separation distance of the Boids is 120 px.
+The separation distance for the robot is slightly increased compared to the Boids', the distance is 150 px instead of 120 px. The robots are not only influenced by the separation vector for collision avoidance, but they use their distance sensors as well. So it is expected that the equilibrium distance between the robot is not exactly at 150 px, according to the graphs, the robots' flocking distance stays around 200 px.
+%The distances converges to 200 px in about 300-400 time steps for the robots in the first scenario and the third scenario. In the first and third scenario, the robots' distance converges to 200 px, and the simulator converges to 150 px. These numbers comes from the behaviors explained in section \ref{sec:experimentalSetup}. The separation distance is 120 px, so the Boids will try to stay around 120 px away from the other Boids. The same goes for the robot, but due to the distance sensors used for avoiding obstacles, they tend to stay further away from the other robots. 
 
-In the first and third scenario, each robot starts alone. Due to this, only the sensors used for obstacle avoidance, the "away from wall" and the cohesion behavior will be active. This makes each of the robot move towards the other ones, and the robots converge to a flock faster. 
+%In the first and third scenario, each robot starts alone. Due to this, only the sensors used for obstacle avoidance, the "away from wall" and the cohesion behavior will be active. This makes each of the robot move towards the other ones, and the robots converge to a flock faster. 
 
 %//angle
 The angles measured seems to vary a lot, even if the alignment behavior tries to make all the robots face the same way. But the overall trend of the robots seems to be that the angles lingers around 1.5 radians on average for all three scenarios, which is pretty high.
@@ -355,9 +334,9 @@ Whenever the robots detects an obstacle or move towards the walls, the distance 
 
 The velocity for the robot varies a lot, we can see from the graph that the velocity varies from 0 to 6.3. The watcher software logs the velocity data by finding the change in position between two time steps, that is it finds $\Delta P$ as shown in equation \ref{eq:calcrobvel} of each robot every iteration. When a robot is turning to change direction or to avoid an obstacle, it is not moving because it is just spinning in place. 
 
-The method used to measure the velocity of the robot is highly imprecise, when logging the velocity of a robot with constant max velocity, the results did not stay consistently at a given number. 
+The method used to measure the velocity of the robot is very imprecise, when logging the velocity of a robot with constant max velocity, the results did not stay consistently at a given number. 
 
-The velocity results that the watcher software produced is shown in figure \ref{fig:speed}, the robot is moving at max speed the whole time 
+The result from this test is shown in figure \ref{fig:speed}, the robot is moving at max speed the whole time but there is no consistent line in the graph. The graph consists of "pillars", meaning that the graph goes from 12 to 0 and back up to 12 again. The big gaps in the graph is when the robot has encountered the wall and stops to turn away.
 
 \begin{figure}[h]
 \begin{center}
@@ -367,17 +346,16 @@ The velocity results that the watcher software produced is shown in figure \ref{
 \label{fig:speed}
 \end{figure}
 
-The Boids in the simulator never stops, that is the velocity never drops down to 0, they keep moving in different direction all the time. Being able to move freely in all 360\textdegree\ almost instantly. They do not need to stop to change direction.
+The Boids in the simulator never stops, that is why the velocity never drops down to 0, they keep moving in different direction all the time. Being able to move freely in all 360\textdegree\ almost instantly. They do not need to stop to change direction.
 The physical ChIRP robot needs to turn around before moving in a new direction. As long as the new direction is off by an angle larger than 1\textdegree\ from the angle the robot is currently facing, then it will stop and turn. All turning takes approximately one second, before the robot is moving again. If the robot will turn a lot, it will only have one second to do so, before it has to move. If it only needs to turn 2\textdegree, it will turn first and wait until it has been one second before moving on.
 The one second delay is introduced to keep the timing somewhat synchronous between the robots, one second delay is long enough for the robot to be able to almost turn all the way around (180\textdegree). 
 
-Whenever the robot turns, the watcher will not see any change in position, which is the method it uses to log the velocity of the robots. The watcher will therefore log that the velocity of the robot is 0 when the robots turn around on the same spot. 
 
 The graphs only shows the average distance between the robots, the velocity of the robots and the difference between their angle. The graphs do not show where the robots are moving or whether they have crashed into anything.
 Sometimes the robots do bump into the obstacles, or the other robots. The reason is that the robots measures the distances before moving, and not continuously while moving. So if a robot measures the distance in front of it and there is no obstacle in front of it, it will start to move forward. When the robot moves forward it might hit an obstacle or robot if the object is too close to it when it measures the distance. Sometimes robots moves onto the path of another robot while the other robot is moving, the other robot will probably bump into the one blocking its path. The robots do not crash into each other, that is they do not push each other around when they are trying to occupy the same space as the other robots. When the robots bump into each other, they nudge each other and might scrape against the surface of each other. However none of the paper taped on the robot has been torn apart when the robots were scraping against each other while running the experiment.
 
 The robots only moves forward, and they only turn when they need to change direction or if there is an object in front of it that it needs to avoid. Sometimes the robots suddenly stops and rotates on the spot as if there is some sort of object in front of it, even if there is none.
-
+Whenever the robot turns, the watcher will not see any change in position, which is the method it uses to log the velocity of the robots. The watcher will therefore log that the velocity of the robot is 0 when the robots turn around on the same spot. 
 The distance measured by the robot's sensors might be imprecise, due to disturbances around in the room that makes the measured distances imprecise. The disturbances can come from the infrared light the other robots sends out when they are measuring distances themselves, which might bounce around in the sandbox and disturb the other robots. 
 
 For the camera to see the two colored post it notes on the robots, the room needs to be well lit. Extra lights were placed around the sandbox to lit it up. The room where the experiment took place had two large windows, by daytime the sun would shine into the room. The sunlight contains infrared light, if the sun shines into the room and hits the area where the robots roam, the robot will sense the infrared lights from the sunshine and think that there is an object in front of it. The blinds in the room were closed, but some of the sun would always shine into the room.

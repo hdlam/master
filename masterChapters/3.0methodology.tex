@@ -135,7 +135,8 @@ For the experiments on the simulator, only five runs will be used. Boids have th
 \section{Robot controller}
 This section will go through the controller of the robot, how they work and what steps the robot takes to execute its action.
 
-The robots is implemented using the idea of a hybrid robot control architecture as explained in section \ref{sec:hybrid}. The distances sensors are the reactive layers which will be used to guide the robots away from crashing into other robots, obstacle or walls. The deliberative layer will be the code that processes the data sent from the watcher software on the computer, it calculates where the robot should be heading. The executive layer would be the code running on the robot that decides what the robot is doing, whether that is reading the sensors and avoiding obstacles or towards the planned destination for flocking.
+The robots is implemented using the idea of a hybrid robot control architecture as explained in section \ref{sec:hybrid}. The distances sensors are the reactive layers which will be used to guide the robots away from crashing into other robots, obstacle or walls. The deliberative layer will be the code that processes the data sent from the watcher software on the computer, it calculates where the robot should be heading. The deliberative layer are usually slow, but the robots in this experiment are aided by the centralized computer, it does not need to use a lot of its processing power to map the environment.
+The executive layer would be the code running on the robot that decides what the robot is doing, whether that is reading the sensors and avoiding obstacles or towards the planned destination for flocking.
 
 When the robot is turned on and a bluetooth device is paired with its bluetooth module, the robot will stand still and wait. The robot is waiting for a command or data from the watcher software. A human can send commands to manually control the robot if needed, this can be used for leader following as explained in section \ref{boids:behaviors}. 
 
@@ -237,6 +238,29 @@ The Boids in the simulator does not have any form of rotation, the angle seen on
 In the simulator, there is no need for any type of sensors. Each Boid have access to the location of all the obstacles and all the other entities.
 
 Each Boids in the simulator are rendered as a circle, so they are as similar as the real ChIRP bot, however there is some big differences between the real ChIRP robot and the Boids in the simulator. 
+
+In the simulator, the following parameters have been used:
+\begin{description}
+\item[cohesion distance] = 250 px
+\item[alignment distance] = 175 px
+\item[separation distance] = 120 px
+\item[away from wall distance] = same as alignment
+\item[obstacle distance] = same as separation
+\end{description}
+This distances tells the Boid how near it has to be before it should calculate the vector. For example if the Boid is in the middle of the screen, that means that it is not near a wall, then the "away from wall" function will return the null vector because it does not need the Boid to steer away from the wall.
+The numbers given over is the furthest distance that the Boid will consider, for instance a Boid that have three neighbors, where one of them is 100 px away, the second one is  while the third one is 300 px away. The first Boid will be taken into consideration when calculating all of the three behaviors; cohesion, alignment and separation because it is very close. The second Boids will not have any influence on the separation behavior, but it will influence the alignment and cohesion vector. The third one is too far away, and will be ignored when calculating the three behaviors. These distances are illustrated in figure \ref{fig:simulatordistances}.
+The Boids in the simulator has a velocity cap of 40 px per frame, moving faster than 40 px would make the Boids move too fast, and it would be hard to clearly see the details of the movements. 
+
+Each vector from each behavior is multiplied with a factor that determines how much impact that vector will have on the final acceleration vector.
+The list provided below is the weight multiplied by the behavior vector. Or $W_x$ found in equation \ref{eq:vecsum}.
+\begin{description}
+\item[cohesion] vector is multiplied by 2
+\item[alignment] vector is multiplied by 2
+\item[away from wall] vector is multiplied by 2
+\item[avoid obstacles] vector is multiplied by 3
+\item[separation] vector is multiplied by 3
+\end{description}
+
 %Visually, the Boids are circles on the screen, but all the Boids in the simulator are in fact just a mathematical point with a position. 
 
 \section{Differences between the physical experiment and simulator}
@@ -295,3 +319,32 @@ Second row shows us the position of the robot, while the third one shows velocit
 The upper right red squares indicates whether the bluetooth connection is still functional or if the bluetooth have timed out. The squares in the figure are all red, because this is just a debug run where there is no bluetooth connection.
 
 Robots will be pushed away if a different robot moves onto it. Two robots can not occupy the same space at the same time. Simulated Boids can overlap without affecting each other.
+
+\begin{table}[h]
+\begin{tabular}{|l|l|l|}
+\hline
+\multicolumn{3}{|c|}{Neighborhood distances} \\ \hline
+Behavior          & Simulator    & Robots    \\ \hline
+Cohesion          & 250          & 800       \\ \hline
+Alignment         & 175          & 200       \\ \hline
+Separation        & 120          & 150       \\ \hline
+Away from wall    & 175          & 200       \\ \hline
+Obstacle          & 120          & 150       \\ \hline
+\end{tabular}
+\caption{Table comparing neighborhood distances between robots and simulated Boids}
+\end{table}
+
+
+\begin{table}[h]
+\begin{tabular}{|l|l|l|}
+\hline
+\multicolumn{3}{|c|}{Vector weights} \\ \hline
+Behavior        & Simulator & Robots \\ \hline
+Cohesion        & 2x        & 2x     \\ \hline
+Alignment       & 2x        & 2x     \\ \hline
+Separation      & 3x        & 4x     \\ \hline
+Away from wall  & 2x        & 1x     \\ \hline
+Obstacle        & 3x        & 150    \\ \hline
+\end{tabular}
+\caption{Table comparing weights applied to behaviors between robots and simulated Boids}
+\end{table}
