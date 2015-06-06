@@ -92,46 +92,6 @@ The robots are very hollow on top as seen in figure \ref{fig:robot1}, and the di
 
 The camera tracking software uses image recognition to track the robots. That is why each robot need to have a red and a green post it note on top of it. The red one determines where in the sandbox the robot is located, and the green one is used to determine which way it is pointing and to determine the angle of the robots.
 
-\section{Scenarios}
-This section explains the setup of each scenario, where each robot is placed in the sandbox, which way it is rotated and where the obstacle is placed. Each scenario have a purpose to demonstrate, which will be explained more in detail.
-For this project experiment, three scenarios have been used to create the results seen in section \ref{sec:results}.
-\label{sec:scenario}
-\begin{figure}[h]
-\begin{center}
-\includegraphics[width=0.8\linewidth]{figs/scenario0}
-\end{center}
-\caption[scenario 1]{Scenario 1, all the robots are placed in each corner with one obstacle}
-\label{fig:scenario1}
-\end{figure}
-
-The first scenario is shown in figure \ref{fig:scenario1}, consists of four robots placed on each corner of the sandbox. The reason behind placing each of the robots in each corner of the sandbox is that each robot will be as far from each other as possible. This scenario should demonstrate that the entities are able to flock together, and then stay together as a flock. There is one obstacle placed nearby the middle of the sandbox, the obstacle is placed near the middle to ensure that the robots would encounter it at least once. This scenario would be able to see if the robots actually flocked together like they are supposed to do, and at the same time would be able to avoid the obstacle without bumping or crashing into it. The robots should also move together after they have flocked together.
-
-\begin{figure}[h]
-\begin{center}
-\includegraphics[width=0.8\linewidth]{figs/scenario1}
-\end{center}
-\caption[scenario 2]{Scenario 2, three robots in one corner, and the last one on the opposite corner}
-\label{fig:scenario2}
-\end{figure}
-
-The second scenario puts three of entities in one corner, and the last entity is placed on the opposing corner as seen in figure \ref{fig:scenario2}. However the last entity that is placed on the lower right corner by itself will not move, in the case of the physical robot, it will not be turned on. The reason that this entity is a sitting duck placed on the opposite corner of all the other entities is that this robot will act as a goal for the other entities. The obstacle is placed between the lonely robot and the three robots that are clumped up together. The idea behind this setup is that the three robots that start together would try to move to the one that are stationary because they need to flock together. The robot that start by itself does not move because it is not turned on.
-The obstacle in the middle will hinder the robots from moving in a straight line to their goal, which forces them to choose a way around it. The robots move around the obstacle when they approach it. As explained in section \ref{sec:robotArch}, the robots will turn either right or left randomly when moving directly towards an obstacle. The robots will probably move around the obstacle on each side of the obstacle, and flock together again on the other side when they have move past the obstacle.
-
-The third scenario is a scenario where the robots are placed randomly around in the sandbox. The two first scenarios were designed for a specific purpose. The purpose of the third scenario is to demonstrate that the Boids behaviors are still intact, even when the robots are placed randomly in the sandbox. The position of the robots, where it should be placed and which way it is pointing was generated randomly by a random number generator. The starting point for this scenario is illustrated in figure \ref{fig:scenario3}. 
-
-This scenario looks a little bit like the first scenario, the robots are laid out in the shape of a square. They are closer to each other than the robots in the first scenario. One of the robots are separated from the other by the obstacle, the robot can not move directly to the other three robots without moving around the obstacle.
-\begin{figure}[h!]
-\begin{center}
-\includegraphics[width=0.8\linewidth]{figs/scenario2}
-\end{center}
-\caption[scenario 3]{Scenario 3, robots and obstacle randomly placed in the sandbox}
-\label{fig:scenario3}
-\end{figure}
-
-All the scenarios explained in this thesis uses the same sandbox, which is a sandbox with the size of 151.6 cm wide and 123.9 cm long. The only difference between the scenarios are the placement and rotation of the robots and the placement of the obstacle. Each scenario were run ten times to generate the data seen in section \ref{sec:results}.
-In between each run, the robots had to be placed manually back into their starting position before a new run could take place. To keep the data as consistent as possible, everything else would stay as exactly the same.
-For the experiments on the simulator, only five runs will be used. Boids have the same starting position and the same direction each time, each run is therefore not very different from the other ones. 
-
 \section{Robot controller}
 This section will go through the controller of the robot, how they work and what steps the robot takes to execute its action.
 
@@ -147,6 +107,8 @@ A fourth behavior was added for this experiment, which is called the "away from 
 
 Cohesion vector on the other hand does not need to affect the robot as much, it is mostly there to guide the robot into the flock. Therefore the separation vector is multiplied with a higher number than the other ones.
 
+
+
 The equation for how the final vector which decides the direction the robot is going to move is expressed as:
 \begin{equation}
 \label{eq:vecsum}
@@ -161,6 +123,24 @@ $B_i$ = the behavior $i$, for example $B_1$ could be cohesion behavior, $B_2$ al
 \\
 $W_i$ = the weight for the behavior $B_i$\\
 $N_b$ = the number of behaviors\\
+
+The neighborhood distances used on the physical robots are the following ones:
+\begin{description}
+\item[cohesion distance] = 800 px
+\item[alignment distance] = 200 px
+\item[separation distance] = 150 px
+\item[away from wall distance] = same as alignment
+\item[obstacle distance] = same as separation
+\end{description}
+
+Each of these behaviors, which is denoted by $B_i$ in equation \ref{eq:vecsum}, and the following weights $W_i$ have been used:
+\begin{description}
+\item[cohesion] vector is multiplied by 2
+\item[alignment] vector is multiplied by 2
+\item[away from wall] vector is multiplied by 1
+\item[avoid obstacles] does not exist
+\item[separation] vector is multiplied by 4
+\end{description}
 
 After calculating the acceleration vector, it will add it to its velocity vector, then use the arctangent function to calculate which direction the robot will turn to. The robot calculates the new direction it needs to face by using the following equations:
 \begin{equation}
@@ -320,7 +300,9 @@ The upper right red squares indicates whether the bluetooth connection is still 
 
 Robots will be pushed away if a different robot moves onto it. Two robots can not occupy the same space at the same time. Simulated Boids can overlap without affecting each other.
 
+
 \begin{table}[h]
+\begin{center}
 \begin{tabular}{|l|l|l|}
 \hline
 \multicolumn{3}{|c|}{Neighborhood distances} \\ \hline
@@ -331,11 +313,14 @@ Separation        & 120          & 150       \\ \hline
 Away from wall    & 175          & 200       \\ \hline
 Obstacle          & 120          & 150       \\ \hline
 \end{tabular}
-\caption{Table comparing neighborhood distances between robots and simulated Boids}
+\caption[Neighborhood distance comparison]{Table comparing neighborhood distances between robots and simulated Boids}
+\end{center}
+\label{tab:dists}
 \end{table}
 
-
 \begin{table}[h]
+\begin{center}
+
 \begin{tabular}{|l|l|l|}
 \hline
 \multicolumn{3}{|c|}{Vector weights} \\ \hline
@@ -344,7 +329,92 @@ Cohesion        & 2x        & 2x     \\ \hline
 Alignment       & 2x        & 2x     \\ \hline
 Separation      & 3x        & 4x     \\ \hline
 Away from wall  & 2x        & 1x     \\ \hline
-Obstacle        & 3x        & 150    \\ \hline
+Obstacle        & 3x        & Does not exist   \\ \hline
 \end{tabular}
-\caption{Table comparing weights applied to behaviors between robots and simulated Boids}
+\end{center}
+\caption[Weights comparison]{Table comparing weights applied to behaviors between robots and simulated Boids}
+\label{tab:weights}
 \end{table}
+
+The reason the cohesion distance for the physical robot are so different than the one in the simulator is because the robots are slow to flock together and they might get stuck at a corner when the sensors, so a big cohesion distance makes the robots flock together faster. If the robots' cohesion distance were to be the same as the cohesion distance for the simulated Boids, they might stay too long in one place, and the robots might not flock. As shown in later sections, the robots flocks with an average distance of 200 px, therefore the cohesion distance has to be sufficient larger than 200 px for it to be effective. 
+
+The Boids in the simulator do not need a cohesion distance of 800, because they wander a lot around even if there is no neighboring Boids around them. When they have wandered around for a while, they will eventually find another Boid that is near enough and they will start to flock together.
+
+The weights on the behavior vectors for the robots are a little bit different than the one found in the simulator. The robot's behavior weight are kept as close to the Boids as possible, but some weights had to be tweaked for the experiments.
+
+As seen from the table \ref{tab:weights}, the avoid obstacle vector does not exist for the robots, because the watcher and the camera tracking software can not find nor distinguish obstacles from the surroundings. This feature is not implemented in the camera tracking software. The robot needs to know the size of the sandbox beforehand, because the camera or the watcher software do not provide this information to the robot. To compensate for the lack of obstacle information, the robot uses their distance sensors to find out where the obstacle are located and avoids them.
+
+As seen in the list above, the two vectors that have the highest influence on the robot is the separation and the obstacle avoidance behavior. These two behaviors needs to influence the robot a lot more than the other behaviors because they are only activated when the robot is very close to another robot or an obstacle.
+
+\section{How results are made}
+This section will go through the process of how the results found in section \ref{sec:results} are made.
+
+The results are created by writing to a text file in the form of a .csv file, which can be open directly by spreadsheet softwares. A .csv file is simply a text file with comma separated values, a row in the .csv file would correspond to a row in the spreadsheet, and a column in the spreadsheet software is separated by a comma in the .csv file. The distances between the entities, the difference between their angle and the velocity are the features that the watcher software will be graphing.
+
+The watcher software has no way to find the actual velocity of the robots, because the wheels still move when the robot is turning on the same spot. We want to find out if the position of each robot have changed over a given time interval.
+The way the watcher software calculates the velocity of each robot is to save the old position of the robot, then compare it with the new position and see how far off it is.
+The formula used to find the mean value of all the robots at a time step is defined as:
+\begin{equation}
+\label{eq:muvel}
+\mu_{velocity} = \frac{1}{N} \Sigma_{i=1}^N (P_{i_{new}} - P_{i_{old}})
+\end{equation}
+
+where:
+\\
+$p_{i_{new}}$ = the new updated position of the robot
+\\
+$p_{i_{old}}$ = the old position of the robot from last time step
+\\
+$N$ = number of robots used, in this experiment $N = 4$ 
+\\
+$\mu_{velocity}$ = the mean of the velocities in that time step
+
+The average distance seen in section \ref{sec:results} are calculated the same way for both the physical experiment and in the simulator. Each entity's position is found and compared with the position of all the other entities. The length of the distance between each of them are used to find the average and the standard deviation.
+The formula to find 
+
+\begin{equation}
+\mu_{distances} = \frac{1}{ {N \choose R}} \Sigma_1^{N \choose R} | P_i - P_j |
+\end{equation}
+
+where:
+\\
+$P_i$ = the position of robot i, and $i \neq j$
+\\
+$P_j$ = the position of robot j, and $i \neq j$
+\\
+$N$ = the number of robots or Boids used
+\\
+$R$ = the amount of entities that are being compared each time, in this experiment we only measures the distance between two entities at the same time, therefore $R = 2$.
+\\
+$N \choose R$ = the combination operator, this corresponds to $ \frac{N!}{R! (N-K)!}$
+\\
+$\mu_{distances}$ = the mean of the compared distances in that time step
+\\
+
+The same procedure was applied for the angle of each entity: 
+\begin{equation}
+\mu_{angles} = \frac{1}{ {N \choose R}} \Sigma_1^{N \choose R} | A_i - A_j |
+\end{equation}
+where:
+\\
+$A_i$ = the angle of robot x, and $i \neq j$
+\\
+$A_j$ = the angle of robot y, and $i \neq j$
+\\
+$\mu_{angles}$ = the mean of the compared angles in that time step.
+\\
+
+To find the standard deviation of the velocity, the formula in equation \ref{eq:sd} was used, but a modification was done for the standard deviation of the distances and angles as seen in equation \ref{eq:sd2} because we had $ {N \choose R}$ number of distances and angles. The reason for $ {N \choose R}$ number of distances is because this is the number of comparisons between each robot. For these experiments, $N = 4$, and $R = 2$ because there is a comparison between two robot at the same time.
+
+
+\begin{equation}
+\label{eq:sd}
+\sigma =  \sqrt{\frac{1}{N}\Sigma(X-\mu)^2}
+\end{equation}
+
+\begin{equation}
+\label{eq:sd2}
+\sigma =  \sqrt{\frac{1}{{N \choose R}}\Sigma(X-\mu)^2}
+\end{equation}
+
+
