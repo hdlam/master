@@ -6,18 +6,19 @@ Section \ref{sec:discussion} will discuss the results seen in section \ref{sec:r
 
 \section{Experimental Plan}
 \label{sec:experimentalPlan}
-
-TODO, write about how the experiments were ran.
+To be able to test whether the robots are behaving like the Boids, and graphs are plotted to compare the difference between the Boids and the robots. 
+Three scenarios or three different starting position will be used as explained in section \ref{sec:experimentalSetup}.
+For the physical experiment with the robots, each scenario will be ran ten times to generate the graphs for the results, while only five runs will be used for the results.
+%TODO, write about how the experiments were ran.
 
 %from template: Trying and failing is a major part of research. However, to have a chance of success you need a plan driving the experimental research, just as you need a plan for your literature search. Further, plans are made to be revised and this revision ensures that any further decisions made are in line with the work already completed. The plan should include what experiments or series of experiments are planned and what question the individual or set of experiments aim to answer. Such questions should be connected to your research questions so that in the evaluation of your results you can discuss the results wrt to the research questions.  
 
 \section{Experimental Setup}
 \label{sec:experimentalSetup}
 %In this section, the setup for the experiment will be explained, and which parameters have been used to run the experiments. 
-
+This section explains the setup of each scenario, where each robot is placed in the sandbox, which way it is rotated and where the obstacle is placed. Each scenario have a purpose to demonstrate, which will be explained more in detail.
 In this experiment, four robots and one obstacle is used inside a sandbox. Each robots needs to have an extra layer on top of them so the red and green post it note does not fall off as seen in figure \ref{fig:robot0}. The robots moves inside a sandbox, which is watched by a web camera from above.
 
-This section explains the setup of each scenario, where each robot is placed in the sandbox, which way it is rotated and where the obstacle is placed. Each scenario have a purpose to demonstrate, which will be explained more in detail.
 For this project experiment, three scenarios have been used to create the results seen in section \ref{sec:results}.
 \label{sec:scenario}
 \begin{figure}[h]
@@ -138,7 +139,7 @@ The simulated Boids' angle also starts at approximately 2 radians, then slowly d
 \end{figure}
 Both the robots and the Boids have high velocity at the start when they are moving towards the center. When the Boids reaches the center of the simulated space, they will need to adjust their velocity to change direction, and when all four Boids move together as a flock unit, they need to adjust their flight direction all the time. 
 The velocity graph for the robot in this scenario has the same general outline as the simulated Boids; the graph shows a high velocity at the start, then drops down before stabilizing at a given range. The robots' velocity jiggles a lot, ranging 0.1 to 3.6, there might be various reasons for this result will be discussed more in depth in section \ref{sec:discussion}.
-
+\clearpage
 \subsection{Results from scenario 2}
 \label{sec:res2}
 \begin{figure}[h]
@@ -197,8 +198,7 @@ The three moving Boids starts off by moving towards the center of the screen, th
 \label{fig:res2svel}
 \end{figure}
 Both of the velocity graphs in the second scenario are considerably lower than the ones found in the other two scenarios. This is expected because one of the four entity is stationary, i.e. non-moving. 
-
-
+\clearpage
 \subsection{Results from scenario 3}
 \label{sec:res3}
 \begin{figure}[h]
