@@ -8,7 +8,15 @@ Section \ref{sec:discussion} will discuss the results seen in section \ref{sec:r
 \label{sec:experimentalPlan}
 To be able to test whether the robots are behaving like the Boids, and graphs are plotted to compare the difference between the Boids and the robots. 
 Three scenarios or three different starting position will be used as explained in section \ref{sec:experimentalSetup}.
-For the physical experiment with the robots, each scenario will be ran ten times to generate the graphs for the results, while only five runs will be used for the results.
+For the physical experiment with the robots, each scenario will be ran ten times to generate the graphs for the results, while only five runs will be used for plotting the behaviors of the simulated Boids. 
+If the simulator runs a scenario twice, that is two different simulations with the same parameters and starting position of the Boids are ran, the Boids in the two simulations would start by moving in the exact same way. That is why only five runs were used to generate the results.
+The robots did not behave as deterministic as the Boids, there are many factors that can affect the movement of the robots. For example if there are other people moving around in the room where the experiment where the light setting could be affected enough so the camera would not be able to recognize the two post it notes on top of the robot, thus the camera tracking software would not be able to recognize the robots.
+Therefore ten runs were used to generate the results when running the experiment on the physical robots. 
+All of the results for each scenario was then added together and divided by the number of runs used on that experiment to make the plot show the average of all the runs.
+Namely the distance between the entities, angle difference between the entities and the velocity are the features the software will use when creating the results.
+The distance between the entities is used to determine if the entities are flocked or not, the lower the distance, the closer they are to one another.
+The angle difference are used to check if they are looking in the same direction, if all of the entities are looking in the same direction, the angle difference would be 0.
+Using only the angle difference and the distance between each entity is not sufficient to determine whether the Boids behavior is working or not, therefore the velocity of each
 %TODO, write about how the experiments were ran.
 
 %from template: Trying and failing is a major part of research. However, to have a chance of success you need a plan driving the experimental research, just as you need a plan for your literature search. Further, plans are made to be revised and this revision ensures that any further decisions made are in line with the work already completed. The plan should include what experiments or series of experiments are planned and what question the individual or set of experiments aim to answer. Such questions should be connected to your research questions so that in the evaluation of your results you can discuss the results wrt to the research questions.  
