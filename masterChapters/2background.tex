@@ -263,6 +263,7 @@ The hybrid architecture explained here is the most common architecture for the h
 %Kan nevne andre systemer som har implementert Boids 
 
 \subsection{Related systems and projects}
+\label{sec:relsys}
 This subsection will look at systems and projects where the flocking algorithm have been implemented on a physical robot.
 
 \subsubsection{Flocking on wheeled robots}
@@ -298,12 +299,12 @@ The algorithm were implemented in two and a half dimension, that is the quadcopt
 \section{Motivation}
 \label{sec:motivation}
 Most of the flocking systems mentioned in this chapter makes the entities flock together by using some sort of attracting force, and when they are too close to each other, a repellent force acts upon the entities to keep them at a fixed distance from each other.
-Swarming is an emergent field in artificial intelligence, nowadays it is becoming more popular with more smaller robot than one expensive traditional robot, especially when it comes to AI research. There are some few other projects where flocking behavior has been implemented 
+Swarming is an emergent field in artificial intelligence, nowadays it is becoming more popular with more smaller robot than one expensive traditional robot, especially when it comes to AI research. There are some few other projects where flocking behavior has been implemented as mentioned in section \ref{sec:relsys}, one of the project used moving robots but had advanced sensors that were able to differentiate between the robot and other objects. The second project mentioned used flying quadcopters that flew in two and a half dimension. The latter one used GPS to the quadcopters so they would know where in the space they were positioned. However they had to have a pretty big gap between them to be sure that they did not crash into each other.
+There are various applications for flocking robots, some of them are mentioned in \citep{Csaba}. Flocking robots can be used for surveillance if they are equipped with cameras, search and rescue operations. A swarm of flocking robots could fly over a farm to check the health of the soil or the vegetables that are grown there. 
 % and to get a better understanding of how swarming and flocking works
 
-In this thesis the Boids algorithm will be used to make the robots move together in a flock. 
+In this thesis the Boids algorithm will be used to make the ChIRP robots move together in a flock. A centralized computer will help aid them, by acting as a communication bridge between the robots, and by using the camera it will also act as a GPS. By using distance sensors, the robots might be able to move close to the other robots without crashing, and the centralized computer might help make the robots gain information about its surrounding.
 
-There are various applications for flocking robots, some of them are mentioned in \citep{Csaba}. Flocking robots can be used for surveillance if they are equipped with cameras, search and rescue operations. A swarm of flocking robots could fly over a farm to check the health of the soil or the vegetables that are grown there. 
 %Help CRAB lab further develop the ChIRP robot.
 
 
