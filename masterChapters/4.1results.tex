@@ -16,7 +16,7 @@ All of the results for each scenario was then added together and divided by the 
 Namely the distance between the entities, angle difference between the entities and the velocity are the features the software will use when creating the results.
 The distance between the entities is used to determine if the entities are flocked or not, the lower the distance, the closer they are to one another.
 The angle difference are used to check if they are looking in the same direction, if all of the entities are looking in the same direction, the angle difference would be 0.
-Using only the angle difference and the distance between each entity is not sufficient to determine whether the Boids behavior is working or not, therefore the velocity of each
+%Using only the angle difference and the distance between each entity is not sufficient to determine whether the Boids behavior is working or not, because the robots might flock together, face the same direction then stand still there. That is why the velocity are plotted as well.
 %TODO, write about how the experiments were ran.
 
 %from template: Trying and failing is a major part of research. However, to have a chance of success you need a plan driving the experimental research, just as you need a plan for your literature search. Further, plans are made to be revised and this revision ensures that any further decisions made are in line with the work already completed. The plan should include what experiments or series of experiments are planned and what question the individual or set of experiments aim to answer. Such questions should be connected to your research questions so that in the evaluation of your results you can discuss the results wrt to the research questions.  
@@ -128,7 +128,7 @@ The simulated Boids behave differently in the same scenario, as seen from figure
 \end{figure}
 
 In this scenario, the difference between the angles of the robots starts at 2 radians. This is when all of the robots are facing towards the center of the sandbox. After the robots have moved towards the center, they will start to turn around and the difference between the robots decreases. However, the robots are not able to face the same direction entirely, the lowest difference is still above 1.2 radians, which is approximately 68 degrees. 
-The simulated Boids' angle also starts at approximately 2 radians, then slowly decreasing to 0.3 radians. %When the angle difference between the robots are 0.3 radians, they have flocked an 
+The simulated Boids' angle also starts at approximately 2 radians, then slowly decreasing to 0.3 radians. When the graph has flattened out at 0.3 radians, it seems like all the Boids are facing in the same direction.
 
 
 \begin{figure}[h]
