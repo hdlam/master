@@ -1,6 +1,7 @@
 \chapter{Background Theory and Motivation}
 \label{cha:TheoryAndBackground}
-
+This chapter contains the background research and motivation for this thesis.
+Section \ref{sec:background} contains the background information regarding swarming and more specifically flocking using the Boids algorithm. How the background research have influenced this thesis can be found in section \ref{sec:motivation}.
 %{\it Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam consequat pulvinar hendrerit. Praesent sit amet elementum ipsum. Praesent id suscipit est. Maecenas gravida pretium magna non interdum. Donec augue felis, rhoncus quis laoreet sed, gravida nec nisi. Fusce iaculis fermentum elit in suscipit.}
 
 \section{Background Theory}
@@ -50,19 +51,6 @@ In \citep{Reynolds1999}, Craig W. Reynolds created something he called \textbf{B
     \label{fig:boidbehavior}
 \end{figure}
 
-
-%\begin{figure}[H]
-%    \centering
-%    \subfloat[Separation ]{\includegraphics[width=0.3\textwidth]{images/boid_separation.jpg}\label{fig:boid_sep}}
-%    \hfill
-%    \unskip\ \vrule\ 
-%    \subfloat[Alignment ]{\includegraphics[width=0.3\textwidth]{images/boid_alignment1.jpg}\label{fig:boid_ali}}
-%    \hfill
-%    \unskip\ \vrule\ 
-%    \subfloat[Cohesion ]{\includegraphics[width=0.3\textwidth]{images/boid_cohesion.jpg}\label{fig:boid_coh}}
-%
-%            \label{fig:boidbehavior}
-%\end{figure}
 
 The three behavior is per individual Boid, which means that each particle/Boid has to calculate where they are going to fly by checking all the other Boids position and rotation and then act accordingly. Which makes the complexity of the algorithm $ O(n^2)$ for every frame. 
 Reynolds have tried to make the algorithm less computational expensive by putting the Boids into grids with Spatial Hashing. An example of this could be to put all the Boids that has an $x$-value between 0 and 1 and a $y$-value between 0 and 1 on the lower left grid, and the ones that has an $x$-value between 1 and 2 in the next position etc. Using this grid, each Boids in a cell only needed to take the adjacent grids into consideration when checking their neighborhood. That way they do not need to check the position and rotation of all the other Boids.
@@ -274,7 +262,24 @@ The hybrid architecture explained here is the most common architecture for the h
 
 %Kan nevne andre systemer som har implementert Boids 
 
+\subsection{Related systems and projects}
+This subsection will look at systems and projects where the flocking algorithm have been implemented on a physical robot.
 
+\subsubsection{Flocking on wheeled robots}
+In 1992, Matari\'{c} designed a series of behavior based modules for mobile robots, that would make them flock if combined and properly weighted. The wheeled robot were equipped with collision sensors, and six distance sensors. By using these sensors combined, the robots would be able to measure the distance to the other robots within a small neighborhood. Matari\'c implementation uses four behaviors;
+\begin{description}
+\item[collision avoidance] makes the robot steer away from objects that are closer than a predefined
+\item [following] makes the robots follow the other robots, this behavior is implemented by using the two sensors on its side. If there is only one perceived object on either side of the robot, it will turn towards that side. If there are other robots on both its side, it will keep moving forward along with the other ones until there is a robot in front of it blocking its path.
+\item[Dispersion and aggregation] Steers the robot towards the computed center of mass, this center of mass is computed using the reading from the sensors.
+\end{description}
+This system uses five robots with the subsumption architecture. The space the robots are empty, that is no obstacle or walls. If these robots were to flock through a cluttered environment, a more sophisticated sensing ability would be required. There were other behaviors implemented on these robots as well, but the four behaviors mentioned above are the ones that makes the robot flock.
+
+\subsubsection{Flocking on quadcopters}
+In the paper \citep{Csaba2014} a flocking algorithm were implemented on quadcopters. Ten of these quadcopters were flying around in the air autonomously, they would communicate with each other and all of these quadcopters had access to a GPS.
+The swarm could form shapes, for example forming circles or lines when instructed to do so. When forming a circle, each quadcopter had to take its place on the circle by evenly spacing themselves on the perimeter of the circle. The quadcopters were also able to do leader following behavior.
+The implementation uses GPS to determine the position of the quadcopters, but their algorithm works with all other sensory input where relative position, velocity and altitude information can be obtained. Their swarm flock were dependent on sensory errors and delays in the system. The researchers were able to fly this swarm flock of quadcopters for 20 minutes.
+
+The algorithm were implemented in two and a half dimension, that is the quadcopters would fly up to the correct altitude, and the flocking and formation part of the algorithm would only work in two-dimension after the copters had reached its correct altitude. Each of the quadcopters had to have a 6-10 meters between them due to inaccuracy from the GPS and other disturbances found in the air. If they were to flock at closer than the 6-10 meters range, they would risk crashing into each other.
 
 %\section{Structured Literature Review Protocol}
 %TODO
@@ -293,11 +298,11 @@ The hybrid architecture explained here is the most common architecture for the h
 \section{Motivation}
 \label{sec:motivation}
 Most of the flocking systems mentioned in this chapter makes the entities flock together by using some sort of attracting force, and when they are too close to each other, a repellent force acts upon the entities to keep them at a fixed distance from each other.
-Swarming is an emergent field in artificial intelligence, nowadays it is becoming more popular with more smaller robot than one expensive traditional robot, especially when it comes to AI research.
+Swarming is an emergent field in artificial intelligence, nowadays it is becoming more popular with more smaller robot than one expensive traditional robot, especially when it comes to AI research. There are some few other projects where flocking behavior has been implemented 
 % and to get a better understanding of how swarming and flocking works
 
 In this thesis the Boids algorithm will be used to make the robots move together in a flock. 
-%TODO find out: Other who have attempted to implement the Boids algorithm on robots are 
+
 There are various applications for flocking robots, some of them are mentioned in \citep{Csaba}. Flocking robots can be used for surveillance if they are equipped with cameras, search and rescue operations. A swarm of flocking robots could fly over a farm to check the health of the soil or the vegetables that are grown there. 
 %Help CRAB lab further develop the ChIRP robot.
 
