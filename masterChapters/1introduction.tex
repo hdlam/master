@@ -12,16 +12,17 @@ This chapter is the introduction of the thesis, section \ref{sec:BackgroundAndMo
 \section{Background and Motivation}
 \label{sec:BackgroundAndMotivation}
 
-Swarm robotics is an emergent field in artificial intelligence. Swarms are inspired by nature, especially animals that works together. There are many reasons for animals to flock together. Fishes flocks together to increase their survivability from being eaten by preys. Ants flock together to find food, and birds flock together to increase survivability and to minimize air resistance.
+Swarm robotics is an emergent field in artificial intelligence. Swarms are inspired by nature, especially animals that work together. There are many reasons for animals to flock together. Fishes flocks together to increase their survivability from being eaten by predators. Ants flock together to find food, and birds flock together to increase survivability and to minimize air resistance.
 
-Usually flocks do not have a leader, they are able to operate on their own. Each individual in the flock have simple behaviors, but the collective behavior can be quite complex. Swarm robots are decentralized units, meaning that they are not controlled by one centralized unit. Each of them interacts with each other through local interactions, and exchanging information to achieve their goal. Losing one or a few of the robot should not affect the swarm as a whole.
+Usually, flocks do not have a leader, they are able to operate on their own. Each individual in the flock have simple behaviors, but the collective behavior can be quite complex. Swarm robots are decentralized units, meaning that they are not controlled by one centralized unit. Each of them interacts with each other through local interactions, and exchanging information to achieve their goal. Losing one or a few of the robot should not affect the swarm as a whole. In a centralized system, if the centralized unit is lost, damaged or not working anymore, the whole system would not be able to operate anymore.
 
-Robots are becoming more and more relevant in our lives, already nowadays there are robots helping people mow the lawn, robots that are vacuuming houses etc. Traditional robots are being used for these types of tasks, that is bigger expensive robot. Having smaller cheaper robots might be advantageous in some situations, they are smaller and cheaper. Due to their size, they might be able to reach places that the bigger traditional robots might not be able to reach. Because the swarming robots are usually very cheap, they can easily be replaced when they are malfunctioning. The idea is that the small swarm robots will be able to do the same task as the bigger traditional robot. Robot swarm moving in a flock can for example be used to explore new areas. Moving in a swarm makes the exploration more susceptible to failures. Swarm robots can work together to move over rough environments like slippery roads, and they are able to move trough narrow passages because they are small.
+Robots are becoming more relevant in our lives, already nowadays there are robots helping people mow the lawn, robots that are vacuuming houses etc. 
+Traditional robots are being used for these types of tasks, that is a bigger more expensive robot. Having smaller cheaper robots might be advantageous in some situations, they are smaller and cheaper. Due to their size, they might be able to reach places that the bigger traditional robots might not be able to reach. Because the swarming robots are usually cheap and interchangeable, they can easily be replaced when they are malfunctioning. The idea is that the small swarm robots will be able to do the same task as the bigger traditional robot. Robot swarm moving in a flock can for example be used to explore new areas. Moving in a swarm makes the exploration more susceptible to failures. Swarm robots can work together to move over rough environments like slippery roads, and they are able to move trough narrow passages by moving through the passage one at a time.
 
-The CRAB lab at the AI department at NTNU have created a robot called the ChIRP robot. These robots are open source and can easily be mass produced. The idea behind these robots was to research swarm robotics.
+The CRAB lab at the AI department at NTNU has created a robot called the ChIRP robot. These robots are open source and can easily be mass produced. The idea behind these robots was to research swarm robotics.
 These robots can easily be expanded with other types of sensors, but only distance sensors and light detecting sensors are available at the moment. These robots are still in an early phase of development and has yet to be used to their full potential. 
 
-
+In this project, the Boids algorithm will be implemented on the ChIRP robots to make them flock together. 
 %To make the robots flock together the Boids algorithm will be used. Due to the lack of sensors, a centralized unit 
 
 
@@ -51,15 +52,15 @@ These robots can easily be expanded with other types of sensors, but only distan
 
 \textbf{Research question 1:} {\it Can a centralized computer aid a swarm of robots that do not have enough sensors to do the task it was assigned for?}
 
-Swarm robotics are mostly focused on many small cheap robots working together in a swarm to achieve their goal. The swarm robots usually can be changed while the system is up and running without affecting the flock.
-Due to the cheapness of the robots, they might have cheaper equipments and sensors or they might lack the necessary equipment for robots to be able to its task. 
-The robots used in this thesis only have distance sensors, but can add more sensors and modules if needed. However there are not other types of sensors available, therefore the robots will communicate with a centralized computer which might be able to aid the robot gain information that it currently lack of its surrounding.
-Communication between the robots are limited, because the communication between them has to go trough the centralized computer.
+Swarm robotics is mostly focused on many small cheap robots working together in a swarm to achieve their goal. The swarm robots usually can be swapped out while the system is up and running without affecting the flock.
+Due to the cheapness of the robots, they might have cheaper equipments and sensors or they might lack the necessary equipment for the robots to be able to do its task. 
+The robots used in this thesis only have distance sensors equipped, but can add more sensors and modules if needed. However there are not other types of sensors available, therefore the robots will communicate with a centralized computer which might be able to aid the robot gain information about its surrounding that it currently lacks.
+Communication between the robots are limited because the communication between them has to go trough the centralized computer, the robots are not able to communicate directly with each other.
 
 
 \textbf{Research question 2:} {\it Will the Boids algorithm make the robots flock together?}
 
-The Boids algorithm uses vectors for each behavior to steer the entities around. The minimal number of behaviors for a typical Boid is three behaviors. One of them ensures that the entities flock together, the other one makes sure that they move together when they have flocked. The last behavior ensures that they do not collide with each other. The robots will gain information about their whereabouts from the centralized computer, and the location of the other other robots. Using this information the robots will process the information using the Boids algorithm to flock together.
+The Boids algorithm uses vectors for each behavior to steer the entities around. The minimal number of behaviors for a typical Boid algorithm are three behaviors. One of them ensures that the entities flock together, the other one makes sure that they move together in the same direction after they have flocked together. The last behavior ensures that they do not collide with each other, by leaving an open space between the entities. The robots will gain information about their whereabouts and the whereabouts of the other robots from the centralized computer. Using this information the robots will process the information using the Boids algorithm to flock together.
 
 
 \section{Research Method}
@@ -92,7 +93,7 @@ To evaluate the behaviors of the robots, the mean and standard deviation of the 
 This thesis is divided into five chapters. Chapter \ref{cha:TheoryAndBackground} contains research and background information from the field of swarm robotics and the bird flocking algorithm, namely the Boids algorithm. A brief overview of the most common robot control architecture is explained in the same chapter.
 
 In chapter \ref{cha:architectureAndModel} the architecture and the model of the system is explained. The chapter goes in detail on how the system is set up and how the computers are connected.
-Chapter \ref{cha:ResearchAndResults} contains the results, graphs and data gathered from running the experiments and a discussion about them. The last chapter \ref{cha:evaluationAndConclusion} contains the evaluation of the results and a further work section where the details on how to improve the system is explained.
+Chapter \ref{cha:ResearchAndResults} contains the results, graphs and data gathered from running the experiments and a discussion about them. The last chapter \ref{cha:evaluationAndConclusion} contains the evaluation of the results and a further work section where the details on how to improve the system are explained.
 
 %An appendix on the end of this thesis contains information which might come 
 %This section provides the reader with an overview of what is coming in the next chapters. You want to say more than what is explicit in the chapter name, if possible, but still keep the description short and to the point. 
