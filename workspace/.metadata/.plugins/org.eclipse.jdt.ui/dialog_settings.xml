@@ -2,12 +2,12 @@
 <section name="Workbench">
 	<item value="2" key="TypeHierarchyViewPart.hierarchyview"/>
 	<item value="filter_imports;" key="filters_last_used"/>
-	<item value="/home/shouryu/workspace/Test/lib" key="org.eclipse.jdt.ui.lastextjar"/>
 	<item value="500" key="CallHierarchyViewPart.ratio3"/>
+	<item value="/home/shouryu/workspace/Test/lib" key="org.eclipse.jdt.ui.lastextjar"/>
 	<item value="500" key="CallHierarchyViewPart.ratio1"/>
-	<item value="3" key="CallHierarchyViewPart.orientation"/>
-	<item value="false" key="TypeHierarchyViewPart.qualifiednames"/>
 	<item value="3" key="TypeHierarchyViewPart.orientation"/>
+	<item value="false" key="TypeHierarchyViewPart.qualifiednames"/>
+	<item value="3" key="CallHierarchyViewPart.orientation"/>
 	<item value="1" key="SearchScopeActionGroup.search_scope_type"/>
 	<item value="2" key="CallHierarchyViewPart.field_mode"/>
 	<item value="false" key="TypeHierarchyViewPart.linkeditors"/>
@@ -32,10 +32,10 @@
 			<item value="11" key="includeMask"/>
 			<item value="2" key="limitTo"/>
 			<item value="0" key="scope"/>
-			<item value="" key="javaElement"/>
 			<item value="numOfBots" key="pattern"/>
-			<item value="0" key="matchLocations"/>
+			<item value="" key="javaElement"/>
 			<item value="4" key="searchFor"/>
+			<item value="0" key="matchLocations"/>
 			<item value="false" key="isCaseSensitive"/>
 			<list key="workingSets">
 			</list>
@@ -44,10 +44,10 @@
 			<item value="15" key="includeMask"/>
 			<item value="2" key="limitTo"/>
 			<item value="0" key="scope"/>
-			<item value="" key="javaElement"/>
 			<item value="closing port" key="pattern"/>
-			<item value="0" key="matchLocations"/>
+			<item value="" key="javaElement"/>
 			<item value="0" key="searchFor"/>
+			<item value="0" key="matchLocations"/>
 			<item value="false" key="isCaseSensitive"/>
 			<list key="workingSets">
 			</list>
@@ -56,10 +56,10 @@
 			<item value="15" key="includeMask"/>
 			<item value="2" key="limitTo"/>
 			<item value="0" key="scope"/>
-			<item value="" key="javaElement"/>
 			<item value="send(" key="pattern"/>
-			<item value="0" key="matchLocations"/>
+			<item value="" key="javaElement"/>
 			<item value="0" key="searchFor"/>
+			<item value="0" key="matchLocations"/>
 			<item value="false" key="isCaseSensitive"/>
 			<list key="workingSets">
 			</list>
@@ -74,8 +74,8 @@
 	</section>
 	<section name="org.eclipse.jdt.internal.ui.typehierarchy.QuickHierarchy">
 		<item value="406" key="org.eclipse.jdt.internal.ui.typehierarchy.HierarchyInformationControlDIALOG_WIDTH"/>
-		<item value="422" key="org.eclipse.jdt.internal.ui.typehierarchy.HierarchyInformationControlDIALOG_HEIGHT"/>
 		<item value="false" key="org.eclipse.jdt.internal.ui.typehierarchy.HierarchyInformationControlDIALOG_USE_PERSISTED_LOCATION"/>
+		<item value="422" key="org.eclipse.jdt.internal.ui.typehierarchy.HierarchyInformationControlDIALOG_HEIGHT"/>
 		<item value="true" key="org.eclipse.jdt.internal.ui.typehierarchy.HierarchyInformationControlDIALOG_USE_PERSISTED_SIZE"/>
 	</section>
 	<section name="org.eclipse.jdt.internal.ui.packageview.PackageExplorerPart">
@@ -96,11 +96,11 @@
 	</section>
 	<section name="JavaElementSearchActions">
 	</section>
-	<section name="org.eclipse.ltk.ui.refactoring.settings">
-		<item value="*" key="patterns"/>
-		<item value="false" key="updateQualifiedNames"/>
-		<item value="false" key="renameSubpackages"/>
-		<item value="false" key="updateTextualMatches"/>
+	<section name="RenameInformationPopup">
+	</section>
+	<section name="NewClassWizardPage">
+		<item value="false" key="create_constructor"/>
+		<item value="true" key="create_unimplemented"/>
 	</section>
 	<section name="SearchInDialog">
 		<item value="true" key="SearchInJRE"/>
@@ -108,11 +108,11 @@
 		<item value="true" key="SearchInAppLibs"/>
 		<item value="true" key="SearchInSources"/>
 	</section>
-	<section name="NewClassWizardPage">
-		<item value="false" key="create_constructor"/>
-		<item value="true" key="create_unimplemented"/>
-	</section>
-	<section name="RenameInformationPopup">
+	<section name="org.eclipse.ltk.ui.refactoring.settings">
+		<item value="false" key="renameSubpackages"/>
+		<item value="false" key="updateQualifiedNames"/>
+		<item value="*" key="patterns"/>
+		<item value="false" key="updateTextualMatches"/>
 	</section>
 	<section name="CallHierarchySearchScope">
 	</section>

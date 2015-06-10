@@ -257,13 +257,13 @@ The list provided below is the weight multiplied by the behavior vector. Or the 
 \section{Differences between the physical experiment and simulator}
 Although the robot's behavior are trying to mimic the behaviors found on the simulated Boids, some major differences will still be imminent. This section will explain the biggest differences between the physical experiment and the simulator. 
 
-The physical robots are trying to mimic the behavior of the Boids created in the simulator. However a physical robot is different than the Boids created in the simulator by nature. As discussed in section \ref{sec:robot}, the robots are a type of differential wheeled robots, which means that it can only move forward or backwards, turn on the spot or move and turn at the same time. It can not move sideways.
+The physical robots are trying to mimic the behavior of the Boids created in the simulator. However, a physical robot is different than the Boids created in the simulator by nature. As discussed in section \ref{sec:robot}, the robots are a type of differential wheeled robots, which means that it can only move forward or backwards, turn on the spot or move and turn at the same time. It can not move sideways.
 
-The Boids in simulator software did not have any direction, they were able to move freely in all 360\textdegree direction. Which means that if a Boid in simulator were to move in one direction, it could change its momentum and move the other direct without having to stop and turn to that direction. The robot on the other hand would need to turn 180\textdegree before moving forward. The robot is able to reverse its motor to drive backwards, but these Boids robot are not allowed to move backward, and thus have to turn around to move in another direction.
+The Boids in simulator software did not have any direction, they were able to move freely in all 360\textdegree direction. Which means that if a Boid in the simulator were to move in one direction, it could change its momentum and move the other direction without having to stop and turn to that direction. The robot, on the other hand, would need to turn 180\textdegree before moving forward. The robot is able to reverse its motor to drive backward, but these robot are not allowed to move backward, and thus have to turn around to move in another direction.
 
-In the simulator, each Boid will know exactly where everything is placed. That is, each Boid knows where all the other Boids are, including itself. It also knows where all the obstacles are. The Boids will have real time access to everything that can be seen on screen. Every Boids will update its perception every frame, that is approximately 60 times every second.
+In the simulator, each Boid will know exactly where everything is placed. That is, each Boid knows where all the other Boids are, including itself. It also knows where all the obstacles are. The Boids will have real time access to everything that can be seen on screen. Every Boid will update its perception every frame, that is approximately 60 times every second.
 
-The robots on the other hand, will receive data from the watcher about all the other robots. But due to inaccuracies from the camera and the image processed, the robots only knows vaguely where in the sandbox it is located, and where the others are. The time it takes for a robot to receive new information from the watcher takes roughly one second from the last time it received data from the watcher. If the robots are moving between the time it receives data, it will not know where it is before it receives new data from the watcher software. The camera tracking software are able to see all the robots due to the two post it notes on top, but obstacles found in the sandbox do not contain any color or anything that the camera can track. Obstacles are therefore ignored by the camera tracker software because it does not support tracking of anything other than the robots. That is why the robots needs to use their distance sensors in front to detect the obstacles.
+The robots, on the other hand, will receive data from the watcher about all the other robots. But due to inaccuracies from the camera and the image processed, the robots only knows vaguely where in the sandbox it is located, and where the others are. The time it takes for a robot to receive new information from the watcher takes roughly one second from the last time it received data from the watcher. If the robots are moving between the time it receives data, it will not know where it is before it receives new data from the watcher software. The camera tracking software is able to see all the robots due to the two post-it notes on top, but obstacles found in the sandbox do not contain any color or anything that the camera can track. Obstacles are therefore ignored by the camera tracker software because it does not support tracking of anything other than the robots. That is why the robots need to use their distance sensors in the front to detect the obstacles.
 
 The biggest most visual difference between the physical experiment in the sandbox and the simulated Boids is the size and speed of the entities. The size of the simulator is 1024 px times 1024 px. While the sandbox is 151.6 cm wide and 123.9 cm long, which corresponds to 800x652 px in the watcher software. The Boids on the simulator moves quite fast and can use the extra space to move around, while the robots are confined inside the sandbox. The biggest reason to use 800x652 px for the watcher software is because the behavior neighborhood distances works well for this size.
 
@@ -275,18 +275,21 @@ The biggest most visual difference between the physical experiment in the sandbo
 \label{fig:simulatordistances}
 \end{figure}
 
+
+
 As it will be explained later in section \ref{sec:experimentalSetup}, the parameters for the simulated Boids and the physical robots are a bit different.
-The figure \ref{fig:simulatordistances} shows the approximate distances for each behavior, the inner thick colored ring is the outline of the Boids. The inner thin white ring, illustrates the separation distance, the robot do not try to separate itself from the other robots when they are outside this ring.
+The figure \ref{fig:simulatordistances} shows the approximate distances for each behavior, the inner thick colored ring is the outline of the Boids. The inner thin white ring, illustrates the separation distance, the robot do not try to separate itself from the other robots if they are outside this ring.
 
-The red lines in the figure, is the vectors from each behavior before it is multiplied with the weight. The thickest green line indicates which way the Boids are facing, the longer the line, the faster the Boids are moving.
+The red lines in the figure, are the vectors from each behavior before it is multiplied with the weight. The thickest green line indicates which way the Boids are moving, the longer the line, the faster the Boids are moving.
 
-The second most outer ring indicates the alignment neighborhood, all there is another robot inside this ring, the robot will try to point in the same direction so they move together in the same direction.
+The second most outer ring indicates the alignment neighborhood, if there is another Boid inside this ring, then both of them will try to align and move in the same direction.
 
 The outer circle is the cohesion distance, the Boids outside of this box will not attract each other.
 
 
-In the figure \ref{fig:simulatordistances}, three types of Boids exist, each one have their own color. Boids will flock together and align themselves only if they have the same color, that is the light gray Boids will flock together with the other light gray Boids. The magenta Boids will only flock together with the other magenta Boids.
-When running the simulation for the experiment, all four of the Boids were the same color, therefore just one flock of Boids would emerge instead of forming multiple flocks. The current implementation of the Boids algorithm on the robots do not support multiple groups of Boids. There is no point in implementing this functionality when there are only four robots running at the same time, because it will be very hard to distinguish the difference between a family group flock or if there is just a robot astray from the flock.
+In the figure \ref{fig:simulatordistances}, three types of Boids "family" exist, each one has their own color. Boids will flock together and align themselves only if they have the same color, that is the light gray Boids will flock together with the other light gray Boids. The magenta Boids will only flock together with the other magenta Boids.
+
+When running the simulation for the experiment, all four of the Boids were the same color, therefore just one flock of Boids would emerge instead of forming multiple flocks. The current implementation of the Boids algorithm on the robots does not support multiple groups of Boids. There is no point in implementing this functionality when there are only four robots running at the same time, because it will be very hard to distinguish the difference between a family group flock or if there is just a robot astray from the flock.
 
 \begin{figure}[h]
 \begin{center}
@@ -296,33 +299,33 @@ When running the simulation for the experiment, all four of the Boids were the s
 \label{fig:watcher}
 \end{figure}
 
-Figure \ref{fig:watcher} illustrates the distances that the robots uses. The exact numbers can be found in section \ref{sec:experimentalSetup}. The distances have been colored for convenience, because it is hard to see which ring represents which behavior. As in the simulator, the most inner ring, which is green in this figure represents the outline of the robot. The figure shown is not the same size as the watcher software that is used to run the experiments, the resolution of the watcher software on the figure has a resolution of 1024x1920 px which is a lot bigger than the resolution on the watcher software used in the experiment. This is to make it easier to see and distinguish the distances.
+Figure \ref{fig:watcher} illustrates the distances that the robots use. The exact numbers can be found in section \ref{sec:experimentalSetup}. The distances have been colored for convenience because it is hard to see which ring represents which behavior. As in the simulator, the most inner ring, which is green in this figure represents the outline of the robot. The figure shown is not the same size as the watcher software that is used to run the experiments, the resolution of the watcher software on the figure has a resolution of 1024x1920 px which is a lot bigger than the resolution on the watcher software used in the experiment. This is to make it easier to see and distinguish the distances.
 
 The next ring, which is illustrated with a blue color, represents the separation distance. And the gray ring shows the alignment neighborhood distance. These two distances are the same in the simulator and on the robot.
 
-The biggest red ring is the one that is the most different from the simulator's. The robots might get stuck in a corner, or drive around in circles.
-The reason the cohesion distance is so large is mainly to force the robots to flock together even when their are far apart. The distance almost covers the whole sandbox, that way the robots will try to flock from almost anywhere in the sandbox.
+The biggest red ring is the one that is the most different from the simulator's.
+The reason the cohesion distance is so large is mainly to force the robots to flock together even when they are far apart. The distance almost covers the whole sandbox, that way the robots will try to flock from almost anywhere in the sandbox.
+
 
 Information about each robot is also provided by the numbers next to each robot.
-The first row show us the ID of the robot, and the serial port that belongs to that robot if there is a bluetooth connection and it is assigned.
-Second row shows us the position of the robot, while the third one shows velocity and the angle of the robot.
+The first row shows us the ID of the robot, and the serial port that belongs to that robot if there is a Bluetooth connection and it is assigned.
+The second row shows us the position of the robot, while the third one shows velocity and the angle of the robot.
 
-The upper right red squares indicates whether the bluetooth connection is still functional or if the bluetooth have timed out. The squares in the figure are all red, because this is just a debug run where there is no bluetooth connection.
+The upper right red squares indicate whether the Bluetooth connection is still functional or if the Bluetooth have timed out. The squares in the figure are all red because this is just a debug run where there is no Bluetooth connection.
 
 Robots will be pushed away if a different robot moves onto it. Two robots can not occupy the same space at the same time. Simulated Boids can overlap without affecting each other.
-
-
+To summarize the difference between the robots and the simulated Boids, a list of the parameters will be shown here:
 \begin{table}[h]
 \begin{center}
 \begin{tabular}{|l|l|l|}
 \hline
 \multicolumn{3}{|c|}{Neighborhood distances} \\ \hline
 Behavior          & Simulator    & Robots    \\ \hline
-Cohesion          & 250          & 800       \\ \hline
-Alignment         & 175          & 200       \\ \hline
-Separation        & 120          & 150       \\ \hline
-Away from wall    & 175          & 200       \\ \hline
-Obstacle          & 120          & 150       \\ \hline
+Cohesion          & 250 px          & 800 px       \\ \hline
+Alignment         & 175 px          & 200 px      \\ \hline
+Separation        & 120 px          & 150 px      \\ \hline
+Away from wall    & 175 px          & 200 px      \\ \hline
+Obstacle          & 120 px          & 150 px      \\ \hline
 \end{tabular}
 \caption[Neighborhood distance comparison]{Table comparing neighborhood distances between robots and simulated Boids}
 \end{center}
@@ -349,32 +352,32 @@ Obstacle        & 3x        & Does not exist   \\ \hline
 
 The reason the cohesion distance for the physical robot are so different than the one in the simulator is because the robots are slow to flock together and they might get stuck at a corner when the sensors, so a big cohesion distance makes the robots flock together faster. If the robots' cohesion distance were to be the same as the cohesion distance for the simulated Boids, they might stay too long in one place, and the robots might not flock. As shown in later sections, the robots flocks with an average distance of 200 px, therefore the cohesion distance has to be sufficient larger than 200 px for it to be effective. 
 
-The Boids in the simulator do not need a cohesion distance of 800, because they wander a lot around even if there is no neighboring Boids around them. When they have wandered around for a while, they will eventually find another Boid that is near enough and they will start to flock together.
+The Boids in the simulator do not need a cohesion distance of 800, because they wander a lot around even if there are no neighboring Boids around them. When they have wandered around for a while, they will eventually find another Boid that is near enough and they will start to flock together.
 
 The weights on the behavior vectors for the robots are a little bit different than the one found in the simulator. The robot's behavior weight are kept as close to the Boids as possible, but some weights had to be tweaked for the experiments.
 
-As seen from the table \ref{tab:weights}, the avoid obstacle vector does not exist for the robots, because the watcher and the camera tracking software can not find nor distinguish obstacles from the surroundings. This feature is not implemented in the camera tracking software. The robot needs to know the size of the sandbox beforehand, because the camera or the watcher software do not provide this information to the robot. To compensate for the lack of obstacle information, the robot uses their distance sensors to find out where the obstacle are located and avoids them.
+As seen from the table \ref{tab:weights}, the avoid obstacle vector does not exist for the robots because the watcher and the camera tracking software can not find nor distinguish obstacles from the surroundings. This feature is not implemented in the camera tracking software. The robot needs to know the size of the sandbox beforehand because the camera or the watcher software do not provide this information to the robot. To compensate for the lack of obstacle information, the robot uses their distance sensors to find out where the obstacle are located and avoids them.
 
 As seen in the list above, the two vectors that have the highest influence on the robot is the separation and the obstacle avoidance behavior. These two behaviors needs to influence the robot a lot more than the other behaviors because they are only activated when the robot is very close to another robot or an obstacle.
 
 \section{How results are made}
 This section will go through the process of how the results found in section \ref{sec:results} are made.
 
-The results are created by writing to a text file in the form of a .csv file, which can be open directly by spreadsheet softwares. A .csv file is simply a text file with comma separated values, a row in the .csv file would correspond to a row in the spreadsheet, and a column in the spreadsheet software is separated by a comma in the .csv file. The distances between the entities, the difference between their angle and the velocity are the features that the watcher software will be graphing.
+The results are created by writing to a text file in the form of a .csv file, which can be open directly by spreadsheet software. A csv file is simply a text file with comma separated values, a row in the csv file would correspond to a row in the spreadsheet, and a column in the spreadsheet software is separated by a comma in the csv file. The distances between the entities, the difference between their angle and the velocity are the features that the watcher software will be graphing.
 
-The watcher software has no way to find the actual velocity of the robots, because the wheels still move when the robot is turning on the same spot. We want to find out if the position of each robot have changed over a given time interval.
+The watcher software has no way to find the actual velocity of the robots because the wheels still move when the robot is turning on the same spot. We want to find out if the position of each robot has changed over a given time interval.
 The way the watcher software calculates the velocity of each robot is to save the old position of the robot, then compare it with the new position and see how far off it is.
-The formula used to find the mean value of all the robots at a time step is defined as:
+The formula used to find the mean velocity value of all the robots at a time step is defined as:
 \begin{equation}
 \label{eq:muvel}
-\mu_{velocity} = \frac{1}{N} \Sigma_{i=1}^N (P_{i_{new}} - P_{i_{old}})
+\mu_{velocity} = \frac{1}{N} \Sigma_{i=1}^N |P_{i_{new}} - P_{i_{old}}|
 \end{equation}
 
 where:
 \\
-$p_{i_{new}}$ = the new updated position of the robot
+$p_{i_{new}}$ = the new updated position of robot $i$
 \\
-$p_{i_{old}}$ = the old position of the robot from last time step
+$p_{i_{old}}$ = the old position of robot $i$ from last time step
 \\
 $N$ = number of robots used, in this experiment $N = 4$ 
 \\
@@ -415,7 +418,7 @@ $A_j$ = the angle of robot y, and $i \neq j$
 $\mu_{angles}$ = the mean of the compared angles in that time step.
 \\
 
-To find the standard deviation of the velocity, the formula in equation \ref{eq:sd} was used, but a modification was done for the standard deviation of the distances and angles as seen in equation \ref{eq:sd2} because we had $ {N \choose R}$ number of distances and angles. The reason for $ {N \choose R}$ number of distances is because this is the number of comparisons between each robot. For these experiments, $N = 4$, and $R = 2$ because there is a comparison between two robot at the same time.
+To find the standard deviation of the velocity, the formula in equation \ref{eq:sd} was used, but a modification was done for the standard deviation of the distances and angles as seen in equation \ref{eq:sd2} because we had $ {N \choose R}$ number of distances and angles. The reason for $ {N \choose R}$ number of distances is because this is the number of comparisons between each robot. For these experiments, $N = 4$, and $R = 2$ because we use 4 robots and there is a comparison between two robots at the same time.
 
 
 \begin{equation}

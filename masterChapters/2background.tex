@@ -6,13 +6,13 @@ Section \ref{sec:background} contains the background information regarding swarm
 
 \section{Background Theory}
 \label{sec:background}
-This section will explain swarming and swarm robots. How to implement bird flocking behavior on particles in simulation, and the Boids behavior. It will explain how fish schooling and ant swarm works as well to compliment the bird flocking. Swarms can be used to optimize a problem or they can be used to solve complex problems that would cost a lot more using an advanced robot.
+This section will explain swarming and swarm robots. How to implement bird flocking behavior on particles in a simulation, and the Boids behavior. It will explain how fish schooling and ant swarm works as well to compliment the bird flocking. Swarms can be used to optimize a problem or they can be used to solve complex problems that would cost a lot more using an advanced robot.
 A brief overview of different common robotics architecture will be presented in subsection \ref{sec:robotArch}
 
 \subsection{Swarming}
 Swarm, swarming, swarm intelligence, swarm optimization or swarm robotics are terms used for simple (preferably cheap) agents/robots which can only do simple tasks. However, the power of these robots lies in the numbers \citep{Zhu2010,Bonabeau1999}. The robots might not be able to do an advanced task alone, but together they might be able to complete advanced tasks. For instance, one robot might not be able to push a heavy box by itself, but with the help of other robots they might be able to push the box.
-The robots are allowed to communicate with each other, but they do not necessarily need to. There is no centralized controller that controls the robot, each one needs to find out what it needs to do by itself or by communicating with the other robots. The idea behind these simple and cheap robots are that they can easily be mass produced, and are interchangeable, modularized and disposable. If one robot is malfunctioning or broken, it would not affect the rest of the swarm. It is therefore no single point of failure in a swarm, and the system scales well because new robots can easily be added to the system.
-Swarm robotics are often computational efficient because they each have their own processor. This reduces the computational overhead. 
+The robots are allowed to communicate with each other, but they do not necessarily need to. There is no centralized controller that controls the robot, each one needs to find out what it needs to do by itself or by communicating with the other robots. The idea behind these simple and cheap robots are that they can easily be mass produced, and are interchangeable, modularized and disposable. If one robot is malfunctioning or broken, it would not affect the rest of the swarm. It is, therefore, no single point of failure in a swarm, and the system scales well because new robots can easily be added to the system.
+Swarm robotics is often computational efficient because they each have their own processor. This reduces the computational overhead. 
 
 \subsection{Boids}
 In \citep{Reynolds1999}, Craig W. Reynolds created something he called \textbf{Boids}, which stands for \textbf{B}ird-\textbf{oid} object\textbf{s}. Boids are particles that would behave like birds, they would try to flock and fly together without colliding. This was done by using three simple behaviors;
@@ -218,28 +218,29 @@ Software architecture is the methodology for structuring the code or algorithm. 
     \label{fig:robotArchitectures}
 \end{figure}
 
-This subsection will briefly explain common architectures found in robotics. In robotics, the architectures needs to decide how to combine reactive control and model-based deliberative planning. Reactive robots relies mostly on their sensor inputs and reacts accordingly. For example a robot equipped with distance sensors that usually drive forward might turn if the front distance sensor detects an obstacle.
+This subsection will briefly explain common architectures found in robotics. In robotics, the architectures need to decide how to combine reactive control and model-based deliberative planning. Reactive robots rely mostly on their sensor inputs and reacts accordingly. For example, a robot equipped with distance sensors that usually drive forward might turn if the front distance sensor detects an obstacle.
 
 Deliberative planning on the other hand also uses the available sensors on the robot, but they do not react immediately like the reactive robots would do. Deliberative planning robots uses the information gathered from the sensor(s) to make a plan of where it should head or what it should do, before executing its action(s).
 
-A mix of both planning and reactive robot architecture which uses reactive techniques at lower level and deliberative planning at the higher levels are called hybrid architectures.
+A mix of both planning and reactive robot architecture which uses reactive techniques at the lower level and deliberative planning at the higher levels are called hybrid architectures.
 
 \subsubsection{Brooks subsumption}
 \label{sec:brooks}
-Brooks subsumption architecture is the most common reactive robot architecture. As explained earlier, a reactive architecture is based on a direct sensor to actuator mapping. That is, whenever a sensor measures anything over a predefined threshold or if the sensor senses anything, the actuator will react immediately. The idea behind the subsumption architecture is to split the behavior of the robot into sub-behaviors into a vertical hierarchy as illustrated in figure \ref{fig:subsumption}. 
+Brooks subsumption architecture is the most common reactive robot architecture. As explained earlier, a reactive architecture is based on a direct sensor to actuator mapping. That is, whenever a sensor measures anything over a predefined threshold or if the sensor is detecting anything, the actuator will react immediately. The idea behind the subsumption architecture is to split the behavior of the robot into sub-behaviors into a vertical hierarchy as illustrated in figure \ref{fig:subsumption}. 
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\linewidth]{figs/subsumption}
-    \caption[Subsumption architecture]{Subsumption architecture}\label{fig:subsumption}
+    \caption[Subsumption architecture]{Subsumption architecture\\ basen on a figure in \citep{Yongjie2006}}\label{fig:subsumption}
 \end{figure}
 
-As seen in the figure, the sensors input the information it have sensed, and each behavior reacts accordingly. A higher level of behavior will have higher priority than the lower ones. For example, behavior 4 in figure \ref{fig:subsumption} would have priority over behavior 3, and behavior 3 would have priority over behavior 2 etc.
+As seen in the figure, the sensors input the information it has detected, and each behavior reacts accordingly. A higher level of behavior will have higher priority than the lower ones. For example, behavior 4 in figure \ref{fig:subsumption} would have priority over behavior 3, and behavior 3 would have priority over behavior 2 etc.
 
 
 The advantage of the Brooks subsumption architecture is that the robot using it can have different goal depending on the specific situation. For example, if you have a robot that needs to find a specific item in an area. This robot would first wander around aimlessly, and its sensors would be used to avoid crashing into obstacles or other robots. When the robot has located the item it wants, it would use its sensors to move towards that item instead of using it to avoid it, its sensors could be used to align itself with the item to push it towards a different location.
 
 \subsection{Deliberative control architecture}
-Deliberative control architecture are based on Sense-Plan-Act principle as seen in figure \ref{fig:deliberative}, the robots uses its sensors to get a full overview of the environment. After it have gained full knowledge of the environment, it will plan solutions then consider them before choosing an action. Deliberative planning robots are usually very dependent on precise sensors to be able to map the environment. It is also assumed that the model of the world the robot will be in is provided. 
+Deliberative control architecture are based on Sense-Plan-Act principle as seen in figure \ref{fig:deliberative}, the robots uses its sensors to get a full overview of the environment. After it has gained full knowledge of the environment, it will plan solutions then consider them before choosing an action. Deliberative planning robots are usually very dependent on precise sensors to be able to map the environment. It is also assumed that the model of the world the robot will be in, is provided. 
 
 \subsubsection{Hybrid control architecture}
 \label{sec:hybrid}
@@ -248,37 +249,39 @@ Hybrid architecture is a mix of deliberative control architecture and reactive a
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\linewidth]{figs/threelayer}
-    \caption[Three layer architecture]{Three layer control architecture}
+    \caption[Three layer architecture]{Three layer control architecture\\ based on a figure by \cite{2_jakimovski_2011}}
     \label{fig:threelayer}
 \end{figure}
 
-The hybrid control architecture usually have a deliberative layer to plan and model the environment, but the deliberative controls might be slow and not able to act fast enough in certain situations. Each decision might take minutes. The environment that the deliberative layer creates or maps out can be learned from data or gathered through the sensors from the reactive layer.
+The hybrid control architecture usually has a deliberative layer to plan and model the environment, but the deliberative controls might be slow and not able to act fast enough in certain situations. Each decision might take minutes. The environment that the deliberative layer creates or maps out can be learned from data or gathered through the sensors from the reactive layer.
 
-That is why the reactive layer is added to the control architecture as well. The reactive layer usually have faster reaction time than the deliberate layer, and can help the robot navigate when they need to do an action fast. The reactive layer's decision cycle is often on the order of milliseconds.
+The slowness of the deliberate layer is the reason the reactive layer is added to the control architecture as well. The reactive layer usually has faster reaction time than the deliberate layer, and can help the robot navigate when they need to do an action fast. The reactive layer's decision cycle is often on the order of milliseconds.
 
-To glue together the reactive layer and the deliberative layer, a layer is put in between the lower reactive layer and higher deliberative layer. Namely the executive layer or sequencing layer. The executive layer accepts directive from the deliberative layer and puts them in order for the reactive layer. The executive layer is slower than the reactive layer, it takes seconds to make a decision.
+To glue together the reactive layer and the deliberative layer, a layer is put in between the lower reactive layer and higher deliberative layer. Namely the executive layer or sequencing layer. The executive layer accepts directives from the deliberative layer and puts them in order for the reactive layer. The executive layer is slower than the reactive layer, it takes seconds to make a decision.
 
 The hybrid architecture explained here is the most common architecture for the hybrid control architecture, which is called the three-layer architecture due to the three layers deliberative, executive and the reactive layer as seen in figure \ref{fig:threelayer}.
 
-%Kan nevne andre systemer som har implementert Boids 
+
 
 \subsection{Related systems and projects}
 \label{sec:relsys}
 This subsection will look at systems and projects where the flocking algorithm have been implemented on a physical robot.
 
 \subsubsection{Flocking on wheeled robots}
-In 1992, Matari\'{c} designed a series of behavior based modules for mobile robots, that would make them flock if combined and properly weighted. The wheeled robot were equipped with collision sensors, and six distance sensors. By using these sensors combined, the robots would be able to measure the distance to the other robots within a small neighborhood. Matari\'c implementation uses four behaviors;
+In 1992, Matari\'{c} designed a series of behavior based modules for mobile robots, that would make them flock if combined and properly weighted. The wheeled robot were equipped with collision sensors and six distance sensors. By using these sensors combined, the robots would be able to measure the distance to the other robots within a small neighborhood. Matari\'c implementation uses four behaviors;
 \begin{description}
 \item[collision avoidance] makes the robot steer away from objects that are closer than a predefined
 \item [following] makes the robots follow the other robots, this behavior is implemented by using the two sensors on its side. If there is only one perceived object on either side of the robot, it will turn towards that side. If there are other robots on both its side, it will keep moving forward along with the other ones until there is a robot in front of it blocking its path.
 \item[Dispersion and aggregation] Steers the robot towards the computed center of mass, this center of mass is computed using the reading from the sensors.
 \end{description}
-This system uses five robots with the subsumption architecture. The space the robots are empty, that is no obstacle or walls. If these robots were to flock through a cluttered environment, a more sophisticated sensing ability would be required. There were other behaviors implemented on these robots as well, but the four behaviors mentioned above are the ones that makes the robot flock.
+This system uses five robots with the subsumption architecture. If these robots were to flock through a cluttered environment, a more sophisticated sensing ability would be required. The robots had radio transceivers that they could use to distinguish between robots and other objects.
+
+There were other behaviors implemented on these robots as well, but the four behaviors mentioned above are the ones that make the robot flock.
 
 \subsubsection{Flocking on quadcopters}
 In the paper \citep{Csaba2014} a flocking algorithm were implemented on quadcopters. Ten of these quadcopters were flying around in the air autonomously, they would communicate with each other and all of these quadcopters had access to a GPS.
 The swarm could form shapes, for example forming circles or lines when instructed to do so. When forming a circle, each quadcopter had to take its place on the circle by evenly spacing themselves on the perimeter of the circle. The quadcopters were also able to do leader following behavior.
-The implementation uses GPS to determine the position of the quadcopters, but their algorithm works with all other sensory input where relative position, velocity and altitude information can be obtained. Their swarm flock were dependent on sensory errors and delays in the system. The researchers were able to fly this swarm flock of quadcopters for 20 minutes.
+The implementation uses GPS to determine the position of the quadcopters, but their algorithm works with all other sensory input where relative position, velocity and altitude information can be obtained. Their swarm flock were dependent on sensory errors and delays in the system. The researchers were able to fly this swarm flock autonomously of quadcopters for 20 minutes.
 
 The algorithm were implemented in two and a half dimension, that is the quadcopters would fly up to the correct altitude, and the flocking and formation part of the algorithm would only work in two-dimension after the copters had reached its correct altitude. Each of the quadcopters had to have a 6-10 meters between them due to inaccuracy from the GPS and other disturbances found in the air. If they were to flock at closer than the 6-10 meters range, they would risk crashing into each other.
 
@@ -299,11 +302,14 @@ The algorithm were implemented in two and a half dimension, that is the quadcopt
 \section{Motivation}
 \label{sec:motivation}
 Most of the flocking systems mentioned in this chapter makes the entities flock together by using some sort of attracting force, and when they are too close to each other, a repellent force acts upon the entities to keep them at a fixed distance from each other.
-Swarming is an emergent field in artificial intelligence, nowadays it is becoming more popular with more smaller robot than one expensive traditional robot, especially when it comes to AI research. There are some few other projects where flocking behavior has been implemented as mentioned in section \ref{sec:relsys}, one of the project used moving robots but had advanced sensors that were able to differentiate between the robot and other objects. The second project mentioned used flying quadcopters that flew in two and a half dimension. The latter one used GPS to the quadcopters so they would know where in the space they were positioned. However they had to have a pretty big gap between them to be sure that they did not crash into each other.
-There are various applications for flocking robots, some of them are mentioned in \citep{Csaba}. Flocking robots can be used for surveillance if they are equipped with cameras, search and rescue operations. A swarm of flocking robots could fly over a farm to check the health of the soil or the vegetables that are grown there. 
-% and to get a better understanding of how swarming and flocking works
 
-In this thesis the Boids algorithm will be used to make the ChIRP robots move together in a flock. A centralized computer will help aid them, by acting as a communication bridge between the robots, and by using the camera it will also act as a GPS. By using distance sensors, the robots might be able to move close to the other robots without crashing, and the centralized computer might help make the robots gain information about its surrounding.
+Swarming is an emergent field in artificial intelligence, nowadays it is becoming more popular with multiple smaller robot than one expensive traditional robot, especially when it comes to AI research. There are some few other projects where flocking behavior has been implemented as mentioned in section \ref{sec:relsys}.
+
+There are various applications for flocking robots, some of them are mentioned in \citep{Csaba}. Flocking robots can be used for surveillance if they are equipped with cameras, search and rescue operations. A swarm of flocking robots could fly over a farm to check the health of the soil or the vegetables that are grown there. 
+
+This project will make it easier to me to get a better understanding of how swarming and flocking works. It will also give me a hands-on experience with implementing AI algorithms on real life robots. 
+
+In this thesis, the Boids algorithm will be used to make the ChIRP robots move together in a flock. A centralized computer will help aid them, by acting as a communication bridge between the robots, and by using a camera it will also act as a GPS by sending coordinate information to the robots. By using distance sensors, the robots might be able to move close to the other robots without crashing, and the centralized computer might help make the robots gain information about its surrounding.
 
 %Help CRAB lab further develop the ChIRP robot.
 
