@@ -1,7 +1,9 @@
 \chapter{Architecture/Model}
 \label{cha:architectureAndModel}
 This chapter contains the architecture and model of the system, which tools and methods that has been used, how they all connect together to run the experiments and produce the result.
-An overview of the system is presented in chapter \ref{sec:overview}. A description of the robot is presented in section \ref{sec:robot}. Section \ref{sec:scenario} contains a description of the different scenarios used in the experiment. Throughout this chapter the word "Boids" will solely refer to the Boids in simulation, while entity or entities refer to both the physical robots and the Boids.
+An overview of the system is presented in chapter \ref{sec:overview}. A description of the robot is presented in section \ref{sec:robot}. How the robots calculate where to move is explained in section \ref{sec:robotcontroller}. The brief explanation of the simulator is found in section \ref{sec:simulator}, and the biggest difference between the physical experiment and the simulator is shown and compared in section \ref{sec:vs}. The math used to plot the graph are shown in section \ref{sec:makeres}.
+
+Throughout this chapter the word "Boids" will solely refer to the Boids on the simulator, while entity or entities refer to both the physical robots and the Boids.
 
 \begin{figure}[h]
 \begin{center}
@@ -71,8 +73,8 @@ If the software detects green or red color that do not belong to the robot, it w
     \hfill
     \begin{subfigure}[b]{0.3\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{figs/robot3}
-        \caption{Robot seen from behind}
+        \includegraphics[width=\textwidth]{figs/side}
+        \caption{ChIRP seen from the side}
         \label{fig:robot3}
     \end{subfigure}
     \caption[ChIRP robot]{ChIRP robot seen from various angles}
@@ -95,6 +97,7 @@ The robots are very hollow on top as seen in figure \ref{fig:robot1} and the dis
 The camera tracking software uses image recognition to track the robots. That is why each robot needs to have a red and a green post-it note on top of it. The red one determines where in the sandbox the robot is located, and the green one is used to decide which way it is pointing and to determine the angle of the robots.
 
 \section{Robot controller}
+\label{sec:robotcontroller}
 This section will go through the controller of the robot, how they work and what steps the robot takes to execute its action.
 
 The robots are implemented using the idea of a hybrid robot control architecture as explained in section \ref{sec:hybrid}. The distances sensors are the reactive layers which will be used to guide the robots away from crashing into obstacles, walls or other robots. The deliberative layer will be the code that processes the data sent from the watcher software on the computer, it calculates where the robot should be heading. The deliberative layer are usually slow, but the robots in this experiment are aided by the centralized computer, it does not need to use a lot of its processing power to map the environment. The robot already knows that they are roaming inside a sandbox, and they already knows the size of this sandbox.
@@ -197,6 +200,7 @@ The robot will then measure the distances once again, in case it has turned towa
 \clearpage
 
 \section{Simulator}
+\label{sec:simulator}
 A simulator was created where the Boids was implemented solely in software, and rendered on screen, that is no physical robots were used in the simulator. The reason to use a simulator was to see how the Boids were supposed to behave and have a working example to compare with. A screenshot of the simulator is shown in figure \ref{fig:simulatordistances}.
 
 A typical Boids simulator usually have a wraparound space. If one of the Boids goes outside the window, it will "teleport" to the other side of the window. For example if one of the Boids flies too far to the right and hits the right border of the window, it will loop around and end up on the left side of the window. This is how the typical Boids algorithm usually works on a simulator. But physical robots can not loop around the stage like the Boids on the simulator can. That is why the simulator used in this project stops the Boids from moving beyond the walls of the window.
@@ -255,6 +259,7 @@ The list provided below is the weight multiplied by the behavior vector. Or the 
 %Visually, the Boids are circles on the screen, but all the Boids in the simulator are in fact just a mathematical point with a position. 
 
 \section{Differences between the physical experiment and simulator}
+\label{sec:vs}
 Although the robot's behavior are trying to mimic the behaviors found on the simulated Boids, some major differences will still be imminent. This section will explain the biggest differences between the physical experiment and the simulator. 
 
 The physical robots are trying to mimic the behavior of the Boids created in the simulator. However, a physical robot is different than the Boids created in the simulator by nature. As discussed in section \ref{sec:robot}, the robots are a type of differential wheeled robots, which means that it can only move forward or backwards, turn on the spot or move and turn at the same time. It can not move sideways.
@@ -361,6 +366,7 @@ As seen from the table \ref{tab:weights}, the avoid obstacle vector does not exi
 As seen in the list above, the two vectors that have the highest influence on the robot is the separation and the obstacle avoidance behavior. These two behaviors needs to influence the robot a lot more than the other behaviors because they are only activated when the robot is very close to another robot or an obstacle.
 
 \section{How results are made}
+\label{sec:makeres}
 This section will go through the process of how the results found in section \ref{sec:results} are made.
 
 The results are created by writing to a text file in the form of a .csv file, which can be open directly by spreadsheet software. A csv file is simply a text file with comma separated values, a row in the csv file would correspond to a row in the spreadsheet, and a column in the spreadsheet software is separated by a comma in the csv file. The distances between the entities, the difference between their angle and the velocity are the features that the watcher software will be graphing.

@@ -1,8 +1,12 @@
 \chapter{Experiments and Results}
 \label{cha:ResearchAndResults}
 
-{\it In this chapter, the results from the experiments will be presented and discussed. Section \ref{sec:results} contains the actual results created by running each scenario. The setup of the experiment is explained in section \ref{sec:experimentalSetup}, it explains the setup and which parameters have been used to run the experiments.
-Section \ref{sec:discussion} will discuss the results seen in section \ref{sec:results}, and a discussion on the differences between the results from the simulator and the physical robots.}
+In this chapter, the results from the experiments will be presented and discussed. 
+
+Section \ref{sec:experimentalPlan} explains how the experiments will be executed. 
+The setup of the experiment is explained in section \ref{sec:experimentalSetup}, it explains the setup of each scenario.
+Section \ref{sec:results} contains the actual results created by running each scenario. 
+Section \ref{sec:discussion} will discuss the results and will compare the results from the physical experiment with the results from the simulator.
 
 \section{Experimental Plan}
 \label{sec:experimentalPlan}
@@ -308,7 +312,7 @@ The graphs only shows the average distance between the robots, the velocity of t
 Sometimes the robots do bump into the obstacles, or the other robots. The reason is that the robots measures the distances before moving, and not continuously while moving. 
 So if a robot measures the distance in front of it and it does not detect an obstacle in front of it, it will start to move forward. When the robot moves forward it might hit an obstacle or another robot if the distance sensor readings were imprecise.
 Sometimes robots moves onto the path of another robot while the other robot is moving, the other robot will probably bump into the one blocking its path.
-The robots do crash into each other sometimes, that is they do push each other around when they are trying to occupy the same space as the other robots. This might happen if both robots are measuring the distances around them, and either some disturbances make the distance measured inaccurate or the other robots move into the other ones' path between the time they are doing the distance measuring.
+The robots do crash into each other sometimes, they do push each other around when they are trying to occupy the same space as the other robots. This might happen if both robots are measuring the distances around them, and either some disturbances make the distance measured inaccurate or the other robots move into the other ones' path between the time they are doing the distance measuring. 
 
 When the robots bump into each other, they nudge each other and might scrape the surface of each other. However, none of the paper taped on the robot has been torn apart when the robots were scraping against each other while running the experiment.
 

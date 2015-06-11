@@ -30,11 +30,16 @@ The robots avoids crashing into other objects at almost all cost, it is its high
 \section{Contributions}
 \label{sec:Contributions}
 %contribution to AI, swarm, chirp
-TODO
-This project's main field is artificial intelligence, or more specific the swarm robotics. Using a few simple behavior makes the robots flock together.
-This project also help further explores the limitation of the ChIRP robots, by connecting together the camera tracking software, bluetooth and the ChIRP robot.
 
-A centralized computer can help swarming robots by providing data that they do not have access too.
+This project's main field is artificial intelligence, or more specific the swarm robotics. This thesis contributes to the field by implementing the Boids flocking behavior algorithm on the ChIRP robot, using a few simple behavior makes the robots flock together. By combining the distance sensor readings and the data from a centralized computer, it is able to locate the other robots and move towards them if given enough time. Similar projects had already been done, even without a centralized computer, which is quite interesting. The ChIRP robots can, however, not distinguish between a robot and other objects using only their sensors.
+
+By experimenting on different scenarios, it was possible to see and recognize the typical Boids behavior on the robots. The robots were flocking together, they would spread out and move around obstacles and then flock together again on the other side. Leader following was also possible by manually controlling one of the robots.
+
+This project also helps further explore the limitation of the ChIRP robots, by connecting together the camera tracking software, Bluetooth, and the ChIRP robot.
+Most of the project involving the ChIRP and the Bluetooth module, only uses the Bluetooth to send direct commands to the robot, telling them exactly how much each motor should move. By using the camera and sending this data to the robot, it shows that the robots are able to process the data themselves to figure out where they should move.
+
+This experiment also shows that a flock of robots and the whole system involving the camera and the watcher software is able to run autonomously after the setup. It does not need human involvement to work.
+
 
 %Shows that swarms can be able to achieve stuff they cannot do otherwise by using a centralized comptuer and communication between them.
 
@@ -69,6 +74,8 @@ The robots still bump into the obstacle and they still bump into each other. A r
 However, the Boids on the simulator do move through each other if the velocity is high enough.
 
 In scenario 2, the robots do move around the obstacle, but this does not happen at the same time. The three robots stays a while in the upper left corner before moving, and they do not move as a unit to the other side of the sandbox. Some of the runs, they were moving one robot at a time. Preferably these three robots should move as one unit.
+
+After the robots have been flocked together, they would most of the time just move back and forth. The overall movement of the whole swarm did not move a lot, the graphs only show that the robots still move individually back and forth. Sometimes, one of the robots would move out of the swarm, away from the rest. This is most likely a bug because the robot's intended direction is toward the rest of the robots, but it is still moving away from them. This bug, do help the swarm move around in the sandbox as a whole swarm because the robot is forcing the other robots to follow it. 
 
 %Consider where you would like to extend this work. These extensions might either be continuing the ongoing direction or taking a side direction that became obvious during the work. Further, possible solutions to limitations in the work conducted, highlighted in ~\ref{sec:Discussion} may be presented. 
 

@@ -1,7 +1,7 @@
-\chapter{System requirements}
+\chapter{System dependencies}
 
-The system requires OpenCV and Boost to run the camera tracking software. An internet connection is also required for the camera tracking software to run, because the information of each robot is sent via UDP to the IP address specified in the configuration file. The internet connection is required even if the UDP packets are sent to itself via loopback IP, without a valid internet connection, the camera tracking software will crash.
+The system requires OpenCV and Boost to run the camera tracking software. An internet connection is also required for the camera tracking software to run because the information of each robot is sent via UDP to the IP address specified in the configuration file. The internet connection is required even if the UDP packets are sent to itself via loopback IP, without a valid internet connection, the camera tracking software will crash.
 Slick2D java game library is used to run the simulator and to run the watcher software. 
 The watcher software also needs RXTXComm to be able to communicate with the robot using the serial port.
 
-The robots' code runs on an Arduino micro, and are therefore programmed using the arduino language. The ChIRP library files are required to communicate with the sensors and the motors. An Arduino uno is required to program the microcontrollers on the robot.
+The robots' code runs on an Arduino micro and are therefore programmed using the Arduino language and C++. The ChIRP library files are required to communicate with the sensors and the motors. An Arduino Uno can be used to program the microcontrollers on the robot.
