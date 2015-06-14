@@ -1,0 +1,77 @@
+\subsection{Results from scenario 1}
+\label{sec:res1}
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=1.1\linewidth]{figs/resdistancescene1.png}
+\end{center}
+\caption[Results 1]{Results from 10 runs on scenario 1}
+\label{fig:scene1res}
+\end{figure}
+
+The first scenario where all the robots/Boids are placed in each corner with only one obstacle in the middle of the sandbox as seen in figure \ref{fig:scenario1}. 
+These results takes the velocity by calculating $\mu_{velocity}$ by using the equation \ref{eq:muvel}, then each one is added together and averaged to create the result seen above. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figs/scenario1_run1/dist.png}
+    \caption[Distances]{Distance differences of scenario 1, run 1}
+    \label{fig:distance11}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figs/scenario1_run1/angle.png}
+    \caption[Angles]{Angle differences of scenario 1, run 1}
+    \label{fig:angle11}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figs/scenario1_run1/velmean}
+        \caption{Mean of the velocities}
+        \label{fig:velmean1_1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figs/scenario1_run1/velsd}
+        \caption{standard deviation of velocities in scenario 1, first run}
+        \label{fig:velsd1_1}
+    \end{subfigure}
+    \caption[Velocity]{Velocity of scenario 1, run 1}
+    \label{fig:vel11}
+\end{figure}
+These data shown in figure \ref{fig:distance11}, \ref{fig:angle11} and \ref{fig:vel11} taken from the first run. The data from the first run is chosen to be displayed here by a random number generator.
+
+
+
+
+
+\subsection{Results from scenario 2}
+\label{sec:res2}
+The second scenario in figure \ref{fig:scenario2}
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=1.1\linewidth]{figs/resdistancescene2.png}
+\end{center}
+\caption[Results 2]{Results from 10 runs on scenario 2}
+\label{fig:scene2res}
+\end{figure}
+
+\subsection{Results from scenario 3}
+\label{sec:res3}
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=1.1\linewidth]{figs/resdistancescene3.png}
+\end{center}
+\caption[Results 3]{Results from 10 runs on scenario 3}
+\label{fig:scene3res}
+\end{figure}
+The third scenario in figure \ref{fig:scenario3}
+
+%TODO graphs and interpretation of results
+%The graph below shows
+
+%All the graphs that was generated during the experiment can be found in the appendix.
